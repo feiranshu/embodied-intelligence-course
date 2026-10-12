@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "active": false,
+  "busy": false,
+  "ball": true,
+  "stable": true,
+  "calibrating": false,
+  "recorded": 0,
+  "calibrated": false,
+  "error": "ID 1 底座反馈偏离本次运动范围：起点 720，目标 950，反馈 0；全部驱动关闭回读已确认",
+  "message": "已停止",
+  "fault": true,
+  "limited": false,
+  "motion": null,
+  "after_exit": {
+    "positions": [
+      1022,
+      902,
+      315,
+      660,
+      83,
+      272
+    ],
+    "torque": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "base_goal": 1022,
+    "base_mode": [
+      "position",
+      0,
+      1023
+    ],
+    "base_voltage": 51
+  }
+}

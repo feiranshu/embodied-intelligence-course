@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>黑球跟随</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#fff;color:#203044;font:14px "Microsoft YaHei",sans-serif;overflow:hidden;display:flex;height:100vh}
+    #field{position:relative;flex:1;min-width:180px;height:100vh;touch-action:none}#ball{position:absolute;width:140px;height:140px;border-radius:50%;background:#000;transform:translate(-50%,-50%);cursor:grab;touch-action:none}#ball:active{cursor:grabbing}
+    aside{width:300px;flex-shrink:0;background:#f5f7fa;border-left:1px solid #dde3eb;padding:22px;overflow-y:auto}h1{font-size:22px;margin:0 0 6px}h2{font-size:14px;margin:20px 0 10px}p{line-height:1.7;margin:8px 0;color:#627084}.status{padding:12px;background:#e8edf4;border-radius:8px;margin:16px 0;color:#334b68;line-height:1.6}#error{color:#b12d39;white-space:pre-wrap}#guide{position:absolute;top:20px;left:24px;color:#89929c;pointer-events:none}
+    button{font:inherit;padding:11px;background:#fff;color:#203044;border:1px solid #cbd4df;border-radius:7px;cursor:pointer}button:hover:enabled{background:#e9eff6}button:disabled{opacity:.45;cursor:not-allowed}.wide{width:100%;margin:5px 0}.primary{background:#2563b5;color:#fff;border-color:#2563b5;font-weight:600}.primary:hover:enabled{background:#174f9a}.stop{background:#b6313b;color:#fff;border-color:#b6313b}.stop:hover:enabled{background:#9d2630}.row{display:flex;gap:8px}.row>*{flex:1}.directions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0}.directions button{padding:10px 3px}.small{font-size:12px}label{display:block;color:#627084;margin:10px 0}#point{font-weight:600;color:#203044}
+  </style>
+</head>
+<body>
+  <div id="field"><span id="guide">拖动黑球，让机械臂跟随移动</span><div id="ball" aria-label="可拖动黑球"></div></div>
+  <aside>
+    <h1>黑球跟随</h1><p class="small">固定摄像头对准左侧白色区域。</p>
+    <div class="status"><strong id="status">连接中…</strong><div id="camera" class="small">正在检查摄像头</div></div>
+    <button id="start" class="wide primary" data-action="start" disabled>启动跟随</button>
+    <p id="start-reason" class="small" role="status">正在检查启动条件…</p>
+    <button id="stop" class="wide stop" data-action="stop">停止运动</button>
+    <p id="message" class="small">点击启动后，自动识别黑球、准备姿态并跟随。</p>
+    <h2>相机实况</h2>
+    <img id="preview" alt="等待相机画面" style="width:100%;border-radius:7px">
+    <p id="error" class="small" role="alert"></p>
+    <h2>画面</h2><div class="row"><button id="reset">小球居中</button><button id="fullscreen">全屏</button></div>
+    <p class="small">空格停止运动。请保持本页显示在摄像头所拍的屏幕上。</p>
+    <button class="wide small" data-action="exit">退出控制</button>
+  </aside>
+  <script>
+    const field = document.getElementById('field'), ball = document.getElementById('ball');
+    let dragging = false, offset = [0, 0], state = {}, connected = false;
+    const token = new URLSearchParams(location.search).get('token') || '';
+    const error = document.getElementById('error');
+    function place(x, y) {
+      const r = field.getBoundingClientRect();
+      ball.style.left = Math.max(75, Math.min(r.width - 75, x)) + 'px';
+      ball.style.top = Math.max(75, Math.min(r.height - 75, y)) + 'px';
+    }
+    function center() { place(field.clientWidth / 2, field.clientHeight / 2); }
+    ball.addEventListener('pointerdown', e => {
+      const r = ball.getBoundingClientRect();
+      offset = [e.clientX - r.left - r.width / 2, e.clientY - r.top - r.height / 2];
+      dragging = true;
+      ball.setPointerCapture(e.pointerId);
+    });
+    ball.addEventListener('pointermove', e => {
+      if (!dragging) return;
+      const r = field.getBoundingClientRect();
+      place(e.clientX - r.left - offset[0], e.clientY - r.top - offset[1]);
+    });
+    ball.addEventListener('pointerup', () => { dragging = false; });
+    ball.addEventListener('pointercancel', () => { dragging = false; });
+    ball.addEventListener('lostpointercapture', () => { dragging = false; });
+    async function command(action) {
+      const response = await fetch('/api/command', {method:'POST',headers:{'Content-Type':'application/json','X-Control-Token':token},body:JSON.stringify({action})});
+      const result = await response.json();
+      if (!result.ok) throw new Error(result.error);
+      return result;
+    }
+    async function act(action) {
+      if (action === 'start') center();
+      try { error.textContent = ''; await command(action); await refresh(); }
+      catch (e) { error.textContent = e.message; }
+    }
+    document.querySelectorAll('[data-action]').forEach(button => button.onclick = () => act(button.dataset.action));
+    async function refresh() {
+      try {
+        const response = await fetch('/api/state', {headers:{'X-Control-Token':token}});
+        state = await response.json();
+        if (!state.ok) throw new Error(state.error);
+        connected = true;
+        document.getElementById('status').textContent = state.fault ? '已停止，请查看错误' : state.active ? '正在跟随' : state.busy ? '自动启动中' : '等待启动';
+        document.getElementById('camera').textContent = state.ball ? (state.limited ? '已到该方向关节边界' : '摄像头已识别黑球') : '当前相机画面未检测到黑球';
+        document.getElementById('preview').src = '/api/frame?token=' + encodeURIComponent(token) + '&t=' + Date.now();
+        document.getElementById('message').textContent = state.message;
+        if (state.error) error.textContent = state.error;
+        document.getElementById('start').disabled = state.active || state.busy || state.fault;
+        document.getElementById('start-reason').textContent = state.fault ? '请先查看下方错误。' : state.active || state.busy ? state.message : '可跟随黑球移动；夹爪实际指向尚未校正。';
+      } catch (e) {
+        connected = false;
+        document.getElementById('status').textContent = '控制程序未连接';
+        document.getElementById('start-reason').textContent = '暂不能启动：控制程序未连接。';
+        document.getElementById('camera').textContent = '请双击 start_vision.bat 打开控制页面';
+        document.querySelectorAll('#start').forEach(button => button.disabled = true);
+      }
+    }
+    function stopOnLeave() {
+      if (connected) navigator.sendBeacon('/api/command?token=' + encodeURIComponent(token), new Blob([JSON.stringify({action:'stop'})], {type:'application/json'}));
+    }
+    window.addEventListener('pagehide', stopOnLeave);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stopOnLeave(); });
+    document.addEventListener('keydown', e => { if (e.code === 'Space' || e.key === 'Escape') { e.preventDefault(); act('stop'); } });
+    document.getElementById('reset').onclick = center;
+    document.getElementById('fullscreen').onclick = () => document.documentElement.requestFullscreen().catch(e => { error.textContent = e.message; });
+    window.addEventListener('resize', center);
+    center();
+    refresh();
+    setInterval(async () => { if (!document.hidden && connected) { try { await command('heartbeat'); } catch {} } await refresh(); }, 500);
+  </script>
+</body>
+</html>

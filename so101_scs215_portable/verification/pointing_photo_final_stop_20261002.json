@@ -1,0 +1,19 @@
+{
+  "positions": [
+    1022,
+    902,
+    315,
+    660,
+    81,
+    266
+  ],
+  "torque": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "motion_command_sent": false
+}

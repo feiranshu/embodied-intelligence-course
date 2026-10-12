@@ -1,0 +1,179 @@
+{
+  "samples": [
+    {
+      "seconds": 0.0,
+      "position": 639
+    },
+    {
+      "seconds": 0.015,
+      "position": 639
+    },
+    {
+      "seconds": 0.047,
+      "position": 639
+    },
+    {
+      "seconds": 0.062,
+      "position": 639
+    },
+    {
+      "seconds": 0.078,
+      "position": 639
+    },
+    {
+      "seconds": 0.109,
+      "position": 639
+    },
+    {
+      "seconds": 0.125,
+      "position": 639
+    },
+    {
+      "seconds": 0.14,
+      "position": 639
+    },
+    {
+      "seconds": 0.172,
+      "position": 134
+    }
+  ],
+  "target": 960,
+  "before": [
+    {
+      "id": 1,
+      "name": "shoulder_pan",
+      "label": "底座",
+      "position": 639,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 2,
+      "name": "shoulder_lift",
+      "label": "肩部",
+      "position": 902,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 3,
+      "name": "elbow_flex",
+      "label": "肘部",
+      "position": 315,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 4,
+      "name": "wrist_flex",
+      "label": "腕部俯仰",
+      "position": 739,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 5,
+      "name": "wrist_roll",
+      "label": "腕部旋转",
+      "position": 82,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 6,
+      "name": "gripper",
+      "label": "夹爪",
+      "position": 275,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    }
+  ],
+  "error": "Unexpected direction or position jump; stopped",
+  "stop_failures": [],
+  "after": [
+    {
+      "id": 1,
+      "name": "shoulder_pan",
+      "label": "底座",
+      "position": 0,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 2,
+      "name": "shoulder_lift",
+      "label": "肩部",
+      "position": 902,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 3,
+      "name": "elbow_flex",
+      "label": "肘部",
+      "position": 315,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 4,
+      "name": "wrist_flex",
+      "label": "腕部俯仰",
+      "position": 739,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 5,
+      "name": "wrist_roll",
+      "label": "腕部旋转",
+      "position": 82,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 6,
+      "name": "gripper",
+      "label": "夹爪",
+      "position": 275,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    }
+  ]
+}

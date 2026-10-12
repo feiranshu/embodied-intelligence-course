@@ -1,0 +1,606 @@
+{
+  "samples": [
+    {
+      "seconds": 0.016,
+      "joint": 1,
+      "position": 723,
+      "goal": 723,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.016,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.016,
+      "joint": 3,
+      "position": 315,
+      "goal": 315,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.016,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.141,
+      "joint": 3,
+      "position": 315,
+      "goal": 315,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.235,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.516,
+      "joint": 1,
+      "position": 722,
+      "goal": 722,
+      "torque_enabled": 0,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.516,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.532,
+      "joint": 3,
+      "position": 315,
+      "goal": 315,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.532,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.578,
+      "joint": 1,
+      "position": 722,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 1309
+    },
+    {
+      "seconds": 0.578,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.594,
+      "joint": 3,
+      "position": 315,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 320
+    },
+    {
+      "seconds": 0.594,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.641,
+      "joint": 1,
+      "position": 721,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 1564
+    },
+    {
+      "seconds": 0.657,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.657,
+      "joint": 3,
+      "position": 310,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 405
+    },
+    {
+      "seconds": 0.657,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.703,
+      "joint": 1,
+      "position": 0,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 1884
+    },
+    {
+      "seconds": 0.719,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.719,
+      "joint": 3,
+      "position": 304,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 226
+    },
+    {
+      "seconds": 0.719,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.782,
+      "joint": 1,
+      "position": 21,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 0.782,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.782,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 0.782,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.844,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.844,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 0.844,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.875,
+      "joint": 1,
+      "position": 80,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 0.907,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.907,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 0.907,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.938,
+      "joint": 1,
+      "position": 121,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 0.969,
+      "joint": 2,
+      "position": 921,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 0.969,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 0.969,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.0,
+      "joint": 1,
+      "position": 158,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 1.032,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.032,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 1.032,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.063,
+      "joint": 1,
+      "position": 196,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 1.094,
+      "joint": 2,
+      "position": 921,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.094,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 1.094,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.125,
+      "joint": 1,
+      "position": 233,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 1.157,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.157,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 1.157,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.188,
+      "joint": 1,
+      "position": 269,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 1.219,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.219,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 1.219,
+      "joint": 4,
+      "position": 740,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.25,
+      "joint": 1,
+      "position": 304,
+      "goal": 960,
+      "torque_enabled": 1,
+      "output_raw": 2024
+    },
+    {
+      "seconds": 1.282,
+      "joint": 2,
+      "position": 920,
+      "goal": 920,
+      "torque_enabled": 1,
+      "output_raw": 0
+    },
+    {
+      "seconds": 1.282,
+      "joint": 3,
+      "position": 302,
+      "goal": 300,
+      "torque_enabled": 1,
+      "output_raw": 181
+    },
+    {
+      "seconds": 1.282,
+      "joint": 4,
+      "position": 739,
+      "goal": 740,
+      "torque_enabled": 1,
+      "output_raw": 0
+    }
+  ],
+  "error": "映射位置 325 超出安全范围 [-319, 301]",
+  "stop_failures": [],
+  "before": [
+    {
+      "id": 1,
+      "name": "shoulder_pan",
+      "label": "底座",
+      "position": 723,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 2,
+      "name": "shoulder_lift",
+      "label": "肩部",
+      "position": 920,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 3,
+      "name": "elbow_flex",
+      "label": "肘部",
+      "position": 315,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 4,
+      "name": "wrist_flex",
+      "label": "腕部俯仰",
+      "position": 739,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 5,
+      "name": "wrist_roll",
+      "label": "腕部旋转",
+      "position": 82,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 6,
+      "name": "gripper",
+      "label": "夹爪",
+      "position": 275,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    }
+  ],
+  "target": [
+    960,
+    920,
+    300,
+    740,
+    80,
+    276
+  ],
+  "after": [
+    {
+      "id": 1,
+      "name": "shoulder_pan",
+      "label": "底座",
+      "position": 322,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 2,
+      "name": "shoulder_lift",
+      "label": "肩部",
+      "position": 920,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 3,
+      "name": "elbow_flex",
+      "label": "肘部",
+      "position": 302,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 4,
+      "name": "wrist_flex",
+      "label": "腕部俯仰",
+      "position": 739,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 5,
+      "name": "wrist_roll",
+      "label": "腕部旋转",
+      "position": 82,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    },
+    {
+      "id": 6,
+      "name": "gripper",
+      "label": "夹爪",
+      "position": 275,
+      "torque_enabled": false,
+      "mode": "position",
+      "min_limit": 0,
+      "max_limit": 1023,
+      "running": false
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+Python compilation: PASS (7 files)
+JSON parsing: PASS (2 files)
+Serial opening and real HTTP calls disabled in this test run.
+test_checksum (test_offline.ProtocolTests.test_checksum) ... ok
+test_known_torque_enable_packet (test_offline.ProtocolTests.test_known_torque_enable_packet) ... ok
+test_shipping_config (test_offline.ProtocolTests.test_shipping_config) ... ok
+test_action_forwards_timing_speed_and_order (test_advanced.AdvancedTests.test_action_forwards_timing_speed_and_order) ... ok
+test_action_preflight_prevents_partial_missing_pose (test_advanced.AdvancedTests.test_action_preflight_prevents_partial_missing_pose) ... ok
+test_all_cartesian_directions (test_advanced.AdvancedTests.test_all_cartesian_directions) ... ok
+test_calibration_reference_can_be_an_endpoint (test_advanced.AdvancedTests.test_calibration_reference_can_be_an_endpoint) ... ok
+test_calibration_resumes_completed_base (test_advanced.AdvancedTests.test_calibration_resumes_completed_base) ... ok
+test_calibration_retries_unstable_and_out_of_range_sample (test_advanced.AdvancedTests.test_calibration_retries_unstable_and_out_of_range_sample) ... ok
+test_cartesian_step_limit (test_advanced.AdvancedTests.test_cartesian_step_limit) ... ok
+test_continuous_direction_and_explicit_distance (test_advanced.AdvancedTests.test_continuous_direction_and_explicit_distance) ... ok
+test_continuous_joint_stops_at_boundary (test_advanced.AdvancedTests.test_continuous_joint_stops_at_boundary) ... ok
+test_continuous_motion_stops_without_another_step (test_advanced.AdvancedTests.test_continuous_motion_stops_without_another_step) ... 已请求停止
+ok
+test_continuous_real_joint_requires_calibration (test_advanced.AdvancedTests.test_continuous_real_joint_requires_calibration) ... ok
+test_cross_zero_pose_remains_blocked_before_writes (test_advanced.AdvancedTests.test_cross_zero_pose_remains_blocked_before_writes) ... ok
+test_distance_limit_and_negation_never_reach_language_model (test_advanced.AdvancedTests.test_distance_limit_and_negation_never_reach_language_model) ... ok
+test_endpoint_tolerance_does_not_expand_motion_limits (test_advanced.AdvancedTests.test_endpoint_tolerance_does_not_expand_motion_limits) ... ok
+test_fifty_mm_lines_include_individual_joint_paths (test_advanced.AdvancedTests.test_fifty_mm_lines_include_individual_joint_paths) ... ok
+test_goal_register_endian_time_speed_and_single_motion (test_advanced.AdvancedTests.test_goal_register_endian_time_speed_and_single_motion) ... ok
+test_inverse_roundtrip_and_nearest_branch (test_advanced.AdvancedTests.test_inverse_roundtrip_and_nearest_branch) ... ok
+test_inverse_uses_calibrated_directions (test_advanced.AdvancedTests.test_inverse_uses_calibrated_directions) ... ok
+test_keyboard_release_focus_loss_and_repeat (test_advanced.AdvancedTests.test_keyboard_release_focus_loss_and_repeat) ... ok
+test_legacy_planar_config_still_loads (test_advanced.AdvancedTests.test_legacy_planar_config_still_loads) ... ok
+test_mapped_joint_at_endpoint_only_allows_inward_motion (test_advanced.AdvancedTests.test_mapped_joint_at_endpoint_only_allows_inward_motion) ... ID 1 原始=300 映射=0 范围=[3, 30]
+到达映射安全边界，自动停止
+ID 1 原始=300 映射=0 范围=[3, 30]
+ok
+test_mapped_joint_requires_verified_wheel_direction (test_advanced.AdvancedTests.test_mapped_joint_requires_verified_wheel_direction) ... ok
+test_mapped_wheel_crossing_never_writes_position_target (test_advanced.AdvancedTests.test_mapped_wheel_crossing_never_writes_position_target) ... ID 1 原始=1021 映射=-1 范围=[-20, 7]
+ID 1 原始=1022 映射=0 范围=[-20, 7]
+ID 1 原始=0 映射=2 范围=[-20, 7]
+ID 1 原始=2 映射=4 范围=[-20, 7]
+到达映射安全边界，自动停止
+ok
+test_named_pose_action_and_stop (test_advanced.AdvancedTests.test_named_pose_action_and_stop) ... ok
+test_no_feasible_direction_stops_without_motion (test_advanced.AdvancedTests.test_no_feasible_direction_stops_without_motion) ... ok
+test_non_commands_negations_and_multiple_commands_rejected (test_advanced.AdvancedTests.test_non_commands_negations_and_multiple_commands_rejected) ... ok
+test_numbers_units_and_asr_spaces (test_advanced.AdvancedTests.test_numbers_units_and_asr_spaces) ... ok
+test_position_feedback_confirms_completion (test_advanced.AdvancedTests.test_position_feedback_confirms_completion) ... ok
+test_position_mode_no_automatic_eeprom_changes (test_advanced.AdvancedTests.test_position_mode_no_automatic_eeprom_changes) ... ok
+test_real_motion_requires_calibration (test_advanced.AdvancedTests.test_real_motion_requires_calibration) ... ok
+test_signed_mapping_crosses_zero_and_rejects_wrong_arc (test_advanced.AdvancedTests.test_signed_mapping_crosses_zero_and_rejects_wrong_arc) ... ok
+test_stalled_servo_aborts_later_joints (test_advanced.AdvancedTests.test_stalled_servo_aborts_later_joints) ... 动作终止：ID 1 未在期限内到位，终止后续动作
+ok
+test_stop_interrupts_action_and_no_queue (test_advanced.AdvancedTests.test_stop_interrupts_action_and_no_queue) ... 正在执行动作，本条指令不排队；可说“停止”
+已请求停止
+动作终止：动作已停止
+ok
+test_stop_interrupts_long_distance_waypoints (test_advanced.AdvancedTests.test_stop_interrupts_long_distance_waypoints) ... ok
+test_trace_rejects_unobservable_jump_and_full_cycle (test_advanced.AdvancedTests.test_trace_rejects_unobservable_jump_and_full_cycle) ... ok
+test_unreachable_diagonal_continues_in_feasible_direction (test_advanced.AdvancedTests.test_unreachable_diagonal_continues_in_feasible_direction) ... ok
+test_unreachable_nonfinite_and_limits (test_advanced.AdvancedTests.test_unreachable_nonfinite_and_limits) ... ok
+test_urdf_zero_pose_and_tool_offset (test_advanced.AdvancedTests.test_urdf_zero_pose_and_tool_offset) ... ok
+test_wrist_long_arc_does_not_fold_at_half_turn (test_advanced.AdvancedTests.test_wrist_long_arc_does_not_fold_at_half_turn) ... ok
+test_write_fault_stops_joint (test_advanced.AdvancedTests.test_write_fault_stops_joint) ... ok
+test_language_model_intents_and_validation (test_advanced.SpeechTests.test_language_model_intents_and_validation) ... ok
+test_real_model_and_synthesized_chinese_audio (test_advanced.SpeechTests.test_real_model_and_synthesized_chinese_audio) ... 语音转录：向前 移动
+理解结果：('jog', [5.0, 0.0, 0.0])
+语音转录：立正
+理解结果：('pose', '立正')
+语音转录：挥手
+理解结果：('action', '挥手')
+语音转录：停止
+理解结果：('stop', None)
+ok
+test_stop_discards_pending_language_model_result (test_advanced.SpeechTests.test_stop_discards_pending_language_model_result) ... 录音已开始：可用自然语言描述动作；说“停止”或按 Ctrl+C 停止。
+语音转录：帮我往前挪一点
+ok
+test_unrecognized_speech_never_executes (test_advanced.SpeechTests.test_unrecognized_speech_never_executes) ... 语音转录：不要向前移动
+不执行：否定、负距离或多动作指令不执行，请给出一条明确指令
+ok
+test_camera_loss_stops_active_motion (test_advanced.VisionTests.test_camera_loss_stops_active_motion) ... ok
+test_clipped_rectangle_and_insufficient_arc_rejected (test_advanced.VisionTests.test_clipped_rectangle_and_insufficient_arc_rejected) ... ok
+test_closed_loop_converges_with_quantized_joints (test_advanced.VisionTests.test_closed_loop_converges_with_quantized_joints) ... ok
+test_deadband_and_bad_calibration (test_advanced.VisionTests.test_deadband_and_bad_calibration) ... ok
+test_missing_rectangle_and_ambiguous_targets (test_advanced.VisionTests.test_missing_rectangle_and_ambiguous_targets) ... ok
+test_partially_visible_balls_at_all_edges (test_advanced.VisionTests.test_partially_visible_balls_at_all_edges) ... ok
+test_rotated_camera_mapping_reduces_error (test_advanced.VisionTests.test_rotated_camera_mapping_reduces_error) ... ok
+test_shaded_circle_with_highlight (test_advanced.VisionTests.test_shaded_circle_with_highlight) ... ok
+test_target_loss_does_not_command_a_step (test_advanced.VisionTests.test_target_loss_does_not_command_a_step) ... ok
+
+----------------------------------------------------------------------
+Ran 56 tests in 38.687s
+
+OK

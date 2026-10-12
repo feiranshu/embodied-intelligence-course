@@ -1,0 +1,82 @@
+{
+  "trial": "sidebar_feedback",
+  "events": [
+    {
+      "action": "home",
+      "motion": null
+    },
+    {
+      "action": "down",
+      "motion": {
+        "start": [
+          951,
+          919,
+          302,
+          739,
+          82,
+          278
+        ],
+        "target": [
+          951,
+          919,
+          302,
+          756,
+          82,
+          278
+        ],
+        "feedback": [
+          951,
+          919,
+          302,
+          755,
+          81,
+          278
+        ],
+        "phase": "tracking",
+        "targets_verified": true
+      }
+    }
+  ],
+  "stopped_state": {
+    "ok": true,
+    "active": false,
+    "busy": false,
+    "ball": true,
+    "stable": false,
+    "calibrating": false,
+    "recorded": 0,
+    "calibrated": false,
+    "error": "",
+    "message": "已停止",
+    "fault": false,
+    "limited": false,
+    "motion": {
+      "start": [
+        951,
+        919,
+        302,
+        739,
+        82,
+        278
+      ],
+      "target": [
+        951,
+        919,
+        302,
+        756,
+        82,
+        278
+      ],
+      "feedback": [
+        951,
+        919,
+        302,
+        755,
+        81,
+        278
+      ],
+      "phase": "tracking",
+      "targets_verified": true
+    }
+  }
+}

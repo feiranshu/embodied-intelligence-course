@@ -1,0 +1,88 @@
+{
+  "initial": {
+    "ok": true,
+    "active": false,
+    "busy": false,
+    "ball": true,
+    "stable": true,
+    "calibrating": false,
+    "recorded": 0,
+    "calibrated": false,
+    "error": "",
+    "message": "保留底座方向，上臂回位后腕部向前倾斜；准备完成后需核对屏幕方向",
+    "fault": false,
+    "limited": false,
+    "motion": {
+      "start": [
+        1022,
+        921,
+        304,
+        892,
+        82,
+        272
+      ],
+      "target": [
+        1022,
+        921,
+        304,
+        900,
+        83,
+        272
+      ],
+      "feedback": [
+        1022,
+        922,
+        304,
+        902,
+        82,
+        272
+      ],
+      "phase": "tracking",
+      "targets_verified": true
+    }
+  },
+  "samples": [
+    {
+      "ok": true,
+      "active": false,
+      "busy": false,
+      "ball": true,
+      "stable": true,
+      "calibrating": false,
+      "recorded": 0,
+      "calibrated": false,
+      "error": "",
+      "message": "保留底座方向，上臂回位后腕部向前倾斜；准备完成后需核对屏幕方向",
+      "fault": false,
+      "limited": false,
+      "motion": {
+        "start": [
+          1022,
+          921,
+          304,
+          892,
+          82,
+          272
+        ],
+        "target": [
+          1022,
+          921,
+          304,
+          900,
+          83,
+          272
+        ],
+        "feedback": [
+          1022,
+          922,
+          304,
+          902,
+          82,
+          272
+        ],
+        "phase": "tracking",
+        "targets_verified": true
+      }
+    }
+  ]
+}
