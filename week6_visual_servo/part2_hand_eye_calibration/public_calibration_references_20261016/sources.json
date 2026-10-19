@@ -1,0 +1,32 @@
+[
+  {
+    "file": "keyboard_hand_eye_constants.py",
+    "url": "https://raw.githubusercontent.com/ardacinardemirtas/so101-keyboard-typer/a8236e0ee8e40cf489ad0efd0428788854597c52/src/so101_keyboard/hand_eye_constants.py",
+    "sha256": "e10d7a28b00c01e47ad231507373ca370584bee715e384f6ee82d188c7fef5c9"
+  },
+  {
+    "file": "keyboard_click_to_move.py",
+    "url": "https://raw.githubusercontent.com/ardacinardemirtas/so101-keyboard-typer/a8236e0ee8e40cf489ad0efd0428788854597c52/src/so101_keyboard/click_to_move.py",
+    "sha256": "7ac161de37acb7e34192681c5b8b20d3acf05cdeb54b7b2fac51f5f151b41941"
+  },
+  {
+    "file": "rax_handeye_so101.example.json",
+    "url": "https://raw.githubusercontent.com/arminforoughi/RAX/7ed20483a268fa6e36f28b569978b4ad937498c2/examples/handeye_so101.example.json",
+    "sha256": "fd5b8fa6d27bff8c7196ff68cfc17af7dc93697394acefb46164018698a80c69"
+  },
+  {
+    "file": "rax_handeye.py",
+    "url": "https://raw.githubusercontent.com/arminforoughi/RAX/7ed20483a268fa6e36f28b569978b4ad937498c2/src/rax/perception/handeye.py",
+    "sha256": "4f9e7b7de7fdf096b9570dda7c9f89f3da4d662f25b4c68106cb3e799d35c981"
+  },
+  {
+    "file": "letyping_historical_report.txt",
+    "url": "https://raw.githubusercontent.com/MatteoR1103/LeTyping/375d270d7eb28296019653552f2fdb4b209a1244/camera_calib/stats/nonlinear_handeye_report.txt",
+    "sha256": "65507e47b1929e7756d426d2a3f57a2f2c83516521f155cba6b1f1e68e7e7096"
+  },
+  {
+    "file": "scs215_servo_params.yaml",
+    "url": "https://raw.githubusercontent.com/jgdo/arips_ros/master/arips_launch/config/scs_servo_params.yaml",
+    "sha256": "1b8fbcc591f4e29a178aff4fce84c64fbe5e30562138191d2fa6c7ab03a0ad75"
+  }
+]

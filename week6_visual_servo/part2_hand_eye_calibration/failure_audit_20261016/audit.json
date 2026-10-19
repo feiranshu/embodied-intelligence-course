@@ -1,0 +1,849 @@
+{
+  "archived_result_rms_px": 97.9300434125186,
+  "samples": [
+    {
+      "name": "pose_001",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141637955515600\\images\\pose_001.png",
+      "raw": [
+        39,
+        900,
+        199,
+        656,
+        926,
+        271
+      ],
+      "angles_deg": [
+        12.023460410557187,
+        38.52470854187472,
+        -19.601674407732688,
+        -102.2074916121479,
+        -49.41013155355512
+      ],
+      "pnp_rms_px": 0.1551215648651123,
+      "pnp_rvec": [
+        0.2859165195568494,
+        0.3620006949762999,
+        3.0586084494503876
+      ]
+    },
+    {
+      "name": "pose_002",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141638129228600\\images\\pose_002.png",
+      "raw": [
+        38,
+        900,
+        158,
+        656,
+        926,
+        271
+      ],
+      "angles_deg": [
+        11.730205278592376,
+        38.52470854187472,
+        -7.578213997175504,
+        -102.2074916121479,
+        -49.41013155355512
+      ],
+      "pnp_rms_px": 0.12333981692790985,
+      "pnp_rvec": [
+        -0.3832651510901096,
+        -0.02845873866061074,
+        -3.072072849721918
+      ]
+    },
+    {
+      "name": "pose_003",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141638460572000\\images\\pose_003.png",
+      "raw": [
+        39,
+        898,
+        158,
+        656,
+        827,
+        271
+      ],
+      "angles_deg": [
+        12.023460410557187,
+        39.111218805804334,
+        -7.578213997175504,
+        -102.2074916121479,
+        -78.44238961807126
+      ],
+      "pnp_rms_px": 0.15703971683979034,
+      "pnp_rvec": [
+        0.17413278118553713,
+        -0.3006575478053739,
+        2.597951056886499
+      ]
+    },
+    {
+      "name": "pose_004",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141638761007300\\images\\pose_004.png",
+      "raw": [
+        39,
+        942,
+        161,
+        656,
+        827,
+        271
+      ],
+      "angles_deg": [
+        12.023460410557187,
+        26.207992999352722,
+        -8.457979393069932,
+        -102.2074916121479,
+        -78.44238961807126
+      ],
+      "pnp_rms_px": 0.10649406909942627,
+      "pnp_rvec": [
+        0.13703295670050164,
+        0.01742980062396166,
+        2.512716362264837
+      ]
+    },
+    {
+      "name": "pose_005",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141638913524300\\images\\pose_005.png",
+      "raw": [
+        84,
+        902,
+        211,
+        656,
+        827,
+        271
+      ],
+      "angles_deg": [
+        25.21994134897361,
+        37.938198277945105,
+        -23.120735991310404,
+        -102.2074916121479,
+        -78.44238961807126
+      ],
+      "pnp_rms_px": 0.18651625514030457,
+      "pnp_rvec": [
+        0.550678607392929,
+        0.00033638458483899815,
+        2.4274262739567827
+      ]
+    },
+    {
+      "name": "pose_006",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141639088824800\\images\\pose_006.png",
+      "raw": [
+        321,
+        900,
+        238,
+        656,
+        829,
+        271
+      ],
+      "angles_deg": [
+        94.72140762463344,
+        38.52470854187472,
+        -31.038624554360258,
+        -102.2074916121479,
+        -77.85587935414163
+      ],
+      "pnp_rms_px": 0.14949935674667358,
+      "pnp_rvec": [
+        0.5024541020756027,
+        0.147841177406784,
+        2.354143835116686
+      ]
+    },
+    {
+      "name": "pose_007",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141639235467900\\images\\pose_007.png",
+      "raw": [
+        75,
+        900,
+        187,
+        656,
+        828,
+        271
+      ],
+      "angles_deg": [
+        22.580645161290324,
+        38.52470854187472,
+        -16.082612824154975,
+        -102.2074916121479,
+        -78.14913448610645
+      ],
+      "pnp_rms_px": 0.1684500277042389,
+      "pnp_rvec": [
+        0.4890748814500907,
+        -0.11458386227070701,
+        2.5059801788397578
+      ]
+    },
+    {
+      "name": "pose_008",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141639420118500\\images\\pose_008.png",
+      "raw": [
+        160,
+        900,
+        224,
+        656,
+        828,
+        271
+      ],
+      "angles_deg": [
+        47.50733137829913,
+        38.52470854187472,
+        -26.933052706852926,
+        -102.2074916121479,
+        -78.14913448610645
+      ],
+      "pnp_rms_px": 0.13700321316719055,
+      "pnp_rvec": [
+        0.4391732915166653,
+        0.09226903361022643,
+        2.407708197207196
+      ]
+    },
+    {
+      "name": "pose_009",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141639719470000\\images\\pose_009.png",
+      "raw": [
+        134,
+        900,
+        197,
+        656,
+        828,
+        271
+      ],
+      "angles_deg": [
+        39.88269794721408,
+        38.52470854187472,
+        -19.01516414380307,
+        -102.2074916121479,
+        -78.14913448610645
+      ],
+      "pnp_rms_px": 0.14441484212875366,
+      "pnp_rvec": [
+        0.45627317134451967,
+        -0.056662520829432,
+        2.479929360437247
+      ]
+    },
+    {
+      "name": "pose_010",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141639881577900\\images\\pose_010.png",
+      "raw": [
+        283,
+        900,
+        113,
+        732,
+        829,
+        271
+      ],
+      "angles_deg": [
+        83.57771260997069,
+        38.52470854187472,
+        5.618266941240921,
+        -79.9201015828224,
+        -77.85587935414163
+      ],
+      "pnp_rms_px": 0.16484272480010986,
+      "pnp_rvec": [
+        0.44555439733423613,
+        -0.09128289895100015,
+        2.5290935473236096
+      ]
+    },
+    {
+      "name": "pose_011",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141640202466700\\images\\pose_011.png",
+      "raw": [
+        445,
+        84,
+        917,
+        731,
+        828,
+        271
+      ],
+      "angles_deg": [
+        131.08504398826983,
+        -22.472358906805635,
+        70.134395973499,
+        -80.2133567147872,
+        -78.14913448610645
+      ],
+      "pnp_rms_px": 0.14452742040157318,
+      "pnp_rvec": [
+        0.3760565149045331,
+        -0.1953833587399794,
+        2.546178164253491
+      ]
+    },
+    {
+      "name": "pose_012",
+      "source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\samples\\deleted_records\\1792141640399468700\\images\\pose_012.png",
+      "raw": [
+        469,
+        126,
+        875,
+        731,
+        828,
+        271
+      ],
+      "angles_deg": [
+        138.12316715542525,
+        -34.789074449327636,
+        82.45111151602099,
+        -80.2133567147872,
+        -78.14913448610645
+      ],
+      "pnp_rms_px": 0.14746549725532532,
+      "pnp_rvec": [
+        0.3999509409290174,
+        -0.20078395666291154,
+        2.543213373744191
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "a": "pose_001",
+      "b": "pose_002",
+      "robot_deg": 12.027023031250499,
+      "camera_deg": 13.96090285589749,
+      "camera_deg_if_one_board_order_reversed": 173.10256513655827,
+      "disagreement_deg": 1.9338798246469917
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_003",
+      "robot_deg": 31.59851996667439,
+      "camera_deg": 37.83069914432155,
+      "camera_deg_if_one_board_order_reversed": 155.35098888350123,
+      "disagreement_deg": 6.232179177647158
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_004",
+      "robot_deg": 29.05543267712127,
+      "camera_deg": 35.56631220623797,
+      "camera_deg_if_one_board_order_reversed": 148.01528670448945,
+      "disagreement_deg": 6.510879529116696
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_005",
+      "robot_deg": 16.417785472330497,
+      "camera_deg": 39.79029400112564,
+      "camera_deg_if_one_board_order_reversed": 148.6770390136495,
+      "disagreement_deg": 23.37250852879514
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_006",
+      "robot_deg": 55.16145678301345,
+      "camera_deg": 41.63836418651856,
+      "camera_deg_if_one_board_order_reversed": 143.48798105739502,
+      "disagreement_deg": 13.523092596494891
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_007",
+      "robot_deg": 18.685582626541912,
+      "camera_deg": 37.52279637990644,
+      "camera_deg_if_one_board_order_reversed": 152.5470729680041,
+      "disagreement_deg": 18.837213753364527
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_008",
+      "robot_deg": 9.895766758976501,
+      "camera_deg": 39.19421204732773,
+      "camera_deg_if_one_board_order_reversed": 145.49192736470303,
+      "disagreement_deg": 29.298445288351232
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_009",
+      "robot_deg": 3.580750036477088,
+      "camera_deg": 37.64778496474387,
+      "camera_deg_if_one_board_order_reversed": 150.2768510411574,
+      "disagreement_deg": 34.06703492826678
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_010",
+      "robot_deg": 64.9529602633619,
+      "camera_deg": 35.79038904340439,
+      "camera_deg_if_one_board_order_reversed": 153.00650399205452,
+      "disagreement_deg": 29.162571219957513
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_011",
+      "robot_deg": 102.62261874782752,
+      "camera_deg": 37.043189077130606,
+      "camera_deg_if_one_board_order_reversed": 153.71995416101046,
+      "disagreement_deg": 65.57942967069691
+    },
+    {
+      "a": "pose_001",
+      "b": "pose_012",
+      "robot_deg": 108.51450946618537,
+      "camera_deg": 37.31823231775084,
+      "camera_deg_if_one_board_order_reversed": 153.92018823370856,
+      "disagreement_deg": 71.19627714843453
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_003",
+      "robot_deg": 28.76104192342841,
+      "camera_deg": 35.94477482424876,
+      "camera_deg_if_one_board_order_reversed": 149.5291056866943,
+      "disagreement_deg": 7.183732900820349
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_004",
+      "robot_deg": 31.570134203879398,
+      "camera_deg": 39.22144451058735,
+      "camera_deg_if_one_board_order_reversed": 141.82544786530144,
+      "disagreement_deg": 7.651310306707948
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_005",
+      "robot_deg": 22.49181729253161,
+      "camera_deg": 41.53325428398506,
+      "camera_deg_if_one_board_order_reversed": 140.6038128504437,
+      "disagreement_deg": 19.04143699145345
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_006",
+      "robot_deg": 58.50930536611399,
+      "camera_deg": 45.84230061777139,
+      "camera_deg_if_one_board_order_reversed": 135.3177139833065,
+      "disagreement_deg": 12.667004748342599
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_007",
+      "robot_deg": 20.241584627273856,
+      "camera_deg": 37.49605781403921,
+      "camera_deg_if_one_board_order_reversed": 144.98885793723798,
+      "disagreement_deg": 17.254473186765356
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_008",
+      "robot_deg": 20.497438198448915,
+      "camera_deg": 42.874347668088795,
+      "camera_deg_if_one_board_order_reversed": 137.7346129621201,
+      "disagreement_deg": 22.37690946963988
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_009",
+      "robot_deg": 12.809018507376333,
+      "camera_deg": 38.8200449628682,
+      "camera_deg_if_one_board_order_reversed": 142.74140204542124,
+      "disagreement_deg": 26.01102645549187
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_010",
+      "robot_deg": 60.5655792280978,
+      "camera_deg": 36.189610365508244,
+      "camera_deg_if_one_board_order_reversed": 145.6133300068074,
+      "disagreement_deg": 24.37596886258956
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_011",
+      "robot_deg": 101.89569068152764,
+      "camera_deg": 36.11602176537437,
+      "camera_deg_if_one_board_order_reversed": 146.80555989976835,
+      "disagreement_deg": 65.77966891615327
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_012",
+      "robot_deg": 108.18661286392984,
+      "camera_deg": 36.20947239101288,
+      "camera_deg_if_one_board_order_reversed": 146.91016868263014,
+      "disagreement_deg": 71.97714047291696
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_004",
+      "robot_deg": 13.782991202346029,
+      "camera_deg": 14.737867791474665,
+      "camera_deg_if_one_board_order_reversed": 173.5593967866818,
+      "disagreement_deg": 0.9548765891286362
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_005",
+      "robot_deg": 21.267779501800984,
+      "camera_deg": 22.54797021362297,
+      "camera_deg_if_one_board_order_reversed": 169.38686301534142,
+      "disagreement_deg": 1.2801907118219873
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_006",
+      "robot_deg": 86.0816407273123,
+      "camera_deg": 27.495161926531086,
+      "camera_deg_if_one_board_order_reversed": 164.77871543115148,
+      "disagreement_deg": 58.58647880078122
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_007",
+      "robot_deg": 14.140150304977297,
+      "camera_deg": 16.269799285433933,
+      "camera_deg_if_one_board_order_reversed": 173.97937985310517,
+      "disagreement_deg": 2.1296489804566363
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_008",
+      "robot_deg": 40.80032623368219,
+      "camera_deg": 22.994692654747908,
+      "camera_deg_if_one_board_order_reversed": 167.59706772672283,
+      "disagreement_deg": 17.805633578934284
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_009",
+      "robot_deg": 30.559027031356194,
+      "camera_deg": 17.163621796955148,
+      "camera_deg_if_one_board_order_reversed": 172.1262521499353,
+      "disagreement_deg": 13.395405234401046
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_010",
+      "robot_deg": 79.01177874977103,
+      "camera_deg": 15.006017952776425,
+      "camera_deg_if_one_board_order_reversed": 175.0194708701439,
+      "disagreement_deg": 64.0057607969946
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_011",
+      "robot_deg": 122.95017344951734,
+      "camera_deg": 10.035640026077818,
+      "camera_deg_if_one_board_order_reversed": 176.35723022278265,
+      "disagreement_deg": 112.91453342343952
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_012",
+      "robot_deg": 129.49921784451428,
+      "camera_deg": 10.84322197720856,
+      "camera_deg_if_one_board_order_reversed": 176.27654972369294,
+      "disagreement_deg": 118.65599586730572
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_005",
+      "robot_deg": 13.51698612162123,
+      "camera_deg": 18.42240539830822,
+      "camera_deg_if_one_board_order_reversed": 177.8128726703034,
+      "disagreement_deg": 4.905419276686992
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_006",
+      "robot_deg": 83.80209077738088,
+      "camera_deg": 18.804281260370253,
+      "camera_deg_if_one_board_order_reversed": 173.0735904554374,
+      "disagreement_deg": 64.99780951701064
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_007",
+      "robot_deg": 11.816446552123098,
+      "camera_deg": 16.299108038062627,
+      "camera_deg_if_one_board_order_reversed": 177.96452380636433,
+      "disagreement_deg": 4.482661485939529
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_008",
+      "robot_deg": 36.286338399868,
+      "camera_deg": 14.57128005439094,
+      "camera_deg_if_one_board_order_reversed": 175.55305981282186,
+      "disagreement_deg": 21.71505834547706
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_009",
+      "robot_deg": 28.204531920439116,
+      "camera_deg": 14.272454784271572,
+      "camera_deg_if_one_board_order_reversed": 179.92957217815496,
+      "disagreement_deg": 13.932077136167544
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_010",
+      "robot_deg": 85.11811756964741,
+      "camera_deg": 14.253350744173423,
+      "camera_deg_if_one_board_order_reversed": 177.11398218178266,
+      "disagreement_deg": 70.86476682547399
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_011",
+      "robot_deg": 125.99159996055643,
+      "camera_deg": 14.059002613188149,
+      "camera_deg_if_one_board_order_reversed": 176.1695987466581,
+      "disagreement_deg": 111.93259734736827
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_012",
+      "robot_deg": 132.14716575020316,
+      "camera_deg": 14.966538807840344,
+      "camera_deg_if_one_board_order_reversed": 176.14209729341565,
+      "disagreement_deg": 117.1806269423628
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_006",
+      "robot_deg": 70.42264794708349,
+      "camera_deg": 8.068849581192532,
+      "camera_deg_if_one_board_order_reversed": 174.33282673528632,
+      "disagreement_deg": 62.35379836589096
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_007",
+      "robot_deg": 7.977286165499309,
+      "camera_deg": 7.04792301598664,
+      "camera_deg_if_one_board_order_reversed": 175.0519493964181,
+      "disagreement_deg": 0.9293631495126684
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_008",
+      "robot_deg": 22.807006140868168,
+      "camera_deg": 6.558722943376267,
+      "camera_deg_if_one_board_order_reversed": 177.19119508719226,
+      "disagreement_deg": 16.2482831974919
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_009",
+      "robot_deg": 15.669964866586142,
+      "camera_deg": 5.4482925693663145,
+      "camera_deg_if_one_board_order_reversed": 177.3541580518799,
+      "disagreement_deg": 10.221672297219827
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_010",
+      "robot_deg": 76.77625142905853,
+      "camera_deg": 8.048833992329726,
+      "camera_deg_if_one_board_order_reversed": 174.36003537240555,
+      "disagreement_deg": 68.72741743672881
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_011",
+      "robot_deg": 115.54646263412042,
+      "camera_deg": 12.9024318095948,
+      "camera_deg_if_one_board_order_reversed": 172.70620164674486,
+      "disagreement_deg": 102.64403082452561
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_012",
+      "robot_deg": 121.48845958796726,
+      "camera_deg": 12.447134001432145,
+      "camera_deg_if_one_board_order_reversed": 172.65276429608167,
+      "disagreement_deg": 109.04132558653511
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_007",
+      "robot_deg": 73.75658425475596,
+      "camera_deg": 14.294330632620062,
+      "camera_deg_if_one_board_order_reversed": 169.60168776552797,
+      "disagreement_deg": 59.462253622135904
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_008",
+      "robot_deg": 47.67402813903444,
+      "camera_deg": 4.618383746095287,
+      "camera_deg_if_one_board_order_reversed": 177.3208886467081,
+      "disagreement_deg": 43.05564439293916
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_009",
+      "robot_deg": 56.3287512264016,
+      "camera_deg": 11.468988830925728,
+      "camera_deg_if_one_board_order_reversed": 171.9323011443858,
+      "disagreement_deg": 44.85976239547587
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_010",
+      "robot_deg": 59.89535021016969,
+      "camera_deg": 14.408763345646957,
+      "camera_deg_if_one_board_order_reversed": 168.98919135027674,
+      "disagreement_deg": 45.486586864522735
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_011",
+      "robot_deg": 70.95262747897885,
+      "camera_deg": 19.075027273584347,
+      "camera_deg_if_one_board_order_reversed": 167.56126873558446,
+      "disagreement_deg": 51.87760020539451
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_012",
+      "robot_deg": 74.39595353650341,
+      "camera_deg": 18.943424901087358,
+      "camera_deg_if_one_board_order_reversed": 167.45911511003956,
+      "disagreement_deg": 55.45252863541606
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_008",
+      "robot_deg": 27.151571022292764,
+      "camera_deg": 10.941749939061078,
+      "camera_deg_if_one_board_order_reversed": 172.51220272735458,
+      "disagreement_deg": 16.209821083231688
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_009",
+      "robot_deg": 17.54694940148019,
+      "camera_deg": 3.332309006861882,
+      "camera_deg_if_one_board_order_reversed": 177.79855486471453,
+      "disagreement_deg": 14.214640394618309
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_010",
+      "robot_deg": 74.1527813921921,
+      "camera_deg": 2.394497479156878,
+      "camera_deg_if_one_board_order_reversed": 179.2076029349804,
+      "disagreement_deg": 71.75828391303521
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_011",
+      "robot_deg": 115.26777364928202,
+      "camera_deg": 6.265157181302701,
+      "camera_deg_if_one_board_order_reversed": 177.54710299583206,
+      "disagreement_deg": 109.00261646797932
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_012",
+      "robot_deg": 121.49351595942697,
+      "camera_deg": 5.630999865324486,
+      "camera_deg_if_one_board_order_reversed": 177.53765827378828,
+      "disagreement_deg": 115.86251609410249
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_009",
+      "robot_deg": 10.987966993720306,
+      "camera_deg": 7.752578080832814,
+      "camera_deg_if_one_board_order_reversed": 174.76658188300314,
+      "disagreement_deg": 3.235388912887492
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_010",
+      "robot_deg": 65.01179604021928,
+      "camera_deg": 10.56634606500494,
+      "camera_deg_if_one_board_order_reversed": 171.83361700809218,
+      "disagreement_deg": 54.445449975214345
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_011",
+      "robot_deg": 98.62730249995528,
+      "camera_deg": 14.954631225718103,
+      "camera_deg_if_one_board_order_reversed": 170.4574145630132,
+      "disagreement_deg": 83.67267127423717
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_012",
+      "robot_deg": 104.10707465930281,
+      "camera_deg": 14.959028637933944,
+      "camera_deg_if_one_board_order_reversed": 170.38017501332243,
+      "disagreement_deg": 89.14804602136887
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_010",
+      "robot_deg": 63.43970247991293,
+      "camera_deg": 3.1831973583776287,
+      "camera_deg_if_one_board_order_reversed": 177.02810265922346,
+      "disagreement_deg": 60.256505121535305
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_011",
+      "robot_deg": 101.35003762308557,
+      "camera_deg": 7.780315463527912,
+      "camera_deg_if_one_board_order_reversed": 175.47485719586592,
+      "disagreement_deg": 93.56972215955766
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_012",
+      "robot_deg": 107.2880381998698,
+      "camera_deg": 7.536044256742362,
+      "camera_deg_if_one_board_order_reversed": 175.44866301032877,
+      "disagreement_deg": 99.75199394312745
+    },
+    {
+      "a": "pose_010",
+      "b": "pose_011",
+      "robot_deg": 47.44662716017358,
+      "camera_deg": 5.415586317958173,
+      "camera_deg_if_one_board_order_reversed": 178.44034554380818,
+      "disagreement_deg": 42.031040842215404
+    },
+    {
+      "a": "pose_010",
+      "b": "pose_012",
+      "robot_deg": 54.469515247102485,
+      "camera_deg": 5.125971352060956,
+      "camera_deg_if_one_board_order_reversed": 178.42441709170637,
+      "disagreement_deg": 49.34354389504153
+    },
+    {
+      "a": "pose_011",
+      "b": "pose_012",
+      "robot_deg": 7.0381231671555025,
+      "camera_deg": 1.0534351362441592,
+      "camera_deg_if_one_board_order_reversed": 179.97176021339723,
+      "disagreement_deg": 5.984688030911343
+    }
+  ],
+  "current_model_zero_unwrapped": [
+    1022.0,
+    1079.0,
+    77.0,
+    997.0,
+    80.0
+  ],
+  "current_model_reference_deg": [
+    0.0,
+    -13.967960079826165,
+    16.17545169197406,
+    -2.207491612147896,
+    2.7892819361809567
+  ]
+}

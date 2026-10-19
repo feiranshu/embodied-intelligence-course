@@ -1,4 +1,7 @@
+# Local environments and generated Python caches
 .venv/
+venv/
 __pycache__/
 *.py[cod]
-*.log
+.pytest_cache/
+.mypy_cache/

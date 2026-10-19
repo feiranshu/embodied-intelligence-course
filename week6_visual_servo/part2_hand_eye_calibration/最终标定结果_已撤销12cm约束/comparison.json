@@ -1,0 +1,18 @@
+{
+  "batches": [
+    {
+      "batch": "previous",
+      "rms_px": 9.165024757385254,
+      "method": "HORAUD_(-1, 1, 1)_fitted_rates",
+      "distance_mm": 120.0
+    },
+    {
+      "batch": "latest",
+      "rms_px": 26.44325065612793,
+      "method": "previous_best_fit_seed_fitted_rates",
+      "distance_mm": 120.0
+    }
+  ],
+  "selected": "previous",
+  "selection": "lowest all-corner training RMS at the same user-derived assumed distance; no samples omitted"
+}

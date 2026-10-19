@@ -1,0 +1,173 @@
+{
+  "status": "failed",
+  "completed": false,
+  "steps": [
+    {
+      "center_px": [
+        376.0,
+        268.0
+      ],
+      "depth_mm": 303.77229834837283,
+      "raw_before": [
+        817,
+        896,
+        315,
+        683,
+        846,
+        316
+      ],
+      "requested_camera_mm": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "requested_base_mm": [
+        -1.9195411588453157,
+        9.676090264748803,
+        -1.6397069640433346
+      ],
+      "feedback": {
+        "requested_mm": [
+          -1.92,
+          9.68,
+          -1.64
+        ],
+        "actual_mm": [
+          0.27,
+          8.94,
+          -1.41
+        ],
+        "projected": false
+      }
+    },
+    {
+      "center_px": [
+        383.75,
+        255.75
+      ],
+      "depth_mm": 284.54931867127317,
+      "raw_before": [
+        816,
+        897,
+        303,
+        691,
+        845,
+        316
+      ],
+      "requested_camera_mm": [
+        0.0,
+        0.0,
+        10.0
+      ],
+      "requested_base_mm": [
+        -1.8669729461258457,
+        9.715913179415534,
+        -1.4544562930847262
+      ],
+      "feedback": {
+        "requested_mm": [
+          -1.87,
+          9.72,
+          -1.45
+        ],
+        "actual_mm": [
+          0.23,
+          7.29,
+          -3.64
+        ],
+        "projected": false
+      }
+    },
+    {
+      "center_px": [
+        397.5,
+        269.0
+      ],
+      "depth_mm": 273.9690549784005,
+      "raw_before": [
+        817,
+        897,
+        294,
+        702,
+        846,
+        316
+      ],
+      "requested_camera_mm": [
+        10.0,
+        0.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        -9.133296754258385,
+        -1.1685465520453415,
+        3.9009472380892523
+      ],
+      "feedback": {
+        "requested_mm": [
+          -9.13,
+          -1.17,
+          3.9
+        ],
+        "actual_mm": [
+          -9.55,
+          -0.1,
+          3.98
+        ],
+        "projected": false
+      }
+    },
+    {
+      "center_px": [
+        387.5,
+        249.25
+      ],
+      "depth_mm": 271.5908510841695,
+      "raw_before": [
+        823,
+        896,
+        294,
+        698,
+        846,
+        316
+      ],
+      "requested_camera_mm": [
+        10.0,
+        0.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        -9.083424701135003,
+        -1.624942188980948,
+        3.853694147344889
+      ],
+      "feedback": {
+        "requested_mm": [
+          -9.08,
+          -1.62,
+          3.85
+        ],
+        "actual_mm": [
+          -9.57,
+          -0.23,
+          5.39
+        ],
+        "projected": false
+      }
+    }
+  ],
+  "requested_travel_mm": 40.0,
+  "params": {
+    "marker_id": 0,
+    "marker_mm": 40.0,
+    "step_mm": 10.0,
+    "standoff_mm": 200.0,
+    "max_steps": 30,
+    "max_travel_mm": 300.0,
+    "center_only": false
+  },
+  "hand_eye_file": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\最终标定结果\\hand_eye.json",
+  "hand_eye_sha256": "4f92be311106dbaf589b9649d5a38cbf068cb1227636a5516782fd6f99d9ebb1",
+  "empirical_mapping_used": true,
+  "physical_distance_independently_measured": false,
+  "message": "PositionHoldTimeout: 末端未达到请求位移：请求 [-8.99, -2.08, 3.85] mm，模型反馈 [-9.51, -1.28, 0.58] mm"
+}

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>第 6 周 · 手眼标定</title>
+  <style>
+    :root{color-scheme:light;--ink:#182230;--muted:#657386;--line:#d8e0e8;--blue:#1769aa;--green:#16794a;--red:#b42318;--bg:#f3f6f9;--card:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Segoe UI","Microsoft YaHei",sans-serif}
+    #feedback-warning{position:sticky;top:0;z-index:20;padding:14px 24px;background:#fff0ef;border-bottom:2px solid var(--red);color:var(--red)}#feedback-warning[hidden]{display:none}#feedback-warning ul{margin:6px 0 0;padding-left:22px}
+    header{background:#10243a;color:#fff;padding:18px 24px}header h1{margin:0;font-size:22px}header p{margin:5px 0 0;color:#c7d4e2}
+    main{max-width:1480px;margin:18px auto;padding:0 18px;display:grid;grid-template-columns:minmax(500px,1.35fr) minmax(410px,1fr);gap:16px;align-items:start}
+    section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;box-shadow:0 2px 8px #15263b0a}
+    h2{font-size:17px;margin:0 0 12px}h3{font-size:15px;margin:0 0 8px}.sub{color:var(--muted);font-size:13px}
+    .video-wrap{background:#111;border-radius:8px;overflow:hidden;min-height:260px;display:grid;place-items:center}.video-wrap img{display:block;width:100%;height:auto;max-height:72vh;object-fit:contain}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.pill{padding:4px 9px;border-radius:999px;background:#edf2f7;color:#334155;font-size:12px}.pill.ok{background:#e7f6ed;color:var(--green)}.pill.bad{background:#fff0ef;color:var(--red)}
+    #status{margin:10px 0;color:var(--muted);min-height:23px}.controls{display:grid;gap:8px}.servo{display:grid;grid-template-columns:minmax(145px,1fr) 80px 44px 44px;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid #edf0f3}.servo:last-child{border:0}.joint{font-weight:600}.raw{font:13px ui-monospace,Consolas,monospace;color:#344256;text-align:right}
+    button,select,input{font:inherit}button{border:0;border-radius:7px;padding:9px 12px;cursor:pointer;background:var(--blue);color:#fff;font-weight:600}button:hover:not(:disabled){filter:brightness(.92)}button:disabled{opacity:.42;cursor:not-allowed}button.secondary{background:#e8eef5;color:#24364a}button.danger{background:#b42318}button.jog{touch-action:none;user-select:none;-webkit-user-select:none}.servo.selected{background:#eef6ff}.step{margin-left:auto;display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px}select,input{border:1px solid var(--line);border-radius:6px;padding:7px 9px;background:#fff;color:var(--ink)}
+    #capture{width:100%;margin-top:12px;background:var(--green);padding:12px}#solve{width:100%;margin-top:10px;padding:12px}#solve:disabled{background:#66788a}.measure{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}.measure label{font-size:12px;color:var(--muted)}.measure input{width:100%;margin-top:3px}
+    .notice{background:#fff8e7;border:1px solid #f2d48b;border-radius:8px;padding:10px 12px;color:#654b13;font-size:13px;margin-top:12px}.error{color:var(--red);white-space:pre-wrap}.result{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{background:#f5f8fb;border-radius:7px;padding:9px}.metric b{display:block;font-size:18px}.matrix{width:100%;border-collapse:collapse;margin-top:10px;font:13px ui-monospace,Consolas,monospace}.matrix td{padding:4px 7px;text-align:right;border-bottom:1px solid #edf0f3}.samples{max-height:230px;overflow:auto;margin-top:10px}.sample{font:12px ui-monospace,Consolas,monospace;padding:5px 0;border-bottom:1px solid #edf0f3;color:#405168}
+    @media(max-width:1000px){main{grid-template-columns:1fr}.video-wrap{min-height:180px}}
+  </style>
+</head>
+<body>
+  <div id="feedback-warning" role="alert" aria-live="polite" hidden><strong id="feedback-warning-title">暂不能采集</strong><ul id="feedback-warning-list"></ul></div>
+  <header><h1>第 6 周 · 手眼标定</h1><p>实时检查完整棋盘，按住控制键连续调整姿态，记录 12 个视角并生成标定结果。</p></header>
+  <main>
+    <div>
+      <section>
+        <div class="row"><h2 style="margin-right:auto">实时摄像头</h2><span id="camera" class="pill">连接中</span><span id="board" class="pill">等待棋盘</span></div>
+        <div class="video-wrap"><img src="/video.mjpg" alt="实时摄像头画面"></div>
+        <div id="status">正在读取舵机位置……</div>
+        <div id="origin-status" class="sub" style="margin-bottom:10px">角点0：等待棋盘右下角的蓝圈</div>
+        <div class="row"><span id="port" class="pill">舵机串口</span><span id="motion" class="pill">空闲</span><button id="stop" class="danger" disabled onclick="post('/api/stop',{})">停止当前动作</button></div>
+        <div class="notice">按住“− / +”或方向键时关节会连续运动，松开即停止。键盘：按 1–6 选择关节，按住 ← / → 控制正 / 反方向。当前设备配置为六轴；请清空机械臂周围空间并随时准备断电。</div>
+      </section>
+      <section style="margin-top:16px">
+        <div class="row"><h2 style="margin-right:auto">六轴连续控制</h2><label class="step">连续运动步长<select id="step"><option value="4">4 ticks</option><option value="8" selected>8 ticks</option><option value="16">16 ticks</option></select></label></div>
+        <div id="servos" class="controls"></div>
+        <div class="sub">鼠标或触屏按住“− / +”持续运动，松开、切换页面或失焦时停止。手动微调不受软件映射范围拦截；显示值是原始位置反馈，舵机自身的位置模式限位仍然生效。</div>
+      </section>
+    </div>
+    <div>
+      <section>
+        <div class="row"><h2 style="margin-right:auto">姿态采集</h2><span id="count" class="pill">0 / 12 张</span></div>
+        <p class="sub">采集只要求：①检测到完整 8×6 黑白棋盘格；②关节 1–5 的读数均不在 0～30 或 1000～1022 内（含边界）。关节 6 不参与区间判断。稳定帧数、重复姿态和软件映射范围不作为采集条件；仍可控制关节调整位置。</p>
+        <button id="capture" disabled onclick="post('/api/capture',{})">采集当前姿态和棋盘照片</button>
+        <div id="capture-message" class="sub" style="margin-top:8px"></div>
+        <button id="delete-all" class="danger" style="margin-top:10px" disabled onclick="post('/api/delete-samples',{all:true})">删除全部采集记录</button>
+        <div id="samples" class="samples"></div>
+        <p class="sub">每条记录可单独删除。删除后移出采集列表并归档照片，已有标定结果同时失效，需重新求解。</p>
+      </section>
+      <section style="margin-top:16px">
+        <h2>生成手眼矩阵和误差</h2>
+        <p class="sub">记录至少 12 张后，一键运行求解。紫色“0”固定在棋盘右下角蓝圈旁的内角点，蓝圈识别位置用绿色圆圈显示。采集会保存定向后的角点顺序，求解沿用该顺序。蓝圈暂时不可见时使用相邻画面保持方向，页面会提示；首次未识别蓝圈时方向尚未确认。XYZ 可选填，单位 mm，相对机械臂基座；填写现场实测坐标后才能报告各轴绝对误差。未填写时散布值不代表真实位置误差。</p>
+        <div class="measure">
+          <label>棋盘原点 X (mm)<input id="mx" type="number" step="any" placeholder="可选"></label>
+          <label>棋盘原点 Y (mm)<input id="my" type="number" step="any" placeholder="可选"></label>
+          <label>棋盘原点 Z (mm)<input id="mz" type="number" step="any" placeholder="可选"></label>
+        </div>
+        <button id="solve" disabled onclick="solve()">12 张以上后生成手眼矩阵与误差</button>
+        <div id="solve-message" class="sub" style="margin-top:8px"></div>
+        <div id="result" class="result" hidden></div>
+        <div class="notice">求解会同时估计肩部、肘部和腕部俯仰的常量角度偏差。建议的运动学配置只写入结果 JSON，不会自动修改机械臂配置。</div>
+      </section>
+    </div>
+  </main>
+<script>
+const jointNames=['底座 / Base','肩部 / Shoulder','肘部 / Elbow','腕部 / Wrist pitch','腕部旋转 / Wrist roll','夹爪 / Gripper'];
+const servoBox=document.getElementById('servos');
+document.getElementById('samples').addEventListener('click',event=>{const button=event.target.closest('[data-delete-name]');if(button&&!button.disabled)post('/api/delete-samples',{name:button.dataset.deleteName});});
+servoBox.innerHTML=jointNames.map((name,i)=>`<div class="servo" data-joint="${i+1}"><span class="joint">ID ${i+1} · ${name}</span><span class="raw" id="raw${i+1}">—</span><button class="secondary jog" data-id="${i+1}" data-direction="-1" aria-label="ID ${i+1} 反向运动">−</button><button class="secondary jog" data-id="${i+1}" data-direction="1" aria-label="ID ${i+1} 正向运动">+</button></div>`).join('');
+let selectedJoint=1,heldSource=null;
+function selectJoint(id){selectedJoint=id;document.querySelectorAll('.servo').forEach(row=>row.classList.toggle('selected',Number(row.dataset.joint)===id));document.getElementById('status').textContent=`已选择 ID ${id} · ${jointNames[id-1]}；按住 ← / → 控制，松开停止。`;}
+function beginJog(source,id,direction){if(heldSource!==null)return;heldSource=source;post('/api/jog',{id,direction,step_ticks:Number(document.getElementById('step').value)});}
+function stopHeld(source=null){if(heldSource===null||(source!==null&&source!==heldSource))return;heldSource=null;post('/api/stop',{});}
+function requestStop(){heldSource=null;post('/api/stop',{});}
+servoBox.addEventListener('pointerdown',event=>{const button=event.target.closest('.jog');if(!button||button.disabled)return;event.preventDefault();try{button.setPointerCapture(event.pointerId);}catch{}beginJog(`pointer-${event.pointerId}`,Number(button.dataset.id),Number(button.dataset.direction));});
+servoBox.addEventListener('pointerup',event=>{if(event.target.closest('.jog'))stopHeld(`pointer-${event.pointerId}`);});
+servoBox.addEventListener('pointercancel',event=>stopHeld(`pointer-${event.pointerId}`));
+servoBox.addEventListener('lostpointercapture',event=>stopHeld(`pointer-${event.pointerId}`));
+document.getElementById('stop').addEventListener('click',requestStop);
+window.addEventListener('blur',()=>stopHeld());window.addEventListener('pagehide',()=>{if(heldSource!==null){heldSource=null;navigator.sendBeacon('/api/stop',new Blob(['{}'],{type:'application/json'}));}});document.addEventListener('visibilitychange',()=>{if(document.hidden)stopHeld();});
+window.addEventListener('keydown',event=>{if(event.target.closest('input,select,textarea,[contenteditable="true"]'))return;if(/^[1-6]$/.test(event.key)){event.preventDefault();selectJoint(Number(event.key));return;}if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();if(!event.repeat)beginJog('keyboard',selectedJoint,event.key==='ArrowLeft'?1:-1);}});
+window.addEventListener('keyup',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();stopHeld('keyboard');}});
+async function post(url,data){try{const response=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});const value=await response.json();if(!response.ok||!value.ok)throw new Error(value.error||'请求失败');if(url==='/api/capture')document.getElementById('capture-message').textContent=`已保存 ${value.name} · ${value.raw.join(', ')}（共 ${value.sample_count} 张）`;if(url==='/api/solve')document.getElementById('solve-message').textContent='求解已启动，完成后结果会显示在下方。';if(url==='/api/jog')document.getElementById('status').textContent=`ID ${value.joint_id} 持续运动中；松开按键停止`;if(url==='/api/stop'&&value.accepted)document.getElementById('status').textContent=value.message||'已请求停止';await refresh();}catch(error){document.getElementById(url==='/api/capture'?'capture-message':'status').innerHTML=`<span class="error">${escapeHtml(error.message)}</span>`;}}
+function escapeHtml(text){return String(text).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function solve(){const vals=['mx','my','mz'].map(id=>document.getElementById(id).value.trim());let origin=null;if(vals.some(Boolean)){if(!vals.every(Boolean)){document.getElementById('solve-message').textContent='请完整填写 X、Y、Z，或全部留空。';return;}origin=vals.map(Number);if(!origin.every(Number.isFinite)){document.getElementById('solve-message').textContent='坐标需要是有限数字。';return;}}await post('/api/solve',{board_origin_mm:origin});}
+function showResult(r){const box=document.getElementById('result');if(!r){box.hidden=true;return;}box.hidden=false;const M=r.T_gripper_camera||[];let matrix='<table class="matrix">'+M.map(row=>'<tr>'+row.map(v=>`<td>${Number(v).toFixed(4)}</td>`).join('')+'</tr>').join('')+'</table>';let error=r.board_origin_error_each_axis_mm?`实测坐标各轴绝对误差：${r.board_origin_error_each_axis_mm.map(v=>Number(v).toFixed(1)).join(' / ')} mm · ${r.meets_50mm_each_axis?'通过':'未通过'}`:'未填写棋盘原点实测坐标；以下散布值不代表相对真实位置误差。';box.innerHTML=`<h3>手眼矩阵 T<sub>gripper,camera</sub>（mm）</h3>${matrix}<div class="metrics"><div class="metric"><span class="sub">全链重投影 RMS</span><b>${Number(r.rms_px_selected).toFixed(2)} px</b></div><div class="metric"><span class="sub">棋盘位置散布 RMS</span><b>${Number(r.board_origin_scatter_rms_mm).toFixed(1)} mm</b></div><div class="metric"><span class="sub">棋盘方向散布 RMS</span><b>${Number(r.board_orientation_scatter_rms_deg).toFixed(1)}°</b></div><div class="metric"><span class="sub">含偏差 / 原 FK RMS</span><b>${Number(r.rms_px_with_joint_offsets).toFixed(2)} / ${Number(r.rms_px_nominal_fk).toFixed(2)} px</b></div><div class="metric"><span class="sub">ID 2–4 角度偏差</span><b>${r.joint_offsets_deg.slice(1,4).map(v=>Number(v).toFixed(1)).join(' / ')}°</b></div></div><p class="sub">${escapeHtml(error)}</p><p class="sub">结果文件：part2_hand_eye_calibration/hand_eye.json；截图：hand_eye.png</p>`;}
+async function refresh(){
+  if(location.protocol==='file:'){
+    document.getElementById('camera').textContent='本机服务未连接';
+    document.getElementById('board').textContent='请从服务地址打开';
+    document.getElementById('status').innerHTML='当前打开的是静态 HTML 文件，摄像头和舵机接口不会工作。请先按 README 启动 <code>web_app.py</code>，再访问 <a href="http://127.0.0.1:8765/">http://127.0.0.1:8765/</a>。';
+    return;
+  }
+  try{
+    const r=await fetch('/api/state',{cache:'no-store'});
+    const s=await r.json();
+    if(!s.ok)throw new Error(s.error);
+    document.getElementById('camera').textContent=`${s.camera_name} · ${s.camera_backend}`;
+    document.getElementById('board').textContent=s.board_found?`完整棋盘 · 已检测`:'未检测到完整棋盘';
+    document.getElementById('board').className='pill '+(s.board_ready?'ok':'bad');
+    const orientation=s.board_orientation||{};
+    document.getElementById('origin-status').textContent=orientation.message||'角点0：等待蓝圈定向信息（更新后需重启网页服务）';
+    document.getElementById('origin-status').style.color=orientation.marker_found?'var(--green)':'#9a6700';
+    document.getElementById('port').textContent=`串口 ${s.servo_port}`;
+    document.getElementById('count').textContent=`${s.sample_count} / 12 张`;
+    for(let i=1;i<=6;i++)document.getElementById(`raw${i}`).textContent=s.raw?s.raw[i-1]:'—';
+    const blocked=s.capture_blocked_joints||(s.raw||[]).slice(0,5).flatMap((raw,i)=>{
+      const interval=raw>=0&&raw<=30?'0～30':raw>=1000&&raw<=1022?'1000～1022':null;
+      return interval?[{id:i+1,name:jointNames[i],raw,interval}]:[];
+    });
+    const reasons=blocked.map(j=>`ID ${j.id} · ${j.name}：当前读数 ${j.raw}，位于 ${j.interval}`);
+    if(s.read_error)reasons.push(`无法读取舵机反馈：${s.read_error}`);
+    else if(!s.raw)reasons.push('尚未收到舵机位置反馈；目前无法判断哪个关节处于禁采区间。');
+    if(s.camera_error)reasons.push(`摄像头异常：${s.camera_error}`);
+    else if(!s.board_found)reasons.push('尚未检测到完整的8×6黑白棋盘格。');
+    if(s.capture_busy)reasons.push('正在保存本次采集，请稍候。');
+    if(s.solve_busy)reasons.push('正在求解，请稍候。');
+    document.getElementById('feedback-warning').hidden=reasons.length===0;
+    document.getElementById('feedback-warning-title').textContent='暂不能采集：'+(blocked.length?'关节读数位于禁采区间':'请查看以下原因');
+    document.getElementById('feedback-warning-list').innerHTML=reasons.map(reason=>`<li>${escapeHtml(reason)}</li>`).join('');
+    document.getElementById('capture').disabled=!s.can_capture;
+    document.getElementById('solve').disabled=!s.can_solve;
+    document.querySelectorAll('.jog').forEach(b=>b.disabled=s.solve_busy||(s.motion_busy&&!s.motion_active));
+    document.getElementById('stop').disabled=!s.motion_active;
+    document.getElementById('motion').textContent=s.motion_active?(s.motion_status||'持续调整中'):(s.motion_error||(s.motion_busy?'操作处理中':'空闲'));
+    document.getElementById('motion').className='pill '+(s.motion_error?'bad':s.motion_busy?'':'ok');
+    let message=s.board_found?(s.raw?(blocked.length?'棋盘已检测；请调整顶部列出的关节读数后采集。':'完整棋盘已检测，关节1–5读数符合要求，可以采集。'):'棋盘已识别，等待舵机反馈。'):'等待检测到完整棋盘。';
+    if(s.capture_busy)message='正在保存当前图像与六轴反馈……';
+    if(s.solve_busy)message='求解进行中。';
+    if(s.camera_error)message=s.camera_error;
+    if(s.read_error)message=s.read_error;
+    document.getElementById('status').textContent=message;
+    document.getElementById('solve-message').textContent=s.solve_busy?'正在优化手眼矩阵与关节偏差……':s.solve_error?`求解失败：${s.solve_error}`:s.solve_status==='complete'?'求解完成。':s.solve_status==='failed'?`求解失败：${s.solve_error}`:'';
+    const deletionBusy=s.capture_busy||s.solve_busy;
+    document.getElementById('delete-all').disabled=deletionBusy||s.sample_count===0;
+    document.getElementById('samples').innerHTML=(s.samples||[]).map(x=>`<div class="sample row"><span style="flex:1">${escapeHtml(x.name)} · [${x.raw.join(', ')}]</span><button class="danger" data-delete-name="${escapeHtml(x.name)}" ${deletionBusy?'disabled':''}>删除</button></div>`).join('');
+    showResult(s.result);
+    if(s.result&&s.result.calibration_dataset){
+      const note=document.createElement('p');
+      note.className='notice';
+      note.textContent=`最终选用数据：${s.result.calibration_dataset.label}。该结果必须与JSON中的经验角度映射配套使用；此处不是独立实测精度。`;
+      if(s.result.distance_measurement){
+        note.textContent+=` 相机至末端距离按约${s.result.distance_measurement.fit_radius_mm} mm输入约束，非独立求得的距离。`;
+      }
+      document.getElementById('result').appendChild(note);
+    }
+  }catch(error){
+    document.getElementById('capture').disabled=true;
+    document.getElementById('feedback-warning').hidden=false;
+    document.getElementById('feedback-warning-title').textContent='暂不能采集：网页服务连接异常';
+    document.getElementById('feedback-warning-list').textContent=error.message;
+    document.getElementById('status').textContent=`连接本机服务失败：${error.message}`;
+  }
+}
+selectJoint(1);setInterval(refresh,900);refresh();
+</script>
+</body>
+</html>

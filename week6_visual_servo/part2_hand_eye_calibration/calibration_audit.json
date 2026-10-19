@@ -1,0 +1,221 @@
+{
+  "sample_count": 12,
+  "excluded_trial": "pose_001 (image deleted by user; stale manifest entry removed)",
+  "seam_filter_applied": false,
+  "images": [
+    {
+      "name": "pose_002",
+      "raw": [
+        28,
+        905,
+        315,
+        783,
+        1022,
+        343
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.1621759179562651,
+      "hand_eye_reprojection_rms_px": 25.15515899658203
+    },
+    {
+      "name": "pose_003",
+      "raw": [
+        14,
+        905,
+        315,
+        783,
+        1022,
+        342
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.12531711396610415,
+      "hand_eye_reprojection_rms_px": 30.328853607177734
+    },
+    {
+      "name": "pose_004",
+      "raw": [
+        14,
+        923,
+        316,
+        784,
+        1022,
+        343
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.11512470957183189,
+      "hand_eye_reprojection_rms_px": 10.48288345336914
+    },
+    {
+      "name": "pose_005",
+      "raw": [
+        14,
+        924,
+        316,
+        782,
+        1017,
+        343
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.10521580867346765,
+      "hand_eye_reprojection_rms_px": 59.58376693725586
+    },
+    {
+      "name": "pose_006",
+      "raw": [
+        13,
+        924,
+        316,
+        782,
+        944,
+        342
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.25863221256046554,
+      "hand_eye_reprojection_rms_px": 17.89455795288086
+    },
+    {
+      "name": "pose_007",
+      "raw": [
+        14,
+        924,
+        316,
+        786,
+        1022,
+        343
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.16751541816130597,
+      "hand_eye_reprojection_rms_px": 92.91339111328125
+    },
+    {
+      "name": "pose_008",
+      "raw": [
+        0,
+        924,
+        316,
+        786,
+        1022,
+        342
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.10691343538626384,
+      "hand_eye_reprojection_rms_px": 46.47980880737305
+    },
+    {
+      "name": "pose_009",
+      "raw": [
+        0,
+        925,
+        316,
+        781,
+        1022,
+        342
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.10553412115502428,
+      "hand_eye_reprojection_rms_px": 24.79235076904297
+    },
+    {
+      "name": "pose_010",
+      "raw": [
+        0,
+        924,
+        291,
+        780,
+        1022,
+        342
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.15097499426146,
+      "hand_eye_reprojection_rms_px": 71.69251251220703
+    },
+    {
+      "name": "pose_011",
+      "raw": [
+        0,
+        925,
+        316,
+        771,
+        1022,
+        342
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.13675151960549795,
+      "hand_eye_reprojection_rms_px": 107.8320083618164
+    },
+    {
+      "name": "pose_012",
+      "raw": [
+        0,
+        925,
+        316,
+        787,
+        1018,
+        358
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.09032504222741289,
+      "hand_eye_reprojection_rms_px": 111.4614028930664
+    },
+    {
+      "name": "pose_013",
+      "raw": [
+        0,
+        925,
+        316,
+        787,
+        1022,
+        358
+      ],
+      "corners": 48,
+      "single_image_pnp_rms_px": 0.10773825176726559,
+      "hand_eye_reprojection_rms_px": 55.87510299682617
+    }
+  ],
+  "synthetic_solver_check": {
+    "known_translation_mm": [
+      40.0,
+      -20.0,
+      60.0
+    ],
+    "recovered_translation_mm": [
+      39.999999999998174,
+      -19.999999999997563,
+      60.00000000004296
+    ],
+    "matrix_max_abs_error": 4.295941380405566e-11,
+    "reprojection_rms_px": 3.4022136525670266e-12
+  },
+  "solver_candidates": {
+    "TSAI": {
+      "initial_board_corner_scatter_mm": 142.45931354405744,
+      "refined_nominal_rms_px": 80.3167611277718,
+      "refined_with_offsets_rms_px": 65.91854322023339,
+      "identity_initial_seed": true
+    },
+    "PARK": {
+      "initial_board_corner_scatter_mm": 175.44915898435306,
+      "refined_nominal_rms_px": 81.1532222780532,
+      "refined_with_offsets_rms_px": 64.17083319806073,
+      "identity_initial_seed": false
+    },
+    "HORAUD": {
+      "initial_board_corner_scatter_mm": 175.4112777877283,
+      "refined_nominal_rms_px": 80.95686437164478,
+      "refined_with_offsets_rms_px": 64.50624431445033,
+      "identity_initial_seed": false
+    },
+    "ANDREFF": {
+      "initial_board_corner_scatter_mm": 221.48929897623194,
+      "refined_nominal_rms_px": 78.5834824583244,
+      "refined_with_offsets_rms_px": 64.06644296808847,
+      "identity_initial_seed": false
+    },
+    "DANIILIDIS": {
+      "initial_board_corner_scatter_mm": 277.1943082457895,
+      "refined_nominal_rms_px": 72.27504612012827,
+      "refined_with_offsets_rms_px": 72.27504612012827,
+      "identity_initial_seed": false
+    }
+  }
+}

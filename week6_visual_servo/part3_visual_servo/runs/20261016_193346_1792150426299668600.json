@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "completed": false,
+  "steps": [],
+  "requested_travel_mm": 0.0,
+  "params": {
+    "marker_id": 0,
+    "marker_mm": 40.0,
+    "step_mm": 10.0,
+    "standoff_mm": 200.0,
+    "max_steps": 0,
+    "max_travel_mm": 0.0,
+    "center_only": true,
+    "center_region_percent": 20.0
+  },
+  "hand_eye_file": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\最终标定结果\\hand_eye.json",
+  "hand_eye_sha256": "4f92be311106dbaf589b9649d5a38cbf068cb1227636a5516782fd6f99d9ebb1",
+  "empirical_mapping_used": true,
+  "physical_distance_independently_measured": false,
+  "message": "ValueError: 目标或当前姿态超出已配置关节限位：ID 4 腕部俯仰：原始读数 670，连续读数 670，允许范围 680～1007；起点须在已标定范围内，可用‘回到预设姿态’进入末端工作范围；方向按钮不会自动调整起点"
+}

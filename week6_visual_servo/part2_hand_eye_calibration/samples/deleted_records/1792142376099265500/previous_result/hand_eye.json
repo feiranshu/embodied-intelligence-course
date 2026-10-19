@@ -1,0 +1,173 @@
+{
+  "T_gripper_camera": [
+    [
+      -0.33913086018159216,
+      0.4144732939763216,
+      -0.8445129651183046,
+      865.0276119065317
+    ],
+    [
+      -0.05109688376066848,
+      0.8882713197226273,
+      0.45646814897446086,
+      -687.5910937689243
+    ],
+    [
+      0.9393505033492248,
+      0.1979544168202356,
+      -0.2800619230079632,
+      385.9570104430121
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "units": "mm",
+  "frames": "T_gripper_camera maps OpenCV camera coordinates to gripper_frame_link coordinates; translation in mm",
+  "samples": [
+    "pose_001",
+    "pose_002",
+    "pose_003",
+    "pose_004",
+    "pose_005",
+    "pose_006",
+    "pose_007",
+    "pose_008",
+    "pose_009",
+    "pose_010",
+    "pose_011",
+    "pose_012"
+  ],
+  "estimated_board_origin_base_mm": [
+    131.5985864204886,
+    15.248829099165313,
+    81.3885718831349
+  ],
+  "board_origin_scatter_rms_mm": 203.46821163308653,
+  "board_orientation_scatter_rms_deg": 77.69033754530248,
+  "camera_translation_in_gripper_mm": [
+    865.0276119065317,
+    -687.5910937689243,
+    385.9570104430121
+  ],
+  "camera_origin_distance_to_gripper_mm": 1170.4772938853494,
+  "distance_definition": "Euclidean distance from camera optical origin to URDF gripper_frame_link origin, in mm; not housing-to-finger clearance.",
+  "T_base_board": [
+    [
+      0.9994198474710373,
+      0.0293934057863186,
+      -0.01720453943728367,
+      131.5985864204886
+    ],
+    [
+      -0.031045812971473474,
+      0.5785259077752107,
+      -0.8150729608628962,
+      15.248829099165313
+    ],
+    [
+      -0.01400449848829034,
+      0.8151342231369929,
+      0.5791028166853813,
+      81.3885718831349
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "joint_offsets_deg": [
+    0.0,
+    13.397107696573473,
+    68.26796981382041,
+    -81.23285561957931,
+    0.0
+  ],
+  "rms_px_nominal_fk": 77.73140017339625,
+  "rms_px_with_joint_offsets": 76.75509506251396,
+  "rms_px_selected": 76.75509506251396,
+  "selected_hand_eye_method": "HORAUD",
+  "solver_candidates": {
+    "TSAI": {
+      "initial_board_corner_scatter_mm": 613.793779154674,
+      "refined_nominal_rms_px": 245.8407343518699,
+      "refined_with_offsets_rms_px": 234.9294885350354,
+      "identity_initial_seed": true
+    },
+    "PARK": {
+      "initial_board_corner_scatter_mm": 271.8778938520911,
+      "refined_nominal_rms_px": 100.88533008514612,
+      "refined_with_offsets_rms_px": 96.77958562860478,
+      "identity_initial_seed": false
+    },
+    "HORAUD": {
+      "initial_board_corner_scatter_mm": 270.9440268792999,
+      "refined_nominal_rms_px": 77.73140017339625,
+      "refined_with_offsets_rms_px": 76.75509506251396,
+      "identity_initial_seed": false
+    },
+    "ANDREFF": {
+      "initial_board_corner_scatter_mm": 417.12780912948597,
+      "refined_nominal_rms_px": 99.8777029949906,
+      "refined_with_offsets_rms_px": 99.8777029949906,
+      "identity_initial_seed": false
+    },
+    "DANIILIDIS": {
+      "initial_board_corner_scatter_mm": 361.37403015203427,
+      "refined_nominal_rms_px": 182.30440431688243,
+      "refined_with_offsets_rms_px": 91.03143535187294,
+      "identity_initial_seed": false
+    }
+  },
+  "per_image_rms_px": {
+    "pose_001": 135.1317138671875,
+    "pose_002": 126.85991668701172,
+    "pose_003": 117.02218627929688,
+    "pose_004": 59.94203567504883,
+    "pose_005": 65.33560180664062,
+    "pose_006": 61.699127197265625,
+    "pose_007": 34.898189544677734,
+    "pose_008": 28.075422286987305,
+    "pose_009": 43.54253005981445,
+    "pose_010": 43.281288146972656,
+    "pose_011": 50.96549987792969,
+    "pose_012": 51.0543212890625
+  },
+  "joint_offset_std_deg": {
+    "2": 4.203698653161725,
+    "3": 8.985507051638537,
+    "4": 8.939257461335814
+  },
+  "unobservable_offset_joint_ids": [
+    2,
+    3,
+    4
+  ],
+  "camera_rpy_deg_in_gripper": [
+    144.74642300470265,
+    -69.94276645076489,
+    -171.43168851860005
+  ],
+  "rpy_convention": "R = Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+  "kinematics_patch_suggestion": {
+    "zero_raw": [
+      1022,
+      899,
+      123,
+      732,
+      80
+    ],
+    "reference_angles_deg": [
+      0.0,
+      52.21507137041301,
+      70.95368543541325,
+      -161.15295720240172,
+      2.7892819361809567
+    ]
+  }
+}

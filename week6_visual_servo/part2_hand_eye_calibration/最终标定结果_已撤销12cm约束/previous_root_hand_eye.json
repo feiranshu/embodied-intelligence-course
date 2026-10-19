@@ -1,0 +1,168 @@
+{
+  "T_gripper_camera": [
+    [
+      0.783490483953363,
+      -0.5720320041275364,
+      0.242738640946099,
+      49.69735225533855
+    ],
+    [
+      0.5856139960425215,
+      0.8103561444994603,
+      0.019472203549666174,
+      -0.5681229506808572
+    ],
+    [
+      -0.20784347281941448,
+      0.12689485933560954,
+      0.9698962756298022,
+      -109.22385460659089
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "units": "mm",
+  "frames": "T_gripper_camera maps OpenCV camera coordinates to gripper_frame_link coordinates; translation in mm",
+  "samples": [
+    "pose_001",
+    "pose_002",
+    "pose_003",
+    "pose_004",
+    "pose_005",
+    "pose_006",
+    "pose_007",
+    "pose_008",
+    "pose_009",
+    "pose_010",
+    "pose_011",
+    "pose_012"
+  ],
+  "estimated_board_origin_base_mm": [
+    463.69129836205906,
+    -1134.4123586526166,
+    999.0744633847947
+  ],
+  "board_origin_scatter_rms_mm": 23.422351876379203,
+  "board_orientation_scatter_rms_deg": 4.630372054089796,
+  "camera_translation_in_gripper_mm": [
+    49.69735225533855,
+    -0.5681229506808572,
+    -109.22385460659089
+  ],
+  "camera_origin_distance_to_gripper_mm": 120.0,
+  "distance_definition": "Euclidean distance from camera optical origin to URDF gripper_frame_link origin, in mm; not housing-to-finger clearance.",
+  "T_base_board": [
+    [
+      -0.9433397647443971,
+      -0.08910097803124237,
+      0.31964214985802747,
+      463.69129836205906
+    ],
+    [
+      -0.1658460189864757,
+      -0.707736746301895,
+      -0.6867341522891846,
+      -1134.4123586526166
+    ],
+    [
+      0.2874111797378856,
+      -0.7008350117166546,
+      0.6528591732631122,
+      999.0744633847947
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "joint_offsets_deg": [
+    0.0,
+    23.692369976909895,
+    7.0265806392698344,
+    -14.120910498649295,
+    0.0
+  ],
+  "rms_px_nominal_fk": 55.671664259198224,
+  "rms_px_with_joint_offsets": 9.165024757385254,
+  "rms_px_selected": 9.165024757385254,
+  "selected_hand_eye_method": "HORAUD_(-1, 1, 1)_fitted_rates + measured-length-constrained empirical fit",
+  "per_image_rms_px": {
+    "pose_001": 9.797346115112305,
+    "pose_002": 1.8982669115066528,
+    "pose_003": 6.389673233032227,
+    "pose_004": 11.700135231018066,
+    "pose_005": 12.635397911071777,
+    "pose_006": 7.172338962554932,
+    "pose_007": 13.098694801330566,
+    "pose_008": 2.1429405212402344,
+    "pose_009": 10.187950134277344,
+    "pose_010": 9.792404174804688,
+    "pose_011": 7.526488304138184,
+    "pose_012": 9.330718040466309
+  },
+  "camera_rpy_deg_in_gripper": [
+    7.453865705040896,
+    11.996004105697503,
+    36.77599650700722
+  ],
+  "rpy_convention": "R = Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+  "calibrated_joint_mapping": {
+    "raw_reference_unwrapped": [
+      1331.5,
+      901.0,
+      159.0,
+      656.0,
+      -124.0
+    ],
+    "angle_reference_deg": [
+      90.76246334310852,
+      61.923823386819805,
+      -0.8448884898704799,
+      -116.3284021107972,
+      -57.03476498464017
+    ],
+    "signed_degrees_per_raw": [
+      -0.2932551319648094,
+      0.2932551319648094,
+      0.29271819931571963,
+      0.2931716018986405,
+      0.29884719365182266
+    ],
+    "unwrap_config": "inputs/advanced.json"
+  },
+  "empirical_mapping_required": true,
+  "calibration_dataset": {
+    "label": "上一轮ID1基本固定的12组蓝圈样本（约12cm距离约束）",
+    "snapshot_folder": "inputs",
+    "manifest_sha256": "b62062957be20fa7403980ed767f0e5816c6cc54cc5233a7253e963450fe80aa",
+    "selection": "minimum tested all-corner RMS at the same 120 mm user distance assumption",
+    "comparison_file": "comparison.json"
+  },
+  "distance_measurement": {
+    "user_approximate_mm": 120.0,
+    "fit_radius_mm": 120.0,
+    "mode": "fixed length assumed from approximate user measurement",
+    "uncertainty_mm": null,
+    "independently_validates_fitted_distance": false,
+    "frame_assumption": "User approximate distance interpreted as optical-origin to gripper_frame_link origin"
+  },
+  "assessment": {
+    "status": "best_tested_fit_with_user_distance_assumption",
+    "independent_accuracy_validated": false,
+    "camera_distance_independently_measured": false,
+    "training_samples": 12,
+    "all_samples_used": true,
+    "weakly_excited_joint_ids": [
+      1,
+      2
+    ],
+    "weak_joint_directions_not_identified": true,
+    "note": "Distance is an input assumption, not an independently recovered result. Embedded empirical FK mapping required."
+  }
+}

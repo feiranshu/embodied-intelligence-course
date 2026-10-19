@@ -1,0 +1,1500 @@
+{
+  "intrinsics_saved_rms_px": 0.4976017942021069,
+  "square_mm": 25.0,
+  "fk_source": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week4\\so101_scs215_portable",
+  "samples": [
+    {
+      "name": "pose_002",
+      "raw": [
+        28,
+        905,
+        315,
+        783,
+        1022,
+        343
+      ],
+      "angles_deg": [
+        8.797653958944283,
+        37.05843288205068,
+        -53.61926971565059,
+        -64.96408985261711,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        315.07939920983875,
+        -39.87614737876206,
+        389.407611673081
+      ],
+      "pnp_rms_px": 0.16217707097530365,
+      "board_depth_mm": 1753.2560881675593,
+      "board_width_px": 96.4888916015625,
+      "board_center_px": [
+        207.3328399658203,
+        282.521240234375
+      ]
+    },
+    {
+      "name": "pose_003",
+      "raw": [
+        14,
+        905,
+        315,
+        783,
+        1022,
+        342
+      ],
+      "angles_deg": [
+        4.69208211143695,
+        37.05843288205068,
+        -53.61926971565059,
+        -64.96408985261711,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        317.2253563509078,
+        -19.99627827348603,
+        389.40766442608367
+      ],
+      "pnp_rms_px": 0.1253180056810379,
+      "board_depth_mm": 1745.2253246795935,
+      "board_width_px": 96.55067443847656,
+      "board_center_px": [
+        245.57476806640625,
+        339.97100830078125
+      ]
+    },
+    {
+      "name": "pose_004",
+      "raw": [
+        14,
+        923,
+        316,
+        784,
+        1022,
+        343
+      ],
+      "angles_deg": [
+        4.69208211143695,
+        31.779840506684103,
+        -53.912524847615394,
+        -64.6708347206523,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        290.87817729652244,
+        -17.834038551221155,
+        411.760457854275
+      ],
+      "pnp_rms_px": 0.11512257158756256,
+      "board_depth_mm": 1772.1364894101803,
+      "board_width_px": 94.6240234375,
+      "board_center_px": [
+        321.0840148925781,
+        252.3299560546875
+      ]
+    },
+    {
+      "name": "pose_005",
+      "raw": [
+        14,
+        924,
+        316,
+        782,
+        1017,
+        343
+      ],
+      "angles_deg": [
+        4.69208211143695,
+        31.486585374719297,
+        -53.912524847615394,
+        -65.25734498458192,
+        -22.723914544757463
+      ],
+      "fk_xyz_mm": [
+        287.6861130288872,
+        -17.38555490260672,
+        413.04627760746234
+      ],
+      "pnp_rms_px": 0.10521487891674042,
+      "board_depth_mm": 1763.3729652927889,
+      "board_width_px": 95.22887420654297,
+      "board_center_px": [
+        350.8528747558594,
+        297.4943542480469
+      ]
+    },
+    {
+      "name": "pose_006",
+      "raw": [
+        13,
+        924,
+        316,
+        782,
+        944,
+        342
+      ],
+      "angles_deg": [
+        4.398826979472141,
+        31.486585374719297,
+        -53.912524847615394,
+        -65.25734498458192,
+        -44.13153917818855
+      ],
+      "fk_xyz_mm": [
+        286.29485241221676,
+        -13.575464914593109,
+        413.1137142285777
+      ],
+      "pnp_rms_px": 0.25863298773765564,
+      "board_depth_mm": 1736.9766227070288,
+      "board_width_px": 99.8331298828125,
+      "board_center_px": [
+        227.18548583984375,
+        94.93026733398438
+      ]
+    },
+    {
+      "name": "pose_007",
+      "raw": [
+        14,
+        924,
+        316,
+        786,
+        1022,
+        343
+      ],
+      "angles_deg": [
+        4.69208211143695,
+        31.486585374719297,
+        -53.912524847615394,
+        -64.08432445672268,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        290.98742111218934,
+        -17.843006702490573,
+        412.72864206428216
+      ],
+      "pnp_rms_px": 0.16751675307750702,
+      "board_depth_mm": 1769.7046937733617,
+      "board_width_px": 95.56173706054688,
+      "board_center_px": [
+        290.1570739746094,
+        173.4990692138672
+      ]
+    },
+    {
+      "name": "pose_008",
+      "raw": [
+        0,
+        924,
+        316,
+        786,
+        1022,
+        342
+      ],
+      "angles_deg": [
+        0.5865102639296188,
+        31.486585374719297,
+        -53.912524847615394,
+        -64.08432445672268,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        291.61774763074567,
+        0.2554696222773529,
+        412.7286900902098
+      ],
+      "pnp_rms_px": 0.10691387951374054,
+      "board_depth_mm": 1763.8133260642878,
+      "board_width_px": 95.06382751464844,
+      "board_center_px": [
+        365.8438415527344,
+        290.1662292480469
+      ]
+    },
+    {
+      "name": "pose_009",
+      "raw": [
+        0,
+        925,
+        316,
+        781,
+        1022,
+        342
+      ],
+      "angles_deg": [
+        0.5865102639296188,
+        31.19333024275448,
+        -53.912524847615394,
+        -65.55060011654673,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        286.03653306033704,
+        0.312564632474551,
+        414.2247759265803
+      ],
+      "pnp_rms_px": 0.10553396493196487,
+      "board_depth_mm": 1761.3716783667014,
+      "board_width_px": 95.3494873046875,
+      "board_center_px": [
+        339.376220703125,
+        307.54595947265625
+      ]
+    },
+    {
+      "name": "pose_010",
+      "raw": [
+        0,
+        924,
+        291,
+        780,
+        1022,
+        342
+      ],
+      "angles_deg": [
+        0.5865102639296188,
+        31.486585374719297,
+        -46.581146548495155,
+        -65.84385524851153,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        313.10179121289804,
+        0.03572484723642777,
+        394.2118065949887
+      ],
+      "pnp_rms_px": 0.1509736329317093,
+      "board_depth_mm": 1723.2908350043538,
+      "board_width_px": 98.09403991699219,
+      "board_center_px": [
+        174.2373809814453,
+        328.3287353515625
+      ]
+    },
+    {
+      "name": "pose_011",
+      "raw": [
+        0,
+        925,
+        316,
+        771,
+        1022,
+        342
+      ],
+      "angles_deg": [
+        0.5865102639296188,
+        31.19333024275448,
+        -53.912524847615394,
+        -68.48315143619483,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        277.8899705664362,
+        0.3959074808454148,
+        414.6360246541714
+      ],
+      "pnp_rms_px": 0.13674932718276978,
+      "board_depth_mm": 1761.9971033608049,
+      "board_width_px": 95.4784927368164,
+      "board_center_px": [
+        268.25164794921875,
+        272.6265563964844
+      ]
+    },
+    {
+      "name": "pose_012",
+      "raw": [
+        0,
+        925,
+        316,
+        787,
+        1018,
+        358
+      ],
+      "angles_deg": [
+        0.5865102639296188,
+        31.19333024275448,
+        -53.912524847615394,
+        -63.79106932475787,
+        -22.43065941279265
+      ],
+      "fk_xyz_mm": [
+        290.84890456345283,
+        0.4122172441896592,
+        413.78196131253645
+      ],
+      "pnp_rms_px": 0.09032686799764633,
+      "board_depth_mm": 1741.511465114672,
+      "board_width_px": 97.08819580078125,
+      "board_center_px": [
+        416.4720153808594,
+        335.1264343261719
+      ]
+    },
+    {
+      "name": "pose_013",
+      "raw": [
+        0,
+        925,
+        316,
+        787,
+        1022,
+        358
+      ],
+      "angles_deg": [
+        0.5865102639296188,
+        31.19333024275448,
+        -53.912524847615394,
+        -63.79106932475787,
+        -21.257638884933417
+      ],
+      "fk_xyz_mm": [
+        290.9106140228574,
+        0.2627012141321696,
+        413.7781055799619
+      ],
+      "pnp_rms_px": 0.10773833841085434,
+      "board_depth_mm": 1765.5986870050228,
+      "board_width_px": 94.88264465332031,
+      "board_center_px": [
+        367.0122985839844,
+        266.1996765136719
+      ]
+    }
+  ],
+  "pairs": [
+    {
+      "a": "pose_002",
+      "b": "pose_003",
+      "robot_rotation_deg": 4.105571847507456,
+      "camera_rotation_deg": 2.7573798778236482,
+      "rotation_disagreement_deg": 1.3481919696838074,
+      "corner_displacement_rms_px": 69.01749420166016,
+      "raw_delta": [
+        -14,
+        0,
+        0,
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_004",
+      "robot_rotation_deg": 6.68635421856867,
+      "camera_rotation_deg": 4.527151622811843,
+      "rotation_disagreement_deg": 2.1592025957568275,
+      "corner_displacement_rms_px": 117.69632720947266,
+      "raw_delta": [
+        -14,
+        18,
+        1,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_005",
+      "robot_rotation_deg": 8.300897848524833,
+      "camera_rotation_deg": 6.473938904036073,
+      "rotation_disagreement_deg": 1.8269589444887604,
+      "corner_displacement_rms_px": 144.3130340576172,
+      "raw_delta": [
+        -14,
+        19,
+        1,
+        -1,
+        -5,
+        0
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_006",
+      "robot_rotation_deg": 27.935714531673383,
+      "camera_rotation_deg": 6.940279604622036,
+      "rotation_disagreement_deg": 20.99543492705135,
+      "corner_displacement_rms_px": 188.65911865234375,
+      "raw_delta": [
+        -15,
+        19,
+        1,
+        -1,
+        -78,
+        -1
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_007",
+      "robot_rotation_deg": 6.457450816704207,
+      "camera_rotation_deg": 5.032558709935055,
+      "rotation_disagreement_deg": 1.4248921067691525,
+      "corner_displacement_rms_px": 136.9178466796875,
+      "raw_delta": [
+        -14,
+        19,
+        1,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_008",
+      "robot_rotation_deg": 9.60384875895823,
+      "camera_rotation_deg": 6.570464691284096,
+      "rotation_disagreement_deg": 3.0333840676741346,
+      "corner_displacement_rms_px": 158.69839477539062,
+      "raw_delta": [
+        -28,
+        19,
+        1,
+        3,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_009",
+      "robot_rotation_deg": 10.622533528791228,
+      "camera_rotation_deg": 5.47336747560758,
+      "rotation_disagreement_deg": 5.149166053183649,
+      "corner_displacement_rms_px": 134.3970947265625,
+      "raw_delta": [
+        -28,
+        20,
+        1,
+        -2,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_010",
+      "robot_rotation_deg": 8.23202806819716,
+      "camera_rotation_deg": 1.5952931047893386,
+      "rotation_disagreement_deg": 6.636734963407821,
+      "corner_displacement_rms_px": 56.52284622192383,
+      "raw_delta": [
+        -28,
+        19,
+        -24,
+        -3,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_011",
+      "robot_rotation_deg": 12.685223981979762,
+      "camera_rotation_deg": 1.953390360520293,
+      "rotation_disagreement_deg": 10.731833621459469,
+      "corner_displacement_rms_px": 61.72017288208008,
+      "raw_delta": [
+        -28,
+        20,
+        1,
+        -12,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_012",
+      "robot_rotation_deg": 10.619499657571717,
+      "camera_rotation_deg": 10.344190357562747,
+      "rotation_disagreement_deg": 0.2753093000089706,
+      "corner_displacement_rms_px": 215.6710968017578,
+      "raw_delta": [
+        -28,
+        20,
+        1,
+        4,
+        -4,
+        15
+      ]
+    },
+    {
+      "a": "pose_002",
+      "b": "pose_013",
+      "robot_rotation_deg": 9.60384875895823,
+      "camera_rotation_deg": 6.701139506105438,
+      "rotation_disagreement_deg": 2.9027092528527927,
+      "corner_displacement_rms_px": 160.5166473388672,
+      "raw_delta": [
+        -28,
+        20,
+        1,
+        4,
+        0,
+        15
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_004",
+      "robot_rotation_deg": 5.278592375366782,
+      "camera_rotation_deg": 4.759279627586413,
+      "rotation_disagreement_deg": 0.5193127477803685,
+      "corner_displacement_rms_px": 115.68762969970703,
+      "raw_delta": [
+        0,
+        18,
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_005",
+      "robot_rotation_deg": 6.330339504349346,
+      "camera_rotation_deg": 5.279916508384824,
+      "rotation_disagreement_deg": 1.0504229959645217,
+      "corner_displacement_rms_px": 113.53429412841797,
+      "raw_delta": [
+        0,
+        19,
+        1,
+        -1,
+        -5,
+        1
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_006",
+      "robot_rotation_deg": 23.96003139913214,
+      "camera_rotation_deg": 9.664295789965484,
+      "rotation_disagreement_deg": 14.295735609166657,
+      "corner_displacement_rms_px": 245.7524871826172,
+      "raw_delta": [
+        -1,
+        19,
+        1,
+        -1,
+        -78,
+        0
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_007",
+      "robot_rotation_deg": 4.985337243402002,
+      "camera_rotation_deg": 7.148889539753496,
+      "rotation_disagreement_deg": 2.1635522963514937,
+      "corner_displacement_rms_px": 172.34323120117188,
+      "raw_delta": [
+        0,
+        19,
+        1,
+        3,
+        0,
+        1
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_008",
+      "robot_rotation_deg": 6.457450816704207,
+      "camera_rotation_deg": 5.877018391448849,
+      "rotation_disagreement_deg": 0.5804324252553581,
+      "corner_displacement_rms_px": 130.17633056640625,
+      "raw_delta": [
+        -14,
+        19,
+        1,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_009",
+      "robot_rotation_deg": 7.894902991750435,
+      "camera_rotation_deg": 4.355471968813884,
+      "rotation_disagreement_deg": 3.539431022936551,
+      "corner_displacement_rms_px": 99.25048828125,
+      "raw_delta": [
+        -14,
+        20,
+        1,
+        -2,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_010",
+      "robot_rotation_deg": 4.147236101784603,
+      "camera_rotation_deg": 3.0940852529780694,
+      "rotation_disagreement_deg": 1.053150848806534,
+      "corner_displacement_rms_px": 72.29535675048828,
+      "raw_delta": [
+        -14,
+        19,
+        -24,
+        -3,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_011",
+      "robot_rotation_deg": 10.510379211791443,
+      "camera_rotation_deg": 2.862870175382437,
+      "rotation_disagreement_deg": 7.647509036409007,
+      "corner_displacement_rms_px": 71.0665054321289,
+      "raw_delta": [
+        -14,
+        20,
+        1,
+        -12,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_012",
+      "robot_rotation_deg": 7.256455325048487,
+      "camera_rotation_deg": 8.6710797690936,
+      "rotation_disagreement_deg": 1.4146244440451134,
+      "corner_displacement_rms_px": 170.9798583984375,
+      "raw_delta": [
+        -14,
+        20,
+        1,
+        4,
+        -4,
+        16
+      ]
+    },
+    {
+      "a": "pose_003",
+      "b": "pose_013",
+      "robot_rotation_deg": 6.457450816704207,
+      "camera_rotation_deg": 6.353118899512087,
+      "rotation_disagreement_deg": 0.10433191719211976,
+      "corner_displacement_rms_px": 142.09239196777344,
+      "raw_delta": [
+        -14,
+        20,
+        1,
+        4,
+        0,
+        16
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_005",
+      "robot_rotation_deg": 1.7099414477920405,
+      "camera_rotation_deg": 3.0442765352269663,
+      "rotation_disagreement_deg": 1.3343350874349258,
+      "corner_displacement_rms_px": 54.10198211669922,
+      "raw_delta": [
+        0,
+        1,
+        0,
+        -2,
+        -5,
+        0
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_006",
+      "robot_rotation_deg": 23.183296330949727,
+      "camera_rotation_deg": 8.660361264421228,
+      "rotation_disagreement_deg": 14.522935066528499,
+      "corner_displacement_rms_px": 183.31797790527344,
+      "raw_delta": [
+        -1,
+        1,
+        0,
+        -2,
+        -78,
+        -1
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_007",
+      "robot_rotation_deg": 0.293255131967735,
+      "camera_rotation_deg": 4.331075556431803,
+      "rotation_disagreement_deg": 4.037820424464068,
+      "corner_displacement_rms_px": 84.68978118896484,
+      "raw_delta": [
+        0,
+        1,
+        0,
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_008",
+      "robot_rotation_deg": 4.116027449775358,
+      "camera_rotation_deg": 2.8158648982929577,
+      "rotation_disagreement_deg": 1.3001625514824005,
+      "corner_displacement_rms_px": 58.61051559448242,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        2,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_009",
+      "robot_rotation_deg": 4.3594454340902615,
+      "camera_rotation_deg": 2.756155561517886,
+      "rotation_disagreement_deg": 1.6032898725723754,
+      "corner_displacement_rms_px": 58.169029235839844,
+      "raw_delta": [
+        -14,
+        2,
+        0,
+        -3,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_010",
+      "robot_rotation_deg": 7.158241861383667,
+      "camera_rotation_deg": 5.969803650898061,
+      "rotation_disagreement_deg": 1.1884382104856055,
+      "corner_displacement_rms_px": 165.36337280273438,
+      "raw_delta": [
+        -14,
+        1,
+        -25,
+        -4,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_011",
+      "robot_rotation_deg": 6.0164040880776035,
+      "camera_rotation_deg": 2.8773775479685058,
+      "rotation_disagreement_deg": 3.1390265401090978,
+      "corner_displacement_rms_px": 56.607093811035156,
+      "raw_delta": [
+        -14,
+        2,
+        0,
+        -13,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_012",
+      "robot_rotation_deg": 5.285179246309821,
+      "camera_rotation_deg": 6.8774694210477225,
+      "rotation_disagreement_deg": 1.5922901747379017,
+      "corner_displacement_rms_px": 126.32518768310547,
+      "raw_delta": [
+        -14,
+        2,
+        0,
+        3,
+        -4,
+        15
+      ]
+    },
+    {
+      "a": "pose_004",
+      "b": "pose_013",
+      "robot_rotation_deg": 4.116027449775358,
+      "camera_rotation_deg": 2.3651627864083364,
+      "rotation_disagreement_deg": 1.7508646633670217,
+      "corner_displacement_rms_px": 47.97722244262695,
+      "raw_delta": [
+        -14,
+        2,
+        0,
+        3,
+        0,
+        15
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_006",
+      "robot_rotation_deg": 21.700643347836344,
+      "camera_rotation_deg": 11.663547697903319,
+      "rotation_disagreement_deg": 10.037095649933025,
+      "corner_displacement_rms_px": 237.3748321533203,
+      "raw_delta": [
+        -1,
+        0,
+        0,
+        0,
+        -73,
+        -1
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_007",
+      "robot_rotation_deg": 1.8777256859106355,
+      "camera_rotation_deg": 7.3611866216708535,
+      "rotation_disagreement_deg": 5.483460935760218,
+      "corner_displacement_rms_px": 138.07144165039062,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        4,
+        5,
+        0
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_008",
+      "robot_rotation_deg": 2.8907476225375874,
+      "camera_rotation_deg": 2.2676143239109035,
+      "rotation_disagreement_deg": 0.623133298626684,
+      "corner_displacement_rms_px": 16.73845100402832,
+      "raw_delta": [
+        -14,
+        0,
+        0,
+        4,
+        5,
+        -1
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_009",
+      "robot_rotation_deg": 2.7050267937136816,
+      "camera_rotation_deg": 2.0831911354652086,
+      "rotation_disagreement_deg": 0.621835658248473,
+      "corner_displacement_rms_px": 15.315086364746094,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        -1,
+        5,
+        -1
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_010",
+      "robot_rotation_deg": 7.244961860457346,
+      "camera_rotation_deg": 7.6821198898367795,
+      "rotation_disagreement_deg": 0.43715802937943327,
+      "corner_displacement_rms_px": 179.31044006347656,
+      "raw_delta": [
+        -14,
+        0,
+        -25,
+        -2,
+        5,
+        -1
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_011",
+      "robot_rotation_deg": 4.398001630151548,
+      "camera_rotation_deg": 4.9435886804242335,
+      "rotation_disagreement_deg": 0.5455870502726858,
+      "corner_displacement_rms_px": 86.28687286376953,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        -11,
+        5,
+        -1
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_012",
+      "robot_rotation_deg": 3.989008560238246,
+      "camera_rotation_deg": 4.018657989802249,
+      "rotation_disagreement_deg": 0.02964942956400307,
+      "corner_displacement_rms_px": 75.65139770507812,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        5,
+        1,
+        15
+      ]
+    },
+    {
+      "a": "pose_005",
+      "b": "pose_013",
+      "robot_rotation_deg": 2.8907476225378397,
+      "camera_rotation_deg": 2.381089443436065,
+      "rotation_disagreement_deg": 0.5096581791017747,
+      "corner_displacement_rms_px": 35.232177734375,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        5,
+        5,
+        15
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_007",
+      "robot_rotation_deg": 23.196067717439316,
+      "camera_rotation_deg": 4.693584896115429,
+      "rotation_disagreement_deg": 18.502482821323888,
+      "corner_displacement_rms_px": 100.72157287597656,
+      "raw_delta": [
+        1,
+        0,
+        0,
+        4,
+        78,
+        1
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_008",
+      "robot_rotation_deg": 19.10291118019712,
+      "camera_rotation_deg": 10.91779131156622,
+      "rotation_disagreement_deg": 8.185119868630899,
+      "corner_displacement_rms_px": 239.4881591796875,
+      "raw_delta": [
+        -13,
+        0,
+        0,
+        4,
+        78,
+        0
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_009",
+      "robot_rotation_deg": 19.073307848495155,
+      "camera_rotation_deg": 10.717037384541342,
+      "rotation_disagreement_deg": 8.356270463953813,
+      "corner_displacement_rms_px": 240.4232635498047,
+      "raw_delta": [
+        -13,
+        1,
+        0,
+        -1,
+        78,
+        0
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_010",
+      "robot_rotation_deg": 20.223046575531274,
+      "camera_rotation_deg": 7.291531722071256,
+      "rotation_disagreement_deg": 12.931514853460019,
+      "corner_displacement_rms_px": 239.34188842773438,
+      "raw_delta": [
+        -13,
+        0,
+        -25,
+        -2,
+        78,
+        0
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_011",
+      "robot_rotation_deg": 19.378856221483296,
+      "camera_rotation_deg": 7.461426804792935,
+      "rotation_disagreement_deg": 11.91742941669036,
+      "corner_displacement_rms_px": 182.40040588378906,
+      "raw_delta": [
+        -13,
+        1,
+        0,
+        -11,
+        78,
+        0
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_012",
+      "robot_rotation_deg": 17.93233124503956,
+      "camera_rotation_deg": 15.5001130201874,
+      "rotation_disagreement_deg": 2.4322182248521607,
+      "corner_displacement_rms_px": 305.8605651855469,
+      "raw_delta": [
+        -13,
+        1,
+        0,
+        5,
+        74,
+        16
+      ]
+    },
+    {
+      "a": "pose_006",
+      "b": "pose_013",
+      "robot_rotation_deg": 19.10291118019712,
+      "camera_rotation_deg": 10.552528652755472,
+      "rotation_disagreement_deg": 8.550382527441647,
+      "corner_displacement_rms_px": 221.13095092773438,
+      "raw_delta": [
+        -13,
+        1,
+        0,
+        5,
+        78,
+        16
+      ]
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_008",
+      "robot_rotation_deg": 4.105571847507634,
+      "camera_rotation_deg": 6.661365601781408,
+      "rotation_disagreement_deg": 2.5557937542737736,
+      "corner_displacement_rms_px": 139.07040405273438,
+      "raw_delta": [
+        -14,
+        0,
+        0,
+        0,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_009",
+      "robot_rotation_deg": 4.466580792667582,
+      "camera_rotation_deg": 6.773551968135886,
+      "rotation_disagreement_deg": 2.3069711754683038,
+      "corner_displacement_rms_px": 142.80043029785156,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        -5,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_010",
+      "robot_rotation_deg": 6.920109674207037,
+      "camera_rotation_deg": 6.271111685090906,
+      "rotation_disagreement_deg": 0.6489979891161308,
+      "corner_displacement_rms_px": 193.42356872558594,
+      "raw_delta": [
+        -14,
+        0,
+        -25,
+        -6,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_011",
+      "robot_rotation_deg": 6.233933978876283,
+      "camera_rotation_deg": 4.4624659571703535,
+      "rotation_disagreement_deg": 1.771468021705929,
+      "corner_displacement_rms_px": 101.51985168457031,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        -15,
+        0,
+        -1
+      ]
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_012",
+      "robot_rotation_deg": 5.276900506532373,
+      "camera_rotation_deg": 11.068458008748454,
+      "rotation_disagreement_deg": 5.791557502216081,
+      "corner_displacement_rms_px": 205.15423583984375,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        1,
+        -4,
+        15
+      ]
+    },
+    {
+      "a": "pose_007",
+      "b": "pose_013",
+      "robot_rotation_deg": 4.105571847507812,
+      "camera_rotation_deg": 6.062062657379003,
+      "rotation_disagreement_deg": 1.956490809871191,
+      "corner_displacement_rms_px": 120.42377471923828,
+      "raw_delta": [
+        -14,
+        1,
+        0,
+        1,
+        0,
+        15
+      ]
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_009",
+      "robot_rotation_deg": 1.7595307917896168,
+      "camera_rotation_deg": 1.6319103458269457,
+      "rotation_disagreement_deg": 0.12762044596267108,
+      "corner_displacement_rms_px": 31.66388511657715,
+      "raw_delta": [
+        0,
+        1,
+        0,
+        -5,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_010",
+      "robot_rotation_deg": 5.571847507331509,
+      "camera_rotation_deg": 7.704130169748962,
+      "rotation_disagreement_deg": 2.1322826624174525,
+      "corner_displacement_rms_px": 195.38043212890625,
+      "raw_delta": [
+        0,
+        0,
+        -25,
+        -6,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_011",
+      "robot_rotation_deg": 4.6920821114372036,
+      "camera_rotation_deg": 4.684901444674763,
+      "rotation_disagreement_deg": 0.007180666762440779,
+      "corner_displacement_rms_px": 99.15852355957031,
+      "raw_delta": [
+        0,
+        1,
+        0,
+        -15,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_012",
+      "robot_rotation_deg": 1.1730205278601298,
+      "camera_rotation_deg": 4.805034370350529,
+      "rotation_disagreement_deg": 3.632013842490399,
+      "corner_displacement_rms_px": 67.74628448486328,
+      "raw_delta": [
+        0,
+        1,
+        0,
+        1,
+        -4,
+        16
+      ]
+    },
+    {
+      "a": "pose_008",
+      "b": "pose_013",
+      "robot_rotation_deg": 1.7075472925031877e-06,
+      "camera_rotation_deg": 1.252146057468066,
+      "rotation_disagreement_deg": 1.2521443499207736,
+      "corner_displacement_rms_px": 23.998987197875977,
+      "raw_delta": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        16
+      ]
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_010",
+      "robot_rotation_deg": 7.331378299120321,
+      "camera_rotation_deg": 6.472615930693925,
+      "rotation_disagreement_deg": 0.8587623684263965,
+      "corner_displacement_rms_px": 166.4528045654297,
+      "raw_delta": [
+        0,
+        -1,
+        -25,
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_011",
+      "robot_rotation_deg": 2.9325513196483612,
+      "camera_rotation_deg": 3.7261751781330847,
+      "rotation_disagreement_deg": 0.7936238584847235,
+      "corner_displacement_rms_px": 79.2374038696289,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        -10,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_012",
+      "robot_rotation_deg": 2.1146708420759612,
+      "camera_rotation_deg": 5.204541687156643,
+      "rotation_disagreement_deg": 3.0898708450806813,
+      "corner_displacement_rms_px": 81.91079711914062,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        6,
+        -4,
+        16
+      ]
+    },
+    {
+      "a": "pose_009",
+      "b": "pose_013",
+      "robot_rotation_deg": 1.7595307917896168,
+      "camera_rotation_deg": 2.52896069621484,
+      "rotation_disagreement_deg": 0.7694299044252233,
+      "corner_displacement_rms_px": 49.73435592651367,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        6,
+        0,
+        16
+      ]
+    },
+    {
+      "a": "pose_010",
+      "b": "pose_011",
+      "robot_rotation_deg": 10.26392961876841,
+      "camera_rotation_deg": 3.172391424474927,
+      "rotation_disagreement_deg": 7.0915381942934825,
+      "corner_displacement_rms_px": 109.28778839111328,
+      "raw_delta": [
+        0,
+        1,
+        25,
+        -9,
+        0,
+        0
+      ]
+    },
+    {
+      "a": "pose_010",
+      "b": "pose_012",
+      "robot_rotation_deg": 5.693885253726697,
+      "camera_rotation_deg": 11.380355979745053,
+      "rotation_disagreement_deg": 5.686470726018356,
+      "corner_displacement_rms_px": 242.35427856445312,
+      "raw_delta": [
+        0,
+        1,
+        25,
+        7,
+        -4,
+        16
+      ]
+    },
+    {
+      "a": "pose_010",
+      "b": "pose_013",
+      "robot_rotation_deg": 5.571847507331509,
+      "camera_rotation_deg": 8.006386931967896,
+      "rotation_disagreement_deg": 2.4345394246363865,
+      "corner_displacement_rms_px": 202.55245971679688,
+      "raw_delta": [
+        0,
+        1,
+        25,
+        7,
+        0,
+        16
+      ]
+    },
+    {
+      "a": "pose_011",
+      "b": "pose_012",
+      "robot_rotation_deg": 4.836412204561614,
+      "camera_rotation_deg": 8.776477989398181,
+      "rotation_disagreement_deg": 3.940065784836567,
+      "corner_displacement_rms_px": 160.88424682617188,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        16,
+        -4,
+        16
+      ]
+    },
+    {
+      "a": "pose_011",
+      "b": "pose_013",
+      "robot_rotation_deg": 4.6920821114372036,
+      "camera_rotation_deg": 4.868912804316354,
+      "rotation_disagreement_deg": 0.17683069287915032,
+      "corner_displacement_rms_px": 98.97616577148438,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        16,
+        0,
+        16
+      ]
+    },
+    {
+      "a": "pose_012",
+      "b": "pose_013",
+      "robot_rotation_deg": 1.1730205278601298,
+      "camera_rotation_deg": 5.128450985563149,
+      "rotation_disagreement_deg": 3.9554304577030193,
+      "corner_displacement_rms_px": 84.85614013671875,
+      "raw_delta": [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0
+      ]
+    }
+  ],
+  "intrinsics_redetection": {
+    "count": 20,
+    "rms_px": 0.4975497689772142,
+    "K": [
+      [
+        965.428474735829,
+        0.0,
+        357.4205873987149
+      ],
+      [
+        0.0,
+        969.1979974963809,
+        179.1420034473961
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "dist": [
+      [
+        0.07387044649766235,
+        0.2654182951329654,
+        -0.005557737427403281,
+        0.000773744794570286,
+        -0.8665469209250002
+      ]
+    ]
+  },
+  "intrinsics_saved_K_redetected_rms_px": 0.49754999058457494,
+  "intrinsics_saved_K_per_image_px": [
+    1.1076191663742065,
+    0.47810524702072144,
+    0.3226974904537201,
+    0.2761726379394531,
+    0.2964057922363281,
+    0.26875537633895874,
+    0.36794131994247437,
+    0.6329235434532166,
+    0.5138731598854065,
+    0.5018568634986877,
+    0.4721611738204956,
+    0.3685878813266754,
+    0.4332813620567322,
+    0.4134681820869446,
+    0.3928110897541046,
+    0.5364400148391724,
+    0.6440977454185486,
+    0.2974379062652588,
+    0.30324339866638184,
+    0.5903279781341553
+  ],
+  "independent_urdf_max_matrix_difference": 1.1368683772161603e-13,
+  "joint_angle_span_deg": [
+    8.211143695014664,
+    5.8651026392962,
+    7.331378299120239,
+    4.69208211143696,
+    22.87390029325513
+  ],
+  "pnp_noise_sensitivity": [
+    {
+      "name": "pose_004",
+      "assumed_corner_noise_sigma_px": 0.2,
+      "median_rotation_change_deg": 0.44210178445402876,
+      "p95_rotation_change_deg": 0.9709718220749175
+    },
+    {
+      "name": "pose_007",
+      "assumed_corner_noise_sigma_px": 0.2,
+      "median_rotation_change_deg": 0.44057875612547714,
+      "p95_rotation_change_deg": 0.9192556899542665
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "recomputed_rms_px": 9.165024453629497,
+  "saved_rms_px": 9.165024757385254,
+  "sample_count": 12,
+  "per_image_rms_px": {
+    "pose_001": 9.797346115112305,
+    "pose_002": 1.8982670307159424,
+    "pose_003": 6.389673233032227,
+    "pose_004": 11.700135231018066,
+    "pose_005": 12.635397911071777,
+    "pose_006": 7.172338962554932,
+    "pose_007": 13.098695755004883,
+    "pose_008": 2.1429405212402344,
+    "pose_009": 10.187950134277344,
+    "pose_010": 9.792404174804688,
+    "pose_011": 7.526488304138184,
+    "pose_012": 9.330717086791992
+  },
+  "rotation_determinant": 0.9999999999999999,
+  "rotation_orthogonality_error": 1.1102230246251565e-16,
+  "all_board_depths_positive": true,
+  "independent_physical_accuracy_measured": false,
+  "distance_is_input_assumption": true,
+  "assumed_distance_mm": 120.0,
+  "matrix_distance_mm": 120.0
+}

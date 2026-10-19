@@ -1,0 +1,136 @@
+{
+  "status": "failed",
+  "completed": false,
+  "steps": [
+    {
+      "center_px": [
+        265.6308174133301,
+        88.27273941040039
+      ],
+      "depth_mm": 687.7470349179004,
+      "raw_before": [
+        1007,
+        900,
+        141,
+        692,
+        934,
+        302
+      ],
+      "requested_camera_mm": [
+        0.0,
+        -10.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        -5.7450094183153055,
+        3.785140073631767,
+        -7.257243375170442
+      ],
+      "feedback": {
+        "requested_mm": [
+          -5.75,
+          3.79,
+          -7.26
+        ],
+        "actual_mm": [
+          -7.46,
+          3.47,
+          -8.98
+        ],
+        "projected": false
+      }
+    },
+    {
+      "center_px": [
+        261.47455978393555,
+        150.45565605163574
+      ],
+      "depth_mm": 725.5793360832354,
+      "raw_before": [
+        1007,
+        901,
+        142,
+        698,
+        933,
+        302
+      ],
+      "requested_camera_mm": [
+        0.0,
+        -10.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        -5.435703164027387,
+        3.583703592629881,
+        -7.590138317102944
+      ],
+      "feedback": {
+        "requested_mm": [
+          -5.44,
+          3.58,
+          -7.59
+        ],
+        "actual_mm": [
+          -6.0,
+          2.83,
+          -6.94
+        ],
+        "projected": false
+      }
+    },
+    {
+      "center_px": [
+        255.54552459716797,
+        196.83779525756836
+      ],
+      "depth_mm": 716.3192721448357,
+      "raw_before": [
+        1007,
+        902,
+        142,
+        704,
+        934,
+        302
+      ],
+      "requested_camera_mm": [
+        -10.0,
+        0.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        3.7780351028462835,
+        9.12082631373099,
+        1.5927894137059038
+      ],
+      "feedback": {
+        "requested_mm": [
+          3.78,
+          9.12,
+          1.59
+        ],
+        "actual_mm": [
+          4.13,
+          8.92,
+          0.0
+        ],
+        "projected": false
+      }
+    }
+  ],
+  "requested_travel_mm": 30.0,
+  "params": {
+    "marker_id": 0,
+    "marker_mm": 40.0,
+    "step_mm": 10.0,
+    "standoff_mm": 200.0,
+    "max_steps": 0,
+    "max_travel_mm": 0.0,
+    "center_only": true,
+    "center_region_percent": 20.0
+  },
+  "hand_eye_file": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\最终标定结果\\hand_eye.json",
+  "hand_eye_sha256": "4f92be311106dbaf589b9649d5a38cbf068cb1227636a5516782fd6f99d9ebb1",
+  "empirical_mapping_used": true,
+  "physical_distance_independently_measured": false,
+  "message": "PositionHoldTimeout: 关节已停止变化，但末端仍未到达目标范围；整组动作停止"
+}

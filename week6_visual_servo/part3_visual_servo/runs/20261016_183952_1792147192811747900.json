@@ -1,0 +1,59 @@
+{
+  "status": "single_complete",
+  "completed": false,
+  "steps": [
+    {
+      "center_px": [
+        463.5,
+        281.0
+      ],
+      "depth_mm": 334.8358361844497,
+      "raw_before": [
+        816,
+        896,
+        320,
+        698,
+        846,
+        316
+      ],
+      "requested_camera_mm": [
+        10.0,
+        0.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        -9.120774946307943,
+        -0.5970395876971147,
+        4.056477302971609
+      ],
+      "feedback": {
+        "requested_mm": [
+          -9.12,
+          -0.6,
+          4.06
+        ],
+        "actual_mm": [
+          -7.27,
+          0.49,
+          3.94
+        ],
+        "projected": false
+      }
+    }
+  ],
+  "requested_travel_mm": 10.0,
+  "params": {
+    "marker_id": 0,
+    "marker_mm": 40.0,
+    "step_mm": 10.0,
+    "standoff_mm": 200.0,
+    "max_steps": 30,
+    "max_travel_mm": 300.0,
+    "center_only": false
+  },
+  "hand_eye_file": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\最终标定结果\\hand_eye.json",
+  "hand_eye_sha256": "4f92be311106dbaf589b9649d5a38cbf068cb1227636a5516782fd6f99d9ebb1",
+  "empirical_mapping_used": true,
+  "physical_distance_independently_measured": false,
+  "message": "单步完成，请观察画面后继续"
+}

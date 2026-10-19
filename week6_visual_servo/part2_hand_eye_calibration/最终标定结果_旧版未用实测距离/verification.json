@@ -1,0 +1,23 @@
+{
+  "recomputed_rms_px": 8.836372828157018,
+  "saved_rms_px": 8.836373052065976,
+  "sample_count": 12,
+  "per_image_rms_px": {
+    "pose_001": 8.931933403015137,
+    "pose_002": 1.8258363008499146,
+    "pose_003": 6.321590900421143,
+    "pose_004": 10.852974891662598,
+    "pose_005": 12.360799789428711,
+    "pose_006": 7.086910724639893,
+    "pose_007": 13.027234077453613,
+    "pose_008": 2.511564016342163,
+    "pose_009": 10.163411140441895,
+    "pose_010": 8.669934272766113,
+    "pose_011": 7.651303291320801,
+    "pose_012": 8.94871997833252
+  },
+  "rotation_determinant": 1.0,
+  "rotation_orthogonality_error": 1.1102230246251565e-16,
+  "all_board_depths_positive": true,
+  "independent_physical_accuracy_measured": false
+}

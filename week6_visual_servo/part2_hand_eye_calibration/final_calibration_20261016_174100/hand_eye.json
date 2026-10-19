@@ -1,0 +1,149 @@
+{
+  "T_gripper_camera": [
+    [
+      -0.6582851915161261,
+      -0.13261690407466892,
+      0.7409948470699559,
+      -437.27798830768484
+    ],
+    [
+      -0.6125459559273896,
+      -0.47779136378777,
+      -0.6296847342653491,
+      528.2724323913129
+    ],
+    [
+      0.43754777854261545,
+      -0.8684055328263822,
+      0.2332890311372341,
+      328.8429940862336
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "units": "mm",
+  "frames": "T_gripper_camera maps OpenCV camera coordinates to gripper_frame_link coordinates; translation in mm",
+  "samples": [
+    "pose_001",
+    "pose_002",
+    "pose_003",
+    "pose_004",
+    "pose_005",
+    "pose_006",
+    "pose_007",
+    "pose_008",
+    "pose_009",
+    "pose_010",
+    "pose_011",
+    "pose_012"
+  ],
+  "estimated_board_origin_base_mm": [
+    111.70381960744149,
+    649.3126840758954,
+    537.3600174134331
+  ],
+  "board_origin_scatter_rms_mm": 54.804259400474166,
+  "board_orientation_scatter_rms_deg": 6.3962250124657345,
+  "camera_translation_in_gripper_mm": [
+    -437.27798830768484,
+    528.2724323913129,
+    328.8429940862336
+  ],
+  "camera_origin_distance_to_gripper_mm": 760.5402794347244,
+  "distance_definition": "Euclidean distance from camera optical origin to URDF gripper_frame_link origin, in mm; not housing-to-finger clearance.",
+  "T_base_board": [
+    [
+      -0.8954497526697448,
+      -0.16900834276562626,
+      0.41183239372262775,
+      111.70381960744149
+    ],
+    [
+      0.2690186723608148,
+      0.5316467404887351,
+      0.8031069027526337,
+      649.3126840758954
+    ],
+    [
+      -0.35468111644816597,
+      0.8299324812316483,
+      -0.4305965422896034,
+      537.3600174134331
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "joint_offsets_deg": [
+    0.0,
+    -7.670505281790453,
+    178.2315062387242,
+    -138.75691712141887,
+    0.0
+  ],
+  "rms_px_nominal_fk": 50.23297286145824,
+  "rms_px_with_joint_offsets": 25.97506692123237,
+  "rms_px_selected": 25.97506692123237,
+  "selected_hand_eye_method": "DANIILIDIS + empirical mapping refinement",
+  "per_image_rms_px": {
+    "pose_001": 19.498472213745117,
+    "pose_002": 28.4738712310791,
+    "pose_003": 15.611084938049316,
+    "pose_004": 18.851245880126953,
+    "pose_005": 42.77352523803711,
+    "pose_006": 33.305049896240234,
+    "pose_007": 14.130144119262695,
+    "pose_008": 42.26752853393555,
+    "pose_009": 26.97489356994629,
+    "pose_010": 8.603140830993652,
+    "pose_011": 17.36937713623047,
+    "pose_012": 16.67519760131836
+  },
+  "camera_rpy_deg_in_gripper": [
+    -74.96304240255951,
+    -25.947524132001607,
+    -137.0612765455219
+  ],
+  "rpy_convention": "R = Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+  "calibrated_joint_mapping": {
+    "raw_reference_unwrapped": [
+      751.0,
+      899.0,
+      198.0,
+      660.0,
+      -57.0
+    ],
+    "angle_reference_deg": [
+      -79.47214076246335,
+      31.147458392049078,
+      158.92308696295632,
+      -239.79138820570753,
+      -37.38667114299793
+    ],
+    "signed_degrees_per_raw": [
+      0.38526409440986836,
+      -0.28202320694963917,
+      -0.4973081630279753,
+      -0.9999991313236083,
+      0.3519061583577713
+    ],
+    "unwrap_config": "inputs/advanced.json"
+  },
+  "empirical_mapping_required": true,
+  "assessment": {
+    "status": "best_fit_on_this_dataset",
+    "independent_accuracy_validated": false,
+    "camera_distance_independently_measured": false,
+    "training_samples": 12,
+    "all_samples_used": true,
+    "note": "Use the embedded joint mapping with this matrix. Training fit is not independent physical validation."
+  },
+  "original_unmodified_fit_rms_px": 35.77146730655438
+}

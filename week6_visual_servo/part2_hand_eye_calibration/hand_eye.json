@@ -1,0 +1,169 @@
+{
+  "T_gripper_camera": [
+    [
+      0.7928234041147679,
+      -0.5552694274364102,
+      0.25121089316013473,
+      28.438582575528955
+    ],
+    [
+      0.59069832251489,
+      0.8015770006744992,
+      -0.09246514893606575,
+      150.04158343748225
+    ],
+    [
+      -0.15002180396851125,
+      0.22169838732862948,
+      0.9635057256653531,
+      -343.7331522573082
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "units": "mm",
+  "frames": "T_gripper_camera maps OpenCV camera coordinates to gripper_frame_link coordinates; translation in mm",
+  "samples": [
+    "pose_001",
+    "pose_002",
+    "pose_003",
+    "pose_004",
+    "pose_005",
+    "pose_006",
+    "pose_007",
+    "pose_008",
+    "pose_009",
+    "pose_010",
+    "pose_011",
+    "pose_012"
+  ],
+  "estimated_board_origin_base_mm": [
+    463.3547145199001,
+    -896.4622231281451,
+    950.8666511949527
+  ],
+  "board_origin_scatter_rms_mm": 30.81372713649115,
+  "board_orientation_scatter_rms_deg": 5.984093396892687,
+  "camera_translation_in_gripper_mm": [
+    28.438582575528955,
+    150.04158343748225,
+    -343.7331522573082
+  ],
+  "camera_origin_distance_to_gripper_mm": 376.1299106692765,
+  "distance_definition": "Euclidean distance from camera optical origin to URDF gripper_frame_link origin, in mm; not housing-to-finger clearance.",
+  "T_base_board": [
+    [
+      -0.9819419113335337,
+      -0.10641330410406759,
+      0.15641704343293916,
+      463.3547145199001
+    ],
+    [
+      -0.046905838236434946,
+      -0.6640428557749677,
+      -0.7462217686677085,
+      -896.4622231281451
+    ],
+    [
+      0.18327554421139813,
+      -0.7400833023409467,
+      0.6470601057785401,
+      950.8666511949527
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "joint_offsets_deg": [
+    0.0,
+    2.4415112195262885,
+    22.994657368616668,
+    -15.785754245862947,
+    0.0
+  ],
+  "rms_px_nominal_fk": 55.671664259198224,
+  "rms_px_with_joint_offsets": 8.836373052065976,
+  "rms_px_selected": 8.836373052065976,
+  "selected_hand_eye_method": "PARK + empirical mapping refinement",
+  "per_image_rms_px": {
+    "pose_001": 8.931933403015137,
+    "pose_002": 1.8258360624313354,
+    "pose_003": 6.321590900421143,
+    "pose_004": 10.852974891662598,
+    "pose_005": 12.360798835754395,
+    "pose_006": 7.086910724639893,
+    "pose_007": 13.027234077453613,
+    "pose_008": 2.511564016342163,
+    "pose_009": 10.163410186767578,
+    "pose_010": 8.669934272766113,
+    "pose_011": 7.651303291320801,
+    "pose_012": 8.948719024658203
+  },
+  "camera_rpy_deg_in_gripper": [
+    12.957964381039476,
+    8.628190132216258,
+    36.68819668176607
+  ],
+  "rpy_convention": "R = Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+  "calibrated_joint_mapping": {
+    "raw_reference_unwrapped": [
+      1331.5,
+      901.0,
+      159.0,
+      656.0,
+      -124.0
+    ],
+    "angle_reference_deg": [
+      90.76246334310852,
+      40.672964629436194,
+      15.123188239476356,
+      -117.99324585801085,
+      -57.03476498464017
+    ],
+    "signed_degrees_per_raw": [
+      -0.3519061583577713,
+      0.3519061583577713,
+      0.35385316845994375,
+      0.3578543757410833,
+      0.3078618299875767
+    ],
+    "unwrap_config": "inputs/advanced.json"
+  },
+  "empirical_mapping_required": true,
+  "assessment": {
+    "status": "final_empirical_fit_unconstrained",
+    "independent_accuracy_validated": false,
+    "camera_distance_independently_measured": false,
+    "training_samples": 12,
+    "all_samples_used": true,
+    "note": "User withdrew the approximate 120 mm measurement because its reference origin was unknown. No distance constraint is used. Translation remains unvalidated; embedded empirical FK mapping required.",
+    "weakly_excited_joint_ids": [
+      1,
+      2
+    ],
+    "weak_joint_directions_not_identified": true
+  },
+  "original_unmodified_fit_rms_px": 48.479289768501495,
+  "calibration_dataset": {
+    "label": "上一轮ID1基本固定的12组蓝圈样本（无距离约束最终经验解）",
+    "snapshot_folder": "inputs",
+    "manifest_sha256": "b62062957be20fa7403980ed767f0e5816c6cc54cc5233a7253e963450fe80aa",
+    "latest_batch_original_rms_px": 35.77146730655438,
+    "latest_batch_best_tested_rms_px": 25.97506692123237,
+    "selection": "lowest all-corner training RMS among previously tested unconstrained candidates; all samples retained"
+  },
+  "withdrawn_assumptions": [
+    {
+      "distance_mm": 120,
+      "reason": "User reported measurement unreliable and reference origin unknown",
+      "used_in_this_solution": false
+    }
+  ]
+}

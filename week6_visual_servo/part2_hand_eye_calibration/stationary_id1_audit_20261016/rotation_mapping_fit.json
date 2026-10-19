@@ -1,0 +1,75 @@
+{
+  "baseline_pair_rms_deg": 15.459860974386363,
+  "fits": [
+    {
+      "signed_degrees_per_count": [
+        0.38803754967814197,
+        0.4091428044917931,
+        0.34524328399375953
+      ],
+      "rotation_pair_rms_deg": 0.7274993681437381
+    },
+    {
+      "signed_degrees_per_count": [
+        0.3880375897914509,
+        0.4091428355261662,
+        0.34524327927316656
+      ],
+      "rotation_pair_rms_deg": 0.7274993681506646
+    },
+    {
+      "signed_degrees_per_count": [
+        0.38803784880563635,
+        0.4091432338215212,
+        0.34524326567190355
+      ],
+      "rotation_pair_rms_deg": 0.7274993682167534
+    },
+    {
+      "signed_degrees_per_count": [
+        0.3880378536088719,
+        0.40914324357150095,
+        0.34524326558958285
+      ],
+      "rotation_pair_rms_deg": 0.7274993682183802
+    },
+    {
+      "signed_degrees_per_count": [
+        -0.38071783717993707,
+        -0.40314246115057806,
+        0.3457489170512291
+      ],
+      "rotation_pair_rms_deg": 0.7345177509826909
+    },
+    {
+      "signed_degrees_per_count": [
+        -0.3807178371666619,
+        -0.40314246110649493,
+        0.34574891705070004
+      ],
+      "rotation_pair_rms_deg": 0.734517750982691
+    },
+    {
+      "signed_degrees_per_count": [
+        -0.3807178371711802,
+        -0.4031424611171308,
+        0.3457489170508912
+      ],
+      "rotation_pair_rms_deg": 0.7345177509827123
+    },
+    {
+      "signed_degrees_per_count": [
+        -0.38071783706945755,
+        -0.4031424608552721,
+        0.34574891705062893
+      ],
+      "rotation_pair_rms_deg": 0.7345177509827371
+    }
+  ],
+  "note": "Diagnostic only. Fixed-base approximation ignores 1 count base drift. Global pitch-sign ambiguity remains.",
+  "controlled_variants": {
+    "current": 15.459860974386363,
+    "relative_pitch_direction_only": 4.770079754080932,
+    "relative_pitch_direction_and_360scale": 0.9453938840534744
+  }
+}

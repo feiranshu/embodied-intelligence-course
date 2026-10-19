@@ -1,0 +1,98 @@
+{
+  "status": "failed",
+  "completed": false,
+  "steps": [
+    {
+      "center_px": [
+        402.01116943359375,
+        340.4566650390625
+      ],
+      "depth_mm": 678.942037719924,
+      "raw_before": [
+        1022,
+        898,
+        164,
+        710,
+        901,
+        315
+      ],
+      "requested_camera_mm": [
+        0.0,
+        10.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        4.84062386734655,
+        -0.967684852953325,
+        8.696662957723474
+      ],
+      "feedback": {
+        "requested_mm": [
+          4.84,
+          -0.97,
+          8.7
+        ],
+        "actual_mm": [
+          4.14,
+          -1.48,
+          7.44
+        ],
+        "projected": false
+      }
+    },
+    {
+      "center_px": [
+        398.1696319580078,
+        306.42899322509766
+      ],
+      "depth_mm": 672.2832090110564,
+      "raw_before": [
+        1022,
+        897,
+        163,
+        704,
+        902,
+        315
+      ],
+      "requested_camera_mm": [
+        0.0,
+        10.0,
+        0.0
+      ],
+      "requested_base_mm": [
+        5.227377055103801,
+        -1.1614908120991305,
+        8.445440676316636
+      ],
+      "feedback": {
+        "requested_mm": [
+          5.23,
+          -1.16,
+          8.45
+        ],
+        "actual_mm": [
+          3.39,
+          -1.21,
+          7.11
+        ],
+        "projected": false
+      }
+    }
+  ],
+  "requested_travel_mm": 20.0,
+  "params": {
+    "marker_id": 0,
+    "marker_mm": 40.0,
+    "step_mm": 10.0,
+    "standoff_mm": 200.0,
+    "max_steps": 0,
+    "max_travel_mm": 0.0,
+    "center_only": true,
+    "center_region_percent": 20.0
+  },
+  "hand_eye_file": "C:\\Users\\sfr08\\Desktop\\本学期课程\\具身智能\\embodied-intelligence-course-main (1)\\embodied-intelligence-course-main\\week6_visual_servo\\part2_hand_eye_calibration\\最终标定结果\\hand_eye.json",
+  "hand_eye_sha256": "4f92be311106dbaf589b9649d5a38cbf068cb1227636a5516782fd6f99d9ebb1",
+  "empirical_mapping_used": true,
+  "physical_distance_independently_measured": false,
+  "message": "ValueError: IK 无解：可行范围内已没有保留原方向的运动，停止"
+}

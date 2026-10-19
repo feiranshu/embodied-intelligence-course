@@ -1,0 +1,17 @@
+{
+  "assumed_not_measured_interval_mm": 20,
+  "candidates": [
+    {
+      "assumed_radius_mm": 100.0,
+      "rms_px": 9.163104057312012
+    },
+    {
+      "assumed_radius_mm": 120.0,
+      "rms_px": 9.165024757385254
+    },
+    {
+      "assumed_radius_mm": 140.0,
+      "rms_px": 9.138459205627441
+    }
+  ]
+}

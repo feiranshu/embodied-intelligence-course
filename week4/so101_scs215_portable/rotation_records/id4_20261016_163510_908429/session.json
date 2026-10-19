@@ -1,0 +1,20 @@
+{
+  "id": 4,
+  "requested_hz": 50,
+  "speed_parameter": 150,
+  "read_only": false,
+  "started_utc": "2026-10-16T08:35:10.910433+00:00",
+  "port": "COM8",
+  "original_mode_limits": [
+    "position",
+    0,
+    1023
+  ],
+  "stop_confirmed": true,
+  "samples": 2003,
+  "read_errors": 0,
+  "original_mode_restored": true,
+  "elapsed_s": 60.81792430000132,
+  "errors": [],
+  "average_samples_per_session_second": 32.93436964602155
+}

@@ -1,0 +1,784 @@
+{
+  "analyzed_utc": "2026-10-16T16:30:06.123876+08:00",
+  "selection": "newest session started_utc per servo ID",
+  "excluded_sessions": [
+    "id3_20261016_161247_324774",
+    "id5_20261016_160812_885187",
+    "id5_20261016_161034_925916",
+    "id5_20261016_161102_134137",
+    "id5_20261016_162620_449912"
+  ],
+  "missing_ids": [],
+  "operator_observation": "ID5 physically continues rotating while returned position stays at 1022 (user confirmed)",
+  "joints": [
+    {
+      "id": 1,
+      "source": "id1_20261016_161616_236533",
+      "started_utc": "2026-10-16T08:16:16.236533+00:00",
+      "session_complete": true,
+      "source_sha256": {
+        "session.json": "55534f540ab2a7c3cb94986e80a2025ae14e2e346072ba7388544ea777ebc7e2",
+        "serial_and_events.jsonl": "7a77dfe4c39ac6b24282f0a144e05b867797b1eac6ea820b5e581c7c100f2251",
+        "positions.csv": "60eb4f66ca092e143f40babdcde39103d20a9ade20690c7c7eb06179218f3a58"
+      },
+      "samples": 595,
+      "errors": 0,
+      "raw_min": 0,
+      "raw_max": 1022,
+      "marks": [
+        {
+          "elapsed_s": 2.738718600001448,
+          "sample": 81,
+          "raw": 318,
+          "sample_age_s": 0.02718300000015006
+        },
+        {
+          "elapsed_s": 16.958715600001597,
+          "sample": 543,
+          "raw": 696,
+          "sample_age_s": 0.01535409999996773
+        }
+      ],
+      "motion_events": [
+        {
+          "utc": "2026-10-16T08:16:16.955424+00:00",
+          "elapsed_s": 0.7201332000004186,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:16:17.489423+00:00",
+          "elapsed_s": 1.2567131000014342,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:16:19.811247+00:00",
+          "elapsed_s": 3.57463270000153,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:16:32.171557+00:00",
+          "elapsed_s": 15.940457000000606,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:16:34.721488+00:00",
+          "elapsed_s": 18.484901000001628,
+          "kind": "stop",
+          "failures": []
+        }
+      ],
+      "jumps_over_128_counts": [
+        {
+          "sample": 306,
+          "elapsed_s": 9.61421910000172,
+          "before": 6,
+          "after": 463,
+          "delta": 457,
+          "dt_s": 0.030854700000418234,
+          "direction": "left"
+        },
+        {
+          "sample": 307,
+          "elapsed_s": 9.646781700001156,
+          "before": 463,
+          "after": 1022,
+          "delta": 559,
+          "dt_s": 0.032562599999437225,
+          "direction": "left"
+        }
+      ],
+      "packet_and_position_verified_rows": 595,
+      "endpoint_constant_runs": [
+        {
+          "raw": 0,
+          "start_s": 8.76903670000138,
+          "end_s": 9.311417100001563,
+          "samples": 18,
+          "duration_s": 0.5423804000001837,
+          "command_directions": [
+            "left"
+          ]
+        },
+        {
+          "raw": 1022,
+          "start_s": 9.645086300000912,
+          "end_s": 10.04593130000103,
+          "samples": 15,
+          "duration_s": 0.4008450000001176,
+          "command_directions": [
+            "left"
+          ]
+        }
+      ],
+      "constant_commanded_runs_at_least_0_5_s": [
+        {
+          "raw": 0,
+          "direction": "left",
+          "start_s": 8.76903670000138,
+          "end_s": 9.311417100001563,
+          "duration_s": 0.5423804000001837,
+          "samples": 18
+        }
+      ],
+      "median_sample_interval_s": 0.03162915000029898,
+      "max_sample_interval_s": 0.09559420000005048,
+      "mean_poll_hz": 32.45127490241842,
+      "marked_interval_raw_min": 0,
+      "marked_interval_raw_max": 1022,
+      "stop_confirmed": true,
+      "mode_restored": true
+    },
+    {
+      "id": 2,
+      "source": "id2_20261016_161527_235515",
+      "started_utc": "2026-10-16T08:15:27.235515+00:00",
+      "session_complete": true,
+      "source_sha256": {
+        "session.json": "7e8be8ff88c4afc29c1b7213206c141b338062b05bb1febf73b9a5d758cff2dd",
+        "serial_and_events.jsonl": "56b07bfe1beb9c3be05c70c184e444eafc9116f4cc5a47a6bcb106daa5c1d958",
+        "positions.csv": "92088cb6acba721797f9839cfd97894d1f978801a4b73f0a85a3f95392db42d6"
+      },
+      "samples": 700,
+      "errors": 0,
+      "raw_min": 0,
+      "raw_max": 1022,
+      "marks": [
+        {
+          "elapsed_s": 1.1143439000006765,
+          "sample": 33,
+          "raw": 431,
+          "sample_age_s": 0.020653500001571956
+        },
+        {
+          "elapsed_s": 18.94680789999984,
+          "sample": 620,
+          "raw": 903,
+          "sample_age_s": 0.00483410000015283
+        }
+      ],
+      "motion_events": [
+        {
+          "utc": "2026-10-16T08:15:48.700387+00:00",
+          "elapsed_s": 21.464511399999537,
+          "kind": "stop",
+          "failures": []
+        }
+      ],
+      "jumps_over_128_counts": [
+        {
+          "sample": 479,
+          "elapsed_s": 14.74324870000055,
+          "before": 7,
+          "after": 874,
+          "delta": 867,
+          "dt_s": 0.03273230000013427,
+          "direction": "stopped"
+        },
+        {
+          "sample": 480,
+          "elapsed_s": 14.775487200000498,
+          "before": 874,
+          "after": 1022,
+          "delta": 148,
+          "dt_s": 0.032238499999948544,
+          "direction": "stopped"
+        }
+      ],
+      "packet_and_position_verified_rows": 700,
+      "endpoint_constant_runs": [
+        {
+          "raw": 0,
+          "start_s": 13.80656799999997,
+          "end_s": 14.419601199999306,
+          "samples": 22,
+          "duration_s": 0.6130331999993359,
+          "command_directions": [
+            "stopped"
+          ]
+        },
+        {
+          "raw": 1022,
+          "start_s": 14.774091799999951,
+          "end_s": 15.20215449999887,
+          "samples": 16,
+          "duration_s": 0.4280626999989181,
+          "command_directions": [
+            "stopped"
+          ]
+        }
+      ],
+      "constant_commanded_runs_at_least_0_5_s": [],
+      "median_sample_interval_s": 0.0315255999994406,
+      "max_sample_interval_s": 0.12132610000116983,
+      "mean_poll_hz": 32.847088499628484,
+      "marked_interval_raw_min": 0,
+      "marked_interval_raw_max": 1022,
+      "stop_confirmed": true,
+      "mode_restored": true
+    },
+    {
+      "id": 3,
+      "source": "id3_20261016_161419_591369",
+      "started_utc": "2026-10-16T08:14:19.591369+00:00",
+      "session_complete": true,
+      "source_sha256": {
+        "session.json": "89725afddd885ac91a6cc39ee213c48e6b156a4ffee25982e1013ae832aa7f98",
+        "serial_and_events.jsonl": "19e4c6eec95c95d2673cd1f3a9b3af72f6815edc716346ab488b23b9188dadf4",
+        "positions.csv": "9f57b6c05a4d23b8e22e2a5191b837e5e90a8a18fa3f8c244fd6bcd3ac429ed8"
+      },
+      "samples": 1044,
+      "errors": 0,
+      "raw_min": 0,
+      "raw_max": 1022,
+      "marks": [
+        {
+          "elapsed_s": 0.9946846999991976,
+          "sample": 28,
+          "raw": 316,
+          "sample_age_s": 0.02786310000010417
+        },
+        {
+          "elapsed_s": 31.188336199998957,
+          "sample": 1008,
+          "raw": 823,
+          "sample_age_s": 0.013020999998843763
+        }
+      ],
+      "motion_events": [
+        {
+          "utc": "2026-10-16T08:14:21.511344+00:00",
+          "elapsed_s": 1.9251172999993287,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:14:22.509844+00:00",
+          "elapsed_s": 2.918120500000441,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:14:23.093833+00:00",
+          "elapsed_s": 3.5064001999999164,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:14:33.782218+00:00",
+          "elapsed_s": 14.190254999999524,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:14:51.962938+00:00",
+          "elapsed_s": 32.37055019999934,
+          "kind": "stop",
+          "failures": []
+        }
+      ],
+      "jumps_over_128_counts": [
+        {
+          "sample": 805,
+          "elapsed_s": 25.09190999999919,
+          "before": 7,
+          "after": 1022,
+          "delta": 1015,
+          "dt_s": 0.06849329999931797,
+          "direction": "stopped"
+        }
+      ],
+      "packet_and_position_verified_rows": 1044,
+      "endpoint_constant_runs": [
+        {
+          "raw": 0,
+          "start_s": 24.01993020000009,
+          "end_s": 24.707672399999865,
+          "samples": 24,
+          "duration_s": 0.687742199999775,
+          "command_directions": [
+            "stopped"
+          ]
+        },
+        {
+          "raw": 1022,
+          "start_s": 25.09119809999902,
+          "end_s": 25.54746299999897,
+          "samples": 17,
+          "duration_s": 0.456264899999951,
+          "command_directions": [
+            "stopped"
+          ]
+        }
+      ],
+      "constant_commanded_runs_at_least_0_5_s": [
+        {
+          "raw": 316,
+          "direction": "left",
+          "start_s": 1.9295529999999417,
+          "end_s": 2.9015223999995214,
+          "duration_s": 0.9719693999995798,
+          "samples": 33
+        },
+        {
+          "raw": 316,
+          "direction": "left",
+          "start_s": 3.5126337000001513,
+          "end_s": 4.066840699999375,
+          "duration_s": 0.5542069999992236,
+          "samples": 19
+        },
+        {
+          "raw": 236,
+          "direction": "left",
+          "start_s": 10.05736160000015,
+          "end_s": 10.742268399999375,
+          "duration_s": 0.6849067999992258,
+          "samples": 23
+        }
+      ],
+      "median_sample_interval_s": 0.031471000000237837,
+      "max_sample_interval_s": 0.12230079999972077,
+      "mean_poll_hz": 32.409948220865,
+      "marked_interval_raw_min": 0,
+      "marked_interval_raw_max": 1022,
+      "stop_confirmed": true,
+      "mode_restored": true
+    },
+    {
+      "id": 4,
+      "source": "id4_20261016_161140_963350",
+      "started_utc": "2026-10-16T08:11:40.963350+00:00",
+      "session_complete": true,
+      "source_sha256": {
+        "session.json": "143e4f900d3c020afa931eee7053fe7457c6680e22ff52a18648fc72e52baab8",
+        "serial_and_events.jsonl": "93599c09873032c315f55b236b0a136fb8ee49a86b636b045866a708bf6e97b1",
+        "positions.csv": "e1a27fdf9d674edc943cbf3bc94a3a38d2517e0e16491d6bdaf06dd4977a9333"
+      },
+      "samples": 1191,
+      "errors": 0,
+      "raw_min": 0,
+      "raw_max": 1022,
+      "marks": [
+        {
+          "elapsed_s": 13.762049499999193,
+          "sample": 448,
+          "raw": 648,
+          "sample_age_s": 0.01995109999916167
+        },
+        {
+          "elapsed_s": 34.03092399999878,
+          "sample": 1123,
+          "raw": 202,
+          "sample_age_s": 0.005609599998933845
+        }
+      ],
+      "motion_events": [
+        {
+          "utc": "2026-10-16T08:11:41.696709+00:00",
+          "elapsed_s": 0.7321590999999898,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:11:43.542537+00:00",
+          "elapsed_s": 2.5814009999994596,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:11:43.783768+00:00",
+          "elapsed_s": 2.8196365000003425,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:11:44.141077+00:00",
+          "elapsed_s": 3.176949599999716,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:11:56.449250+00:00",
+          "elapsed_s": 15.484739499999705,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:12:13.031879+00:00",
+          "elapsed_s": 32.073043999998845,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:12:17.066204+00:00",
+          "elapsed_s": 36.10152449999987,
+          "kind": "stop",
+          "failures": []
+        }
+      ],
+      "jumps_over_128_counts": [
+        {
+          "sample": 959,
+          "elapsed_s": 28.99191129999963,
+          "before": 1014,
+          "after": 0,
+          "delta": -1014,
+          "dt_s": 0.035103199999866774,
+          "direction": "right"
+        }
+      ],
+      "packet_and_position_verified_rows": 1191,
+      "endpoint_constant_runs": [
+        {
+          "raw": 1022,
+          "start_s": 28.165172699998948,
+          "end_s": 28.621174199999587,
+          "samples": 16,
+          "duration_s": 0.45600150000063877,
+          "command_directions": [
+            "right"
+          ]
+        },
+        {
+          "raw": 0,
+          "start_s": 28.987591099999918,
+          "end_s": 29.348051699998905,
+          "samples": 13,
+          "duration_s": 0.36046059999898716,
+          "command_directions": [
+            "right"
+          ]
+        }
+      ],
+      "constant_commanded_runs_at_least_0_5_s": [],
+      "median_sample_interval_s": 0.031353750000562286,
+      "max_sample_interval_s": 0.09860759999901347,
+      "mean_poll_hz": 33.144797831649086,
+      "marked_interval_raw_min": 0,
+      "marked_interval_raw_max": 1022,
+      "stop_confirmed": true,
+      "mode_restored": true
+    },
+    {
+      "id": 5,
+      "source": "id5_20261016_162730_356961",
+      "started_utc": "2026-10-16T08:27:30.358466+00:00",
+      "session_complete": true,
+      "source_sha256": {
+        "session.json": "44c56c15601d37cc4ec36a3a23f99e2e9a64798de206a04cfc104d9167c10934",
+        "serial_and_events.jsonl": "ad8f7ac0644cd121401767c5a892ecf5a6f9e50da41cb401e95ed0ae68205426",
+        "positions.csv": "952d6e5d669ba867ffcc310f1148e3543d7fb79e945d601d64762aec7ca33803"
+      },
+      "samples": 1323,
+      "errors": 0,
+      "raw_min": 0,
+      "raw_max": 1022,
+      "marks": [
+        {
+          "elapsed_s": 14.960502900001302,
+          "sample": 509,
+          "raw": 689,
+          "sample_age_s": 0.006049600000551436
+        },
+        {
+          "elapsed_s": 16.566274100001465,
+          "sample": 565,
+          "raw": 689,
+          "sample_age_s": 0.006284700000833254
+        },
+        {
+          "elapsed_s": 37.53378690000136,
+          "sample": 1292,
+          "raw": 625,
+          "sample_age_s": 0.021000500000809552
+        }
+      ],
+      "motion_events": [
+        {
+          "utc": "2026-10-16T08:27:30.855637+00:00",
+          "elapsed_s": 0.49879040000087116,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:27:40.293781+00:00",
+          "elapsed_s": 9.937818899999911,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:27:43.375803+00:00",
+          "elapsed_s": 13.023990600000616,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:27:43.622582+00:00",
+          "elapsed_s": 13.26994470000136,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:27:44.034928+00:00",
+          "elapsed_s": 13.676827600000252,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:27:44.570816+00:00",
+          "elapsed_s": 14.212804000000688,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:27:48.109030+00:00",
+          "elapsed_s": 17.757740700000795,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:27:58.984910+00:00",
+          "elapsed_s": 28.628246400001444,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:27:59.535052+00:00",
+          "elapsed_s": 29.178987100000086,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:28:06.066871+00:00",
+          "elapsed_s": 35.70988260000013,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:28:08.780842+00:00",
+          "elapsed_s": 38.42479860000094,
+          "kind": "stop",
+          "failures": []
+        }
+      ],
+      "jumps_over_128_counts": [
+        {
+          "sample": 126,
+          "elapsed_s": 3.7818411999996897,
+          "before": 6,
+          "after": 898,
+          "delta": 892,
+          "dt_s": 0.02367189999858965,
+          "direction": "left"
+        },
+        {
+          "sample": 809,
+          "elapsed_s": 23.585652600000685,
+          "before": 1014,
+          "after": 568,
+          "delta": -446,
+          "dt_s": 0.02332589999969059,
+          "direction": "right"
+        },
+        {
+          "sample": 810,
+          "elapsed_s": 23.606716100000995,
+          "before": 568,
+          "after": 0,
+          "delta": -568,
+          "dt_s": 0.021063500000309432,
+          "direction": "right"
+        }
+      ],
+      "packet_and_position_verified_rows": 1323,
+      "endpoint_constant_runs": [
+        {
+          "raw": 0,
+          "start_s": 2.934411700000055,
+          "end_s": 3.4864107000012154,
+          "samples": 19,
+          "duration_s": 0.5519990000011603,
+          "command_directions": [
+            "left"
+          ]
+        },
+        {
+          "raw": 1022,
+          "start_s": 3.8085299000013038,
+          "end_s": 4.233233300001302,
+          "samples": 15,
+          "duration_s": 0.4247033999999985,
+          "command_directions": [
+            "left"
+          ]
+        },
+        {
+          "raw": 1022,
+          "start_s": 22.829245400000218,
+          "end_s": 23.222357300001022,
+          "samples": 15,
+          "duration_s": 0.39311190000080387,
+          "command_directions": [
+            "right"
+          ]
+        },
+        {
+          "raw": 0,
+          "start_s": 23.60561240000061,
+          "end_s": 24.000798700000814,
+          "samples": 14,
+          "duration_s": 0.39518630000020494,
+          "command_directions": [
+            "right"
+          ]
+        }
+      ],
+      "constant_commanded_runs_at_least_0_5_s": [
+        {
+          "raw": 0,
+          "direction": "left",
+          "start_s": 2.934411700000055,
+          "end_s": 3.4864107000012154,
+          "duration_s": 0.5519990000011603,
+          "samples": 19
+        }
+      ],
+      "median_sample_interval_s": 0.02770189999955619,
+      "max_sample_interval_s": 0.10647229999995034,
+      "mean_poll_hz": 34.55822540908928,
+      "marked_interval_raw_min": 0,
+      "marked_interval_raw_max": 1022,
+      "stop_confirmed": true,
+      "mode_restored": true
+    },
+    {
+      "id": 6,
+      "source": "id6_20261016_162446_253098",
+      "started_utc": "2026-10-16T08:24:46.253098+00:00",
+      "session_complete": true,
+      "source_sha256": {
+        "session.json": "62f73cc9270439aca3e56dd68404354a9d7f55a7282b28e79a3cd001efb59c6f",
+        "serial_and_events.jsonl": "029711027c2371e9b69058b05a99e6f05484741dda7de7430ae4bd27badda693",
+        "positions.csv": "76ccf9a3f1abb81e041d6a2ea3fddbf0f2dfd2a9f1074058a07342b1e2c80218"
+      },
+      "samples": 798,
+      "errors": 0,
+      "raw_min": 272,
+      "raw_max": 670,
+      "marks": [
+        {
+          "elapsed_s": 12.324333999998998,
+          "sample": 423,
+          "raw": 670,
+          "sample_age_s": 0.004657299999962561
+        },
+        {
+          "elapsed_s": 20.6068411999986,
+          "sample": 713,
+          "raw": 275,
+          "sample_age_s": 0.004506999999648542
+        }
+      ],
+      "motion_events": [
+        {
+          "utc": "2026-10-16T08:24:47.357242+00:00",
+          "elapsed_s": 1.1036757999991096,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:24:48.199214+00:00",
+          "elapsed_s": 1.9462079999993875,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:24:48.365588+00:00",
+          "elapsed_s": 2.1119399999988673,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:24:55.399877+00:00",
+          "elapsed_s": 9.148402699998769,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:24:56.123268+00:00",
+          "elapsed_s": 9.870062499998312,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:24:56.630394+00:00",
+          "elapsed_s": 10.37681479999992,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:24:56.829347+00:00",
+          "elapsed_s": 10.580355399999462,
+          "kind": "motion",
+          "direction": "right",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:24:57.702163+00:00",
+          "elapsed_s": 11.448140799999237,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:24:59.246241+00:00",
+          "elapsed_s": 12.993044399998325,
+          "kind": "motion",
+          "direction": "left",
+          "speed": 150
+        },
+        {
+          "utc": "2026-10-16T08:25:06.059032+00:00",
+          "elapsed_s": 19.806437899998855,
+          "kind": "stop",
+          "failures": []
+        },
+        {
+          "utc": "2026-10-16T08:25:09.322867+00:00",
+          "elapsed_s": 23.07017099999939,
+          "kind": "stop",
+          "failures": []
+        }
+      ],
+      "jumps_over_128_counts": [],
+      "packet_and_position_verified_rows": 798,
+      "endpoint_constant_runs": [],
+      "constant_commanded_runs_at_least_0_5_s": [],
+      "median_sample_interval_s": 0.02841439999974682,
+      "max_sample_interval_s": 0.07918919999974605,
+      "mean_poll_hz": 34.783901455260825,
+      "marked_interval_raw_min": 274,
+      "marked_interval_raw_max": 670,
+      "stop_confirmed": true,
+      "mode_restored": true
+    }
+  ]
+}
