@@ -1,0 +1,8 @@
+numpy>=2.0,<3
+opencv-python>=4.10
+pyserial>=3.5,<4
+pygrabber==0.2
+openai>=1.40
+sounddevice>=0.5,<0.6
+# 可选：本地语音合成；不安装时自动使用 Windows 自带的 System.Speech
+# pyttsx3>=2.90

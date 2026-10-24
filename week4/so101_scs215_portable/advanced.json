@@ -32,7 +32,7 @@
         468
       ],
       "crosses_zero": true,
-      "wheel_positive": "left",
+      "wheel_positive": "right",
       "wheel_speed": 250
     },
     "3": {
@@ -47,13 +47,14 @@
       "wheel_speed": 250
     },
     "4": {
-      "zero_raw": 656,
-      "sign": -1,
+      "zero_raw": 104,
+      "sign": 1,
       "limits": [
-        -485,
-        -8
+        0,
+        654
       ],
-      "crosses_zero": true,
+      "unwrapped": true,
+      "crosses_zero": false,
       "wheel_positive": null
     },
     "5": {
@@ -94,8 +95,8 @@
       819
     ],
     [
-      201,
-      662
+      104,
+      758
     ],
     [
       388,
@@ -107,6 +108,9 @@
     ]
   ],
   "speed": 100,
+  "sync_speed": 100,
+  "sync_duration_s": 3.0,
+  "sync_release_tolerance": 10,
   "duration_s": 2.0,
   "step_mm": 5.0,
   "max_step_mm": 20.0,
@@ -116,7 +120,8 @@
     "model": "deepseek-flash"
   },
   "kinematics": {
-    "calibrated": true,
+    "calibrated": false,
+    "calibration_note": "2026-10-22：ID4 物理方向调整后端点改为 104→758；旧 IK/笛卡尔标定失效，重新标定前保持禁用。",
     "urdf": "so101_new_calib.urdf",
     "lengths_mm": [
       116.0,
@@ -156,7 +161,7 @@
     "cartesian_raw_ranges": {
       "2": [730, 1007],
       "3": [16, 800],
-      "4": [680, 1007]
+      "4": [104, 758]
     }
   },
   "poses": {
@@ -169,12 +174,12 @@
       276
     ],
     "姿态2": [
-      1019,
-      135,
-      19,
-      729,
-      78,
-      276
+      975,
+      995,
+      15,
+      476,
+      926,
+      378
     ],
     "姿态3": [
       1017,
@@ -183,6 +188,22 @@
       721,
       345,
       380
+    ],
+    "举手_原始记录": [
+      1015,
+      26,
+      940,
+      484,
+      946,
+      386
+    ],
+    "举手": [
+      1015,
+      1011,
+      15,
+      484,
+      946,
+      386
     ],
     "居中": [
       950,
@@ -208,6 +229,38 @@
       97,
       272
     ],
+    "摆动左": [
+      928,
+      899,
+      183,
+      743,
+      923,
+      377
+    ],
+    "摆动右": [
+      1010,
+      899,
+      183,
+      743,
+      923,
+      377
+    ],
+    "摆动中": [
+      969,
+      899,
+      183,
+      743,
+      923,
+      377
+    ],
+    "任务五基准": [
+      1008,
+      902,
+      130,
+      472,
+      893,
+      274
+    ],
     "初始状态": [
       950,
       920,
@@ -220,49 +273,94 @@
   "actions": {
     "挥手": [
       {
-        "pose": "抬起",
+        "pose": "任务五基准",
         "duration_s": 2.0,
-        "pause_s": 0.5
-      },
-      {
-        "pose": "向左转",
-        "duration_s": 1.0,
+        "speed": 180,
         "pause_s": 0.2
       },
       {
-        "pose": "向右转",
-        "duration_s": 1.0,
-        "pause_s": 0.2
+        "joint_id": 1,
+        "position": 929,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.12
       },
       {
-        "pose": "向左转",
-        "duration_s": 1.0,
-        "pause_s": 0.2
+        "joint_id": 1,
+        "position": 1009,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.12
       },
       {
-        "pose": "立正",
+        "joint_id": 1,
+        "position": 929,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.12
+      },
+      {
+        "joint_id": 1,
+        "position": 1009,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.0
+      }
+    ],
+    "点头": [
+      {
+        "pose": "任务五基准",
         "duration_s": 2.0,
+        "speed": 180,
+        "pause_s": 0.2
+      },
+      {
+        "joint_id": 4,
+        "position": 522,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.12
+      },
+      {
+        "joint_id": 4,
+        "position": 422,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.12
+      },
+      {
+        "joint_id": 4,
+        "position": 522,
+        "duration_s": 0.8,
+        "speed": 180,
+        "pause_s": 0.12
+      },
+      {
+        "joint_id": 4,
+        "position": 472,
+        "duration_s": 0.8,
+        "speed": 180,
         "pause_s": 0.0
       }
     ],
     "左右摆动": [
       {
-        "pose": "左侧",
-        "duration_s": 1.5,
+        "pose": "摆动右",
+        "duration_s": 1.0,
         "speed": 180,
-        "pause_s": 0.3
+        "pause_s": 0.2
       },
       {
-        "pose": "右侧",
-        "duration_s": 1.5,
+        "pose": "摆动左",
+        "duration_s": 1.0,
         "speed": 180,
-        "pause_s": 0.3
+        "pause_s": 0.2
       },
       {
-        "pose": "居中",
-        "duration_s": 1.5,
+        "pose": "摆动中",
+        "duration_s": 1.0,
         "speed": 180,
-        "pause_s": 0.3
+        "pause_s": 0.2
       }
     ]
   },
@@ -299,7 +397,7 @@
     "1": -1,
     "2": -1,
     "3": -1,
-    "4": -1,
+    "4": null,
     "5": -1,
     "6": 1
   },

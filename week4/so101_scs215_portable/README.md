@@ -6,6 +6,30 @@
 
 单舵机键盘转动、完整原始反馈与通信日志记录见 [舵机整圈反馈记录使用说明](舵机整圈反馈记录_使用说明.md)。入口为 `python record_servo_rotation.py --id 5 --set-wheel-mode`。
 
+## 单舵机绝对原始位置调试
+
+`move_servo_raw.py` 可以按舵机 ID 发送 `0～1023` 的绝对原始位置。先运行预览；预览不会导入 `pyserial`、打开串口或连接硬件。以下两种参数写法等价：
+
+```bat
+python move_servo_raw.py 4 500
+python move_servo_raw.py --id 4 --position 500 --duration 3000 --dry-run
+```
+
+清空机械臂运动范围、确认操作者在场且可以随时切断舵机外接电源后，增加 `--execute` 才会实际运动：
+
+```bat
+python move_servo_raw.py 4 500 --duration-ms 1000 --speed 100 --execute
+python move_servo_raw.py --id 4 --position 500 --duration 1000 --speed 100 --execute
+```
+
+程序会读取当前位置、位置/连续模式和 EEPROM 硬件限位；只有舵机处于位置模式且目标位于硬件限位内才会执行。运动中按 `Ctrl+C` 可停止，正常完成或异常退出都会请求释放目标舵机的驱动并检查关闭反馈。本工具不会切换模式、修改 EEPROM，也不接受位置 `1024`。
+
+离线测试（不会连接硬件）：
+
+```bat
+python -m unittest -v test_move_servo_raw.py
+```
+
 ## 当前硬件
 
 - 电机：6 × Feetech SCS215，总线返回型号编号 `8965`
@@ -127,6 +151,7 @@ config.json             硬件、串口、关节名称和方向配置
 controller.py           本机/LAN 网页服务入口
 servo_bus.py            SCS215 协议与舵机控制实现
 diagnose.py             严格只读的串口、模式和位置检查
+move_servo_raw.py       按 ID 移动到绝对原始位置（需显式 --execute）
 web/index.html          网页界面
 setup_windows.bat       仅安装基础网页控制依赖
 setup_advanced_windows.bat  安装姿态、IK、语音与视觉依赖
@@ -135,6 +160,7 @@ start_local.bat         本机控制入口
 start_lan.bat           局域网控制入口
 HANDOFF.md              给维护者或其他 agent 的技术交接
 test_offline.py         不接硬件即可运行的协议/配置回归测试
+test_move_servo_raw.py  原始位置命令行入口的离线回归测试
 ```
 
 ## 常见问题
