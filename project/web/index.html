@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JARVIS · 会追问的桌面寻物助手</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #162c34; background: #f3f6f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, select { font: inherit; }
+    button, select, .upload { cursor: pointer; }
+    button { border: 1px solid #ccd7da; border-radius: 9px; padding: 10px 14px; background: white; color: #213c46; }
+    button:hover:not(:disabled), .upload:hover { background: #eaf2f3; }
+    button:disabled { cursor: not-allowed; opacity: .5; }
+    button:focus-visible, input:focus-visible, select:focus-visible, .upload:focus-within { outline: 3px solid #63adb4; outline-offset: 2px; }
+    .shell { max-width: 1360px; padding: 28px 32px; margin: auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .mark { display: grid; place-items: center; width: 47px; height: 47px; background: #173d47; color: white; border-radius: 14px; font-size: 24px; font-weight: 700; }
+    .brand strong { font-size: 23px; letter-spacing: 3px; }
+    .brand p { color: #637b83; font-size: 13px; margin: 3px 0 0; }
+    .mode { font-size: 13px; border: 1px solid #bdd3d5; border-radius: 30px; padding: 8px 13px; background: #e5f2ef; color: #245b52; }
+    .intro { display: flex; justify-content: space-between; align-items: flex-end; margin: 0 0 23px; gap: 20px; }
+    h1 { font-size: clamp(23px, 3vw, 32px); letter-spacing: -.5px; margin: 0 0 8px; font-weight: 650; }
+    .intro p { font-size: 14px; color: #627880; margin: 0; line-height: 1.7; }
+    .stop { background: #fff1ef; color: #aa352d; border-color: #e7b8b3; white-space: nowrap; font-weight: 600; }
+    .stop:hover:not(:disabled) { background: #f9dcd8; }
+    main { display: grid; grid-template-columns: minmax(0, 1.38fr) minmax(330px, 1fr); gap: 20px; align-items: start; }
+    .panel { background: white; border: 1px solid #dce4e6; border-radius: 15px; overflow: hidden; }
+    .panel-head { display: flex; align-items: center; justify-content: space-between; padding: 17px 20px; border-bottom: 1px solid #e6ecee; gap: 12px; }
+    h2 { font-size: 15px; margin: 0; font-weight: 650; }
+    .subtle { font-size: 12px; color: #6c8188; }
+    .status { font-size: 12px; border-radius: 6px; padding: 4px 9px; background: #edf3f4; color: #456772; }
+    .viewer { position: relative; aspect-ratio: 4/3; background: #172c33; overflow: hidden; }
+    .viewer img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .center-guide { position: absolute; inset: 40%; border: 1px dashed #66e9c8; box-shadow: 0 0 0 1px #162c3440; pointer-events: none; }
+    .center-guide:before, .center-guide:after { content: ""; position: absolute; top: 50%; left: 50%; background: #66e9c8; transform: translate(-50%, -50%); }
+    .center-guide:before { width: 12px; height: 1px; }
+    .center-guide:after { width: 1px; height: 12px; }
+    .view-tag { position: absolute; top: 13px; left: 13px; background: #12323ee6; color: #d1e8eb; border-radius: 5px; padding: 5px 9px; font-size: 11px; letter-spacing: 1px; }
+    #frame-error { position: absolute; bottom: 15px; left: 15px; color: #ffe7bd; background: #162c34d9; padding: 7px 10px; border-radius: 5px; font-size: 12px; }
+    .camera-note { padding: 11px 19px; background: #f8fafb; font-size: 12px; line-height: 1.7; color: #617981; }
+    .candidates { display: flex; flex-wrap: wrap; gap: 8px; min-height: 59px; padding: 14px 18px; }
+    .candidate { border: 1px solid #d8e3e5; background: #f7fafb; border-radius: 8px; padding: 7px 10px; font-size: 12px; }
+    .candidate.selected { background: #e6f5ef; border-color: #78b49f; color: #235c48; }
+    .right { display: grid; gap: 18px; }
+    .conversation { padding: 18px; height: 286px; overflow-y: auto; display: flex; flex-direction: column; gap: 13px; }
+    .message { max-width: 93%; font-size: 14px; line-height: 1.75; padding: 11px 14px; border-radius: 3px 12px 12px; background: #f0f5f6; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .message.user { margin-left: auto; background: #1e5361; color: white; border-radius: 12px 3px 12px 12px; }
+    .message.error { background: #fff0ed; color: #9e4035; }
+    .message small { display: block; font-size: 10px; letter-spacing: 1px; color: #64838c; margin-bottom: 3px; }
+    .message.user small { color: #b7d3db; }
+    .clarification { margin: 0 18px 12px; padding: 10px 13px; border-left: 3px solid #b88625; background: #fff8e8; font-size: 13px; color: #785619; line-height: 1.6; }
+    .composer { padding: 0 18px 18px; }
+    .input-row { display: flex; gap: 8px; }
+    input[type=text] { min-width: 0; flex: 1; padding: 11px 12px; background: #fbfdfd; border: 1px solid #cbd9dc; border-radius: 8px; font-size: 14px; }
+    .primary { background: #1e5361; color: white; border-color: #1e5361; }
+    .primary:hover:not(:disabled) { background: #2b6473; }
+    .examples { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .examples button { padding: 5px 8px; font-size: 11px; border-color: #e0e8ea; }
+    .extras { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .upload { font-size: 12px; color: #526f78; padding: 6px 8px; border: 1px solid #dce6e8; border-radius: 6px; position: relative; }
+    .upload input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .reset { font-size: 12px; border: 0; padding: 6px 8px; color: #627b83; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); padding: 18px; gap: 12px; }
+    .metric strong { display: block; font-size: 22px; color: #244f5a; font-weight: 600; }
+    .metric span { display: block; color: #72858b; font-size: 11px; margin-top: 4px; }
+    .scenario { padding: 0 18px 18px; }
+    .scenario label { display: block; color: #617881; font-size: 12px; margin-bottom: 7px; }
+    select { width: 100%; border: 1px solid #d5e0e3; border-radius: 7px; padding: 9px; background: white; color: #354f58; font-size: 13px; }
+    details { margin-top: 20px; padding: 14px 18px; background: white; border: 1px solid #dce4e6; border-radius: 12px; }
+    summary { cursor: pointer; font-size: 13px; color: #526d76; }
+    #events { max-height: 220px; overflow: auto; color: #62747b; font-size: 12px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; margin: 12px 0 0; }
+    footer { margin-top: 17px; font-size: 12px; color: #7a8d93; line-height: 1.7; }
+    #connection { color: #a65630; font-size: 12px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 850px) { .shell { padding: 22px 18px; } main { grid-template-columns: 1fr; } .conversation { height: 250px; } }
+    @media (max-width: 500px) { .intro { align-items: flex-start; } .intro p { font-size: 12px; } .mode { font-size: 11px; padding: 7px 10px; } .brand p { font-size: 11px; } .stop { padding: 10px; } .shell { padding: 18px 12px; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="mark" aria-hidden="true">J</div><div><strong>JARVIS</strong><p>会追问的桌面寻物助手 · 第 23 组</p></div></div>
+      <span class="mode" id="mode">连接中</span>
+    </header>
+    <div class="intro">
+      <div><h1>先问清楚，再找到它。</h1><p id="mode-note">观察桌面，用一句话指定目标。遇到相似物体时，先确认你的意思。</p></div>
+      <button class="stop" id="stop" type="button">■ 本地停止</button>
+    </div>
+    <main>
+      <section class="panel" aria-label="场景观察">
+        <div class="panel-head"><h2>当前视野</h2><span class="status" id="status">等待连接</span></div>
+        <div class="viewer">
+          <img id="frame" alt="当前桌面画面">
+          <div class="center-guide" aria-hidden="true"></div>
+          <span class="view-tag" id="view-tag">观察画面</span>
+          <span id="frame-error" hidden>暂时没有收到画面</span>
+        </div>
+        <div class="camera-note">绿色框：中央宽、高各 20% 的区域。目标需连续保持 1 秒，并通过新画面核对身份。</div>
+        <div class="candidates" id="candidates"><span class="subtle">发送指令后，候选物体会显示在这里。</span></div>
+      </section>
+      <div class="right">
+        <section class="panel" aria-label="与助手对话">
+          <div class="panel-head"><h2>对话</h2><span class="subtle">自然表达 · 多轮澄清</span></div>
+          <div class="conversation" id="conversation" role="log" aria-live="polite"></div>
+          <div class="clarification" id="question" hidden></div>
+          <form class="composer" id="composer">
+            <div class="input-row"><input id="text" type="text" placeholder="例如：帮我看看蓝色盒子" aria-label="指令或澄清回答" autocomplete="off" maxlength="1000"><button class="primary" id="send" type="submit">发送</button></div>
+            <div class="examples"><button type="button" data-example="帮我看看蓝色盒子">蓝色盒子</button><button type="button" data-example="看一下红色那个">红色那个</button><button type="button" data-example="帮我找紫色物体">不存在的目标</button></div>
+            <div class="extras"><label class="upload">上传语音 WAV<input id="audio" type="file" accept="audio/wav,.wav" aria-label="上传 WAV 语音，需配置语音识别服务"></label><button class="reset" id="reset" type="button">重新开始</button></div>
+          </form>
+        </section>
+        <section class="panel" aria-label="任务状态">
+          <div class="panel-head"><h2>本次任务</h2><span id="connection"></span></div>
+          <div class="metrics"><div class="metric"><strong id="duration">—</strong><span>任务用时 / 秒</span></div><div class="metric"><strong id="clarifications">—</strong><span>澄清次数</span></div><div class="metric"><strong id="api-calls">—</strong><span>模型调用</span></div></div>
+          <div class="scenario" id="scenario-control"><label for="scenario">软件测试场景</label><select id="scenario"><option value="default">常规桌面 · 多个不同物体</option><option value="missing">目标不存在</option><option value="lost">执行中移走目标</option><option value="stale">相机画面停止更新</option><option value="stalled">运动没有产生进展</option></select></div>
+        </section>
+      </div>
+    </main>
+    <details><summary>查看执行记录</summary><pre id="events">尚无任务记录</pre></details>
+    <footer id="footer">软件模拟用于检查程序流程，不代表真实识别率、机械臂精度或实机验收结果。语音上传仅在模型接口配置后可用。</footer>
+  </div>
+  <script>
+    const $ = id => document.getElementById(id);
+    let busy = false, sending = false, lastReply = '', lastError = '', lastStatus = '', connected = false;
+    const labels = {idle: '等待指令', transcribing: '识别语音', observing: '观察场景', selecting: '理解目标', thinking: '理解目标',
+      awaiting_clarification: '等待你的回答', clarifying: '等待你的回答', awaiting_answer: '等待你的回答',
+      centering: '调整观察视角', tracking: '跟踪目标', verifying: '核对新画面', running: '执行中',
+      completed: '已完成', not_found: '未找到目标', failed: '任务失败', stopped: '已停止', error: '出错'};
+    function message(text, role = 'assistant') {
+      if (!text) return;
+      const node = document.createElement('div'); node.className = 'message ' + role;
+      const who = document.createElement('small'); who.textContent = role === 'user' ? '你' : 'JARVIS';
+      node.append(who, document.createTextNode(text)); $('conversation').append(node);
+      $('conversation').scrollTop = $('conversation').scrollHeight;
+    }
+    message('你好，告诉我你想看哪个物体。如果不够明确，我会先问你，再开始调整视角。');
+    function controls() {
+      $('send').disabled = busy || sending || !connected;
+      $('reset').disabled = busy || sending || !connected;
+      $('scenario').disabled = busy || sending || !connected;
+      $('audio').disabled = busy || sending || !connected;
+      document.querySelectorAll('[data-example]').forEach(button => button.disabled = busy || sending || !connected);
+    }
+    function render(state) {
+      connected = true; $('connection').textContent = '';
+      const simulated = state.mode === 'simulation';
+      $('mode').textContent = simulated ? '● 软件模拟' : '● 实机模式';
+      $('view-tag').textContent = simulated ? '合成桌面 · 无硬件连接' : '腕部相机';
+      $('mode-note').textContent = simulated ? '当前为软件模拟；未连接机械臂。先试一句“看一下红色那个”。' : '当前为实机模式。运动由本地控制；需要时点击“本地停止”。';
+      $('scenario-control').hidden = !simulated;
+      $('footer').textContent = simulated ? '软件模拟用于检查程序流程，不代表真实识别率、机械臂精度或实机验收结果。语音上传仅在模型接口配置后可用。' : '实机结果应单独记录；标记辅助与普通物体分开统计。语音上传仅在模型接口配置后可用。';
+      const status = state.status || 'idle';
+      busy = typeof state.busy === 'boolean' ? state.busy : ['transcribing', 'observing', 'selecting', 'thinking', 'centering', 'tracking', 'verifying', 'running', 'processing'].includes(status);
+      $('status').textContent = labels[status] || status;
+      $('question').hidden = !state.question; $('question').textContent = state.question || '';
+      if (state.reply && (state.reply !== lastReply || status !== lastStatus)) message(state.reply);
+      lastReply = state.reply || ''; lastStatus = status;
+      const error = typeof state.error === 'string' ? state.error : state.error ? JSON.stringify(state.error) : '';
+      if (error && error !== lastError && error !== state.reply) message(error, 'error');
+      lastError = error;
+      $('candidates').replaceChildren();
+      (state.candidates || []).forEach(candidate => {
+        const tag = document.createElement('span');
+        tag.className = 'candidate' + (candidate.id === state.selected_id ? ' selected' : '');
+        tag.textContent = candidate.id + ' · ' + (candidate.label || [candidate.color, candidate.shape].join(' '));
+        $('candidates').append(tag);
+      });
+      if (!(state.candidates || []).length) { const empty = document.createElement('span'); empty.className = 'subtle'; empty.textContent = '当前没有候选物体'; $('candidates').append(empty); }
+      const metrics = state.metrics || {};
+      $('duration').textContent = Number.isFinite(metrics.duration_s) ? metrics.duration_s.toFixed(1) : '—';
+      $('clarifications').textContent = metrics.clarification_count ?? '—';
+      $('api-calls').textContent = metrics.api_calls ?? '—';
+      $('events').textContent = (state.events || []).slice(-40).map(event => JSON.stringify(event)).join('\n') || '尚无任务记录';
+      controls();
+    }
+    async function request(path, body, raw = false) {
+      const response = await fetch(path, {method: 'POST', headers: {'Content-Type': raw ? 'audio/wav' : 'application/json'}, body: raw ? body : JSON.stringify(body)});
+      let result;
+      try { result = await response.json(); } catch { throw new Error('服务未返回有效结果。'); }
+      if (!response.ok) throw new Error(typeof result.error === 'string' ? result.error : result.message || '请求未执行，请检查运行状态。');
+      if (result.status) render(result);
+      return result;
+    }
+    async function submit(text) {
+      if (!text || busy || sending || !connected) return;
+      sending = true; controls(); message(text, 'user'); $('text').value = '';
+      try { await request('/api/message', {text}); }
+      catch (error) { message(error.message, 'error'); }
+      finally { sending = false; controls(); $('text').focus(); }
+    }
+    $('composer').addEventListener('submit', event => { event.preventDefault(); submit($('text').value.trim()); });
+    document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => submit(button.dataset.example)));
+    $('stop').addEventListener('click', async () => {
+      try { await request('/api/stop', {}); }
+      catch (error) { message('停止请求未送达：' + error.message + ' 请在运行程序的终端按 Ctrl+C。', 'error'); }
+    });
+    $('reset').addEventListener('click', async () => {
+      try {
+        await request('/api/reset', {}); $('conversation').replaceChildren(); lastReply = ''; lastError = '';
+        message('已重新开始。告诉我你想看哪个物体。'); $('text').focus();
+      } catch (error) { message(error.message, 'error'); }
+    });
+    let previousScenario = 'default';
+    $('scenario').addEventListener('change', async () => {
+      try { await request('/api/scenario', {name: $('scenario').value}); previousScenario = $('scenario').value; message('已切换测试场景，可以发送新指令。'); }
+      catch (error) { $('scenario').value = previousScenario; message(error.message, 'error'); }
+    });
+    $('audio').addEventListener('change', async () => {
+      const file = $('audio').files[0];
+      if (!file) return;
+      sending = true; controls(); message('语音文件：' + file.name, 'user');
+      try { await request('/api/audio', file, true); }
+      catch (error) { message(error.message, 'error'); }
+      finally { sending = false; $('audio').value = ''; controls(); }
+    });
+    async function poll() {
+      try {
+        const response = await fetch('/api/state', {cache: 'no-store'});
+        if (!response.ok) throw new Error('状态请求失败');
+        render(await response.json());
+      } catch {
+        connected = false; $('connection').textContent = '连接中断'; $('status').textContent = '无法读取状态'; controls();
+      } finally { setTimeout(poll, 350); }
+    }
+    const frame = $('frame');
+    function nextFrame() { setTimeout(() => { frame.src = '/api/frame.jpg?t=' + Date.now(); }, 200); }
+    frame.addEventListener('load', () => { $('frame-error').hidden = true; nextFrame(); });
+    frame.addEventListener('error', () => { $('frame-error').hidden = false; nextFrame(); });
+    controls(); poll(); nextFrame();
+  </script>
+</body>
+</html>
