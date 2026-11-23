@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 import unittest
+import time
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from threading import RLock
+from threading import Event, RLock
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import cv2
 import numpy as np
@@ -19,6 +20,19 @@ from part4_object_tracking.object_tracking import OpticalFlowTracker
 
 
 class Week6OfflineTests(unittest.TestCase):
+    def test_hand_eye_preserves_feedback_continuity_at_old_base_mapping_cut(self):
+        from part2_hand_eye_calibration.hand_eye import calibration_angles, calibration_unwrap_references
+
+        model = arm_model()
+        low = [434, 363, 282, 714, 312, 266]
+        high = [506, *low[1:]]
+        self.assertGreater(abs(model.angles(high)[0] - model.angles(low)[0]), np.pi)
+        references = calibration_unwrap_references(model, [low, high])
+        self.assertEqual(set(references), {"1"})
+        fitted_delta = calibration_angles(model, high, references) - calibration_angles(model, low, references)
+        self.assertAlmostEqual(fitted_delta[0], 72 * model.radians_per_count[0])
+        np.testing.assert_allclose(fitted_delta[1:], 0)
+
     def test_unicode_image_path(self):
         with TemporaryDirectory(dir=Path(__file__).resolve().parent) as folder:
             path = Path(folder) / "棋盘照片.png"
@@ -76,6 +90,16 @@ class Week6OfflineTests(unittest.TestCase):
         np.testing.assert_allclose(center, [122, 111], atol=1)
         self.assertIsNone(depth)
 
+    def test_optical_flow_can_recover_after_rejected_frame(self):
+        rng = np.random.default_rng(17)
+        frame = np.zeros((240, 320, 3), dtype=np.uint8)
+        frame[70:140, 20:100] = rng.integers(0, 255, (70, 80, 1), dtype=np.uint8)
+        tracker = OpticalFlowTracker(frame, (10, 60, 100, 90))
+        outside = cv2.warpAffine(frame, np.float32([[1, 0, -15], [0, 1, 0]]), (320, 240))
+        self.assertIsNone(tracker.detect(outside, None, None))
+        center, _ = tracker.detect(frame.copy(), None, None)
+        np.testing.assert_allclose(center, [60, 105], atol=1)
+
     def test_web_capture_accepts_detected_board_outside_mapping_and_without_stability(self):
         frame = np.full((60, 80, 3), 127, dtype=np.uint8)
         corners = np.zeros((48, 1, 2), dtype=np.float32)
@@ -89,7 +113,7 @@ class Week6OfflineTests(unittest.TestCase):
             def snapshot(self):
                 return frame.copy(), corners.copy() if self.found else None, 0, ""
 
-        raw = np.array([631, 907, 315, 783, 31, 0], dtype=int)
+        raw = np.array([631, 907, 315, 783, 31, 500], dtype=int)
         with TemporaryDirectory(dir=Path(__file__).resolve().parent) as folder:
             state = object.__new__(HandEyeState)
             state.args = SimpleNamespace(image_size=(80, 60), intrinsics="camera_intrinsics.json")
@@ -99,8 +123,8 @@ class Week6OfflineTests(unittest.TestCase):
             state.samples = [{"name": "pose_001", "image": "pose_001.png", "raw": raw.tolist()}]
             state.result = {"old": True}
             state.state_lock = RLock()
-            state.motion_busy = True
-            state.motion_active = True
+            state.motion_busy = False
+            state.motion_active = False
             state.motion_status = ""
             state.motion_error = ""
             state.capture_busy = False
@@ -127,11 +151,11 @@ class Week6OfflineTests(unittest.TestCase):
             self.assertIsNone(state.result)
 
             # Cached webpage feedback can be allowed while the next live read is blocked.
-            # No new image/record may be written in that case; ID6 remains ignored.
-            for joint in range(5):
+            # No new image/record may be written, including when only ID6 is blocked.
+            for joint in range(6):
                 for value in [0, 30, 1000, 1022]:
                     with self.subTest(joint=joint+1, value=value):
-                        raw[:] = [631, 907, 315, 783, 31, 1022]
+                        raw[:] = [631, 907, 315, 783, 31, 500]
                         state.raw = raw.tolist()
                         self.assertTrue(state.status()["can_capture"])
                         raw[joint] = value
@@ -143,7 +167,7 @@ class Week6OfflineTests(unittest.TestCase):
                         self.assertEqual(len(state.samples), 2)
                         self.assertFalse((state.output / "pose_003.png").exists())
 
-            raw[:] = [31, 999, 31, 999, 1023, 1022]
+            raw[:] = [31, 999, 31, 999, 1023, 500]
             state.raw = raw.tolist()
             self.assertTrue(state.status()["can_capture"])
             state.camera.found = False
@@ -153,11 +177,11 @@ class Week6OfflineTests(unittest.TestCase):
             self.assertEqual(len(state.samples), 2)
 
     def test_capture_feedback_exact_bands_and_all_blocked_ids(self):
-        self.assertEqual(capture_blocked_joints([31, 999, 1023, 31, 999, 0]), [])
-        self.assertEqual(capture_blocked_joints([31, 999, 1023, 31, 999, 1022]), [])
+        self.assertEqual(capture_blocked_joints([31, 999, 1023, 31, 999, 31]), [])
+        self.assertEqual(capture_blocked_joints([31, 999, 1023, 31, 999, 999]), [])
         blocked = capture_blocked_joints([0, 30, 1000, 1022, 500, 1022])
-        self.assertEqual([item["id"] for item in blocked], [1, 2, 3, 4])
-        self.assertEqual([item["raw"] for item in blocked], [0, 30, 1000, 1022])
+        self.assertEqual([item["id"] for item in blocked], [1, 2, 3, 4, 6])
+        self.assertEqual([item["raw"] for item in blocked], [0, 30, 1000, 1022, 1022])
 
     def test_web_feedback_error_identifies_failed_servo(self):
         state = object.__new__(HandEyeState)
@@ -168,6 +192,127 @@ class Week6OfflineTests(unittest.TestCase):
         state.bus = SimpleNamespace(lock=RLock(), read_position=read)
         with self.assertRaisesRegex(RuntimeError, "ID 3.*无回复"):
             state.read_capture_positions()
+
+    def test_web_held_key_repeats_one_joint_and_releases_it(self):
+        class Bus:
+            port = "mock"
+
+            def __init__(self):
+                self.raw = self.target = 400
+                self.targets = []
+                self.second_step = Event()
+                self.stopped = Event()
+                self.torque = False
+                self.force = 30
+                self.force_writes = []
+
+            def read_position(self, joint):
+                return self.raw
+
+            def mode(self, joint):
+                return "position", 0, 411
+
+            def read_start_force(self, joint):
+                return self.force
+
+            def set_start_force(self, joint, force):
+                self.force = force
+                self.force_writes.append((joint, force, self.torque))
+
+            def move_position(self, joint, target, duration, speed):
+                self.targets.append((joint, target))
+                self.torque = True
+
+            def update_position_goal(self, joint, target):
+                self.targets.append((joint, target))
+                self.second_step.set()
+
+            def heartbeat(self, joint):
+                pass
+
+            def stop(self, joint):
+                self.torque = False
+                self.stopped.set()
+                return []
+
+        bus = Bus()
+        with TemporaryDirectory(dir=Path(__file__).resolve().parent) as folder:
+            path = Path(folder)
+            state = HandEyeState(SimpleNamespace(output=path, result=path / "result.json"),
+                                 {"motion_calibrated": False, "joint_mapping": {"6": {"zero_raw": 400, "limits": [0, 1]}},
+                                  "position_control": {"6": {"start_force": 180}}},
+                                 bus, None, None, 8, 6)
+            state.raw = [400] * 6
+            state.jog(6, 1, 8, "press")
+            try:
+                self.assertTrue(bus.second_step.wait(1.0))
+                self.assertTrue(state.jog_heartbeat("press")["active"])
+                self.assertFalse(state.stop_motion("old-press")["accepted"])
+                self.assertFalse(bus.stopped.wait(0.55))
+                self.assertTrue(bus.torque)
+            finally:
+                state.stop_motion("press")
+                state.motion_thread.join(1.0)
+            self.assertEqual(bus.targets, [(6, 408), (6, 411)])
+            self.assertEqual(bus.force_writes, [(6, 180, False), (6, 30, False)])
+            self.assertFalse(bus.torque)
+            self.assertFalse(state.motion_active)
+            self.assertEqual(state.motion_error, "")
+
+    def test_web_held_key_uses_existing_wheel_mode(self):
+        with TemporaryDirectory(dir=Path(__file__).resolve().parent) as folder:
+            path = Path(folder)
+            for direction, command in ((1, "right"), (-1, "left")):
+                with self.subTest(direction=direction):
+                    started = Event()
+                    bus = SimpleNamespace(mode=Mock(return_value=("wheel", 0, 0)),
+                                          run=Mock(side_effect=lambda *a, **k: started.set()),
+                                          heartbeat=Mock(), read_position=Mock(return_value=353),
+                                          stop=Mock(return_value=[]))
+                    state = HandEyeState(SimpleNamespace(output=path, result=path / "result.json"),
+                                         {"joint_mapping": {"4": {"raw_positive_wheel_direction": "right"}}},
+                                         bus, None, None, 8, 6)
+                    state.raw = [353] * 6
+                    state.jog(4, direction, 8, "press")
+                    try:
+                        self.assertTrue(started.wait(1.0))
+                        self.assertTrue(state.jog_heartbeat("press")["active"])
+                    finally:
+                        state.stop_motion("press")
+                        state.motion_thread.join(1.0)
+                    bus.run.assert_called_once_with(4, command, 100, hold_others=True)
+                    bus.stop.assert_called_once_with(4)
+                    self.assertFalse(state.motion_active)
+
+    def test_web_wheel_ramps_after_progress_and_records_pause(self):
+        with TemporaryDirectory(dir=Path(__file__).resolve().parent) as folder:
+            path = Path(folder)
+            ramped = Event()
+            positions = [350, 352, 354, 356, 358, 360, 362] + [362] * 40
+            bus = SimpleNamespace(mode=Mock(return_value=("wheel", 0, 0)), run=Mock(),
+                                  update_wheel_speed=Mock(side_effect=lambda *a: ramped.set()),
+                                  heartbeat=Mock(), read_position=Mock(side_effect=positions),
+                                  stop=Mock(return_value=[]))
+            state = HandEyeState(SimpleNamespace(output=path, result=path / "result.json"),
+                                 {"joint_mapping": {"4": {"raw_positive_wheel_direction": "right"}}},
+                                 bus, None, None, 8, 6)
+            state.raw = [350] * 6
+            state.jog(4, 1, 8, "press")
+            try:
+                self.assertTrue(ramped.wait(0.6))
+                deadline = time.monotonic() + 1.0
+                while state.wheel_pause is None and time.monotonic() < deadline:
+                    self.assertTrue(state.jog_heartbeat("press")["active"])
+                    Event().wait(0.025)
+                self.assertIsNotNone(state.wheel_pause)
+                self.assertEqual(state.wheel_pause["raw"], 362)
+                self.assertTrue(state.motion_active)
+            finally:
+                state.stop_motion("press")
+                state.motion_thread.join(1.0)
+            bus.run.assert_called_once_with(4, "right", 100, hold_others=True)
+            bus.update_wheel_speed.assert_called_once_with(4, "right", 120)
+            bus.stop.assert_called_once_with(4)
 
     def test_delete_samples_archives_files_and_invalidates_old_result(self):
         from common import read_json, write_json

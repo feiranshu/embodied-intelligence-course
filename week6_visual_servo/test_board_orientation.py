@@ -4,7 +4,7 @@ from unittest.mock import patch
 import cv2
 import numpy as np
 
-from board_orientation import orient_board_corners, sample_board_corners
+from board_orientation import board_winding, orient_board_corners, sample_board_corners
 
 
 class BoardOrientationTests(unittest.TestCase):
@@ -44,6 +44,43 @@ class BoardOrientationTests(unittest.TestCase):
         self.assertEqual(info['source'],'tracked')
         _,info=orient_board_corners(blank,grid.reshape(-1,1,2),8,6)
         self.assertEqual(info['source'],'unconfirmed')
+
+    def test_tracking_does_not_mirror_when_board_moves(self):
+        frame, grid = self.fixture()
+        previous, _ = orient_board_corners(frame, grid.reshape(-1, 1, 2), 8, 6)
+        centered = grid - grid.mean(axis=(0, 1))
+        moved = centered @ np.array([[.20, 1.], [-1., -.20]], dtype=np.float32) + [320, 240]
+        blank = np.full_like(frame, 240)
+        corners, info = orient_board_corners(blank, moved.reshape(-1, 1, 2), 8, 6, previous)
+        self.assertEqual(info['source'], 'tracked')
+        self.assertEqual(board_winding(corners, 8, 6), board_winding(previous, 8, 6))
+
+    def test_unrelated_blue_circle_cannot_mirror_an_anchored_board(self):
+        frame, grid = self.fixture()
+        flat = grid.reshape(-1, 1, 2)
+        previous, _ = orient_board_corners(frame, flat, 8, 6)
+        false_marker = np.full_like(frame, 240)
+        cv2.circle(false_marker, (55, 365), 14, (255, 0, 0), 4)
+        unanchored, info = orient_board_corners(false_marker, flat, 8, 6)
+        self.assertTrue(info['marker_found'])
+        self.assertNotEqual(board_winding(unanchored, 8, 6), board_winding(previous, 8, 6))
+        corners, info = orient_board_corners(false_marker, flat, 8, 6, previous, anchored=True)
+        self.assertEqual(info['source'], 'tracked')
+        np.testing.assert_array_equal(corners, previous)
+
+    def test_unrelated_blue_circle_cannot_turn_a_tracked_board_by_180_degrees(self):
+        frame, grid = self.fixture()
+        flat = grid.reshape(-1, 1, 2)
+        previous, _ = orient_board_corners(frame, flat, 8, 6)
+        false_marker = np.full_like(frame, 240)
+        cv2.circle(false_marker, (40, 40), 14, (255, 0, 0), 4)
+        unanchored, info = orient_board_corners(false_marker, flat, 8, 6)
+        self.assertTrue(info['marker_found'])
+        self.assertEqual(board_winding(unanchored, 8, 6), board_winding(previous, 8, 6))
+        self.assertGreater(np.linalg.norm(unanchored[0] - previous[0]), 100)
+        corners, info = orient_board_corners(false_marker, flat, 8, 6, previous, anchored=True)
+        self.assertEqual(info['source'], 'tracked')
+        np.testing.assert_array_equal(corners, previous)
 
     def test_solver_uses_stored_order_instead_of_redetecting(self):
         frame,grid=self.fixture()

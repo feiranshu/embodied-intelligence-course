@@ -219,7 +219,7 @@ class Handler(BaseHTTPRequestHandler):
             elif self.path.startswith('/frame.jpg'):
                 with self.server.app.lock:data=self.server.app.jpeg
                 self.send(data or b'', 'image/jpeg',200 if data else 503)
-            elif self.path=='/marker.svg':self.send((HERE/'marker_id0_40mm.svg').read_bytes(),'image/svg+xml')
+            elif self.path=='/marker_id0_40mm.svg':self.send((HERE/'marker_id0_40mm.svg').read_bytes(),'image/svg+xml')
             elif self.path=='/print-marker':self.send((HERE/'print_marker.html').read_bytes(),'text/html; charset=utf-8')
             else:self.send(dict(error='not found'),status=404)
         except (BrokenPipeError,ConnectionResetError):pass

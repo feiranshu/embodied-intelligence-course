@@ -61,16 +61,11 @@ def build():
     for part in ['part1_camera_calibration','part3_visual_servo','part4_object_tracking']:
         shutil.copytree(W/part,wc/part,ignore=shutil.ignore_patterns('__pycache__','runs','*.pyc'))
     p2=wc/'part2_hand_eye_calibration'
-    for name in ['hand_eye.py','web_app.py','web_ui.html','record_poses.py','pose_plan.example.json','pose_plan.json',
-                 'verify_final_calibration.py','finalize_calibration.py','test_web_ui.mjs']:
+    for name in ['hand_eye.py','web_app.py','web_ui.html','board_preview.html','pose_plan.json','Start_Keyboard_Capture.cmd',
+                 'verify_final_calibration.py','audit_capture.py','test_web_ui.mjs']:
         copy_file(W/'part2_hand_eye_calibration'/name,p2/name)
     final=W/'part2_hand_eye_calibration/最终标定结果'
     shutil.copytree(final,p2/'最终标定结果')
-    for name in ['hand_eye.json','hand_eye.png']:copy_file(final/name,p2/name)
-    samples=json.loads((final/'inputs/samples.json').read_text(encoding='utf-8'))
-    write(p2/'samples/samples.json',json.dumps(samples,ensure_ascii=False,indent=2))
-    for sample in samples['samples']:
-        copy_file(final/'inputs/images'/Path(sample['image']).name,p2/'samples'/sample['image'])
     # Preserve dependencies next to week6; no environment, models or servo recordings.
     shutil.copytree(ARM,ac,ignore=shutil.ignore_patterns('__pycache__','*.pyc','models','rotation_records','verification','.git','AGENTS.md','HANDOFF.md'))
     for index in range(1,21):
@@ -87,7 +82,7 @@ def build():
     write(DEST/'结果页面/相机标定结果.html',result_page('任务一：相机标定运行结果',
         f'<p>GENERAL WEBCAM · 640×480 · 20张实拍图像 · 8×6内角点 · 方格25 mm</p><div class="metric">整体重投影 RMS：<b>{intr["rms_px"]:.6f} px</b></div><h2>相机内参 K</h2><pre>{matrix(K)}</pre><h2>畸变系数</h2><pre>{", ".join(f"{v:.8f}" for v in D)}</pre><p class="sub">数值读取本组相机标定结果JSON；原始图像、角点总览与复算程序随包提供。</p>'))
     write(DEST/'结果页面/手眼标定结果.html',result_page('任务二：手眼标定运行结果',
-        f'<p>基于本组实机采集的12组图像与舵机反馈求得以下标定矩阵。</p><h2>T_gripper_camera（平移单位 mm）</h2><pre>{matrix(X)}</pre><div class="metric">全链重投影 RMS：<b>{hand["rms_px_selected"]:.6f} px</b></div><p>棋盘位置散布RMS：{hand["board_origin_scatter_rms_mm"]:.2f} mm；方向散布RMS：{hand["board_orientation_scatter_rms_deg"]:.2f}°。</p><p>含义：p<sub>末端</sub> = R · p<sub>相机</sub> + t。相机坐标转换为URDF末端坐标。</p><p class="sub">散布表示样本一致性，不能代替绝对定位误差。关节换算与矩阵配套保存；实机定位精度未独立验收。</p>'))
+        f'<p>本组采集 20 组图像和舵机反馈，使用前 12 组拟合，后 8 组独立检验。</p><h2>T_gripper_camera（平移单位 mm）</h2><pre>{matrix(X)}</pre><div class="metric">全链重投影 RMS：<b>{hand["rms_px_selected"]:.6f} px</b></div><p>棋盘位置散布RMS：{hand["board_origin_scatter_rms_mm"]:.2f} mm；方向散布RMS：{hand["board_orientation_scatter_rms_deg"]:.2f}°。留出 RMS：{hand["holdout_validation"]["rms_px"]:.2f} px。</p><p>含义：p<sub>末端</sub> = R · p<sub>相机</sub> + t。相机坐标转换为URDF末端坐标。</p><p class="sub">散布表示样本一致性，不能代替绝对定位误差。关节换算与矩阵配套保存；实机定位精度未独立验收。</p>'))
     write(DEST/'视频/待补视频说明.md','''# 演示视频待补
 
 当前尚未拍摄演示视频，不能将本包视为已满足全部提交项。
@@ -130,7 +125,7 @@ K =
 
 ### 3.1 数据采集与求解
 
-相机刚性固定于机械臂末端，棋盘固定。本组实机采集12组图像和对应的六轴舵机反馈，使用蓝圈统一棋盘角点原点。程序由图像估计棋盘相对相机的位姿，并由关节读数计算末端位姿，建立关系：
+相机刚性固定于机械臂末端，棋盘固定。本组实机采集20组图像和对应的六轴舵机反馈，使用蓝圈统一棋盘角点原点。程序由图像估计棋盘相对相机的位姿，并由关节读数计算末端位姿，建立关系：
 
 ```text
 T_base_board = T_base_gripper × T_gripper_camera × T_camera_board
@@ -153,21 +148,23 @@ T_gripper_camera =
 
 ```text
 p_gripper = R × p_camera + t
-t = [28.438583, 150.041583, -343.733152] mm
+t = {[round(row[3], 6) for row in X[:3]]} mm
 ```
 
-末端坐标为URDF的 `gripper_frame_link`；其原点由模型定义，不能默认等同于夹爪尖端。t的长度约376.13 mm，是该解的输出，尚未通过原点明确的外部测量确认。
+末端坐标为URDF的 `gripper_frame_link`；其原点由模型定义，不能默认等同于夹爪尖端。t 的长度约 {hand['camera_origin_distance_to_gripper_mm']:.2f} mm，是该解的输出，尚未通过原点明确的外部测量确认。
 
 ### 3.4 结果与误差解释
 
 | 指标 | 结果 |
 | --- | ---: |
-| 数据组数 | 12组，全部使用 |
+| 数据组数 | 20 组，12 组拟合、8 组留出 |
 | 全链角点重投影RMS | {hand['rms_px_selected']:.6f} px |
 | 棋盘位置散布RMS | {hand['board_origin_scatter_rms_mm']:.2f} mm |
 | 棋盘方向散布RMS | {hand['board_orientation_scatter_rms_deg']:.2f}° |
+| 留出图重投影 RMS | {hand['holdout_validation']['rms_px']:.2f} px |
+| 留出棋盘原点差异 RMS | {hand['holdout_validation']['board_origin_rms_mm_from_fit']:.2f} mm |
 
-位置与方向散布衡量本批样本一致性，不能作为绝对定位误差或“小于50 mm”的实测证明。ID1、ID2在该轮变化较小，不能由这批数据独立确认其角度换算。当前结果尚未完成独立实机定位精度验收。
+位置与方向散布衡量本批样本一致性，不能作为绝对定位误差或“小于50 mm”的实测证明。底座读数展开参考从拟合数据确定。留出组的底座保持同一读数，独立实机验证尚需覆盖底座运动。当前结果尚未完成独立实机定位精度验收。
 
 ## 四、简单视觉伺服实现思路
 

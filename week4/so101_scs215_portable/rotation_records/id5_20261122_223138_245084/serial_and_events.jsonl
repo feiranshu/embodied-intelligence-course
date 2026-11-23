@@ -1,0 +1,26 @@
+{"utc": "2026-11-22T14:31:38.358439+00:00", "elapsed_s": 0.11201150005217642, "kind": "serial_tx", "hex": "ff ff 05 04 02 09 02 e9"}
+{"utc": "2026-11-22T14:31:38.467375+00:00", "elapsed_s": 0.21942480001598597, "kind": "serial_rx", "requested_bytes": 8, "read_started_s": 0.11241699999663979, "hex": ""}
+{"utc": "2026-11-22T14:31:38.548402+00:00", "elapsed_s": 0.3005856000818312, "kind": "serial_tx", "hex": "ff ff 05 04 02 09 02 e9"}
+{"utc": "2026-11-22T14:31:38.659577+00:00", "elapsed_s": 0.41158220008946955, "kind": "serial_rx", "requested_bytes": 8, "read_started_s": 0.30180510005448014, "hex": ""}
+{"utc": "2026-11-22T14:31:38.750770+00:00", "elapsed_s": 0.5029146000742912, "kind": "serial_tx", "hex": "ff ff 05 04 02 09 02 e9"}
+{"utc": "2026-11-22T14:31:38.852849+00:00", "elapsed_s": 0.6047869001049548, "kind": "serial_rx", "requested_bytes": 8, "read_started_s": 0.5040853000245988, "hex": ""}
+{"utc": "2026-11-22T14:31:38.852849+00:00", "elapsed_s": 0.6049271000083536, "kind": "session_error", "error": "连续 3 次通信失败：状态包长度错误：无回复"}
+{"utc": "2026-11-22T14:31:38.852849+00:00", "elapsed_s": 0.6050972000230104, "kind": "serial_tx", "hex": "ff ff 05 04 03 28 00 cb"}
+{"utc": "2026-11-22T14:31:38.964303+00:00", "elapsed_s": 0.7165644000051543, "kind": "serial_rx", "requested_bytes": 6, "read_started_s": 0.6053650000831112, "hex": ""}
+{"utc": "2026-11-22T14:31:39.045205+00:00", "elapsed_s": 0.7972243000986055, "kind": "serial_tx", "hex": "ff ff 05 04 03 28 00 cb"}
+{"utc": "2026-11-22T14:31:39.156199+00:00", "elapsed_s": 0.9081504000350833, "kind": "serial_rx", "requested_bytes": 6, "read_started_s": 0.7978429000359029, "hex": ""}
+{"utc": "2026-11-22T14:31:39.237043+00:00", "elapsed_s": 0.9889514000387862, "kind": "serial_tx", "hex": "ff ff 05 04 03 28 00 cb"}
+{"utc": "2026-11-22T14:31:39.346955+00:00", "elapsed_s": 1.0988810000708327, "kind": "serial_rx", "requested_bytes": 6, "read_started_s": 0.9895132000092417, "hex": ""}
+{"utc": "2026-11-22T14:31:39.346955+00:00", "elapsed_s": 1.0990657000802457, "kind": "serial_tx", "hex": "ff ff 05 04 02 09 02 e9"}
+{"utc": "2026-11-22T14:31:39.457912+00:00", "elapsed_s": 1.2098578000441194, "kind": "serial_rx", "requested_bytes": 8, "read_started_s": 1.0994339000899345, "hex": ""}
+{"utc": "2026-11-22T14:31:39.538719+00:00", "elapsed_s": 1.290654300013557, "kind": "serial_tx", "hex": "ff ff 05 04 02 09 02 e9"}
+{"utc": "2026-11-22T14:31:39.650737+00:00", "elapsed_s": 1.4028188000665978, "kind": "serial_rx", "requested_bytes": 8, "read_started_s": 1.291046000085771, "hex": ""}
+{"utc": "2026-11-22T14:31:39.731378+00:00", "elapsed_s": 1.4832843000767753, "kind": "serial_tx", "hex": "ff ff 05 04 02 09 02 e9"}
+{"utc": "2026-11-22T14:31:39.841702+00:00", "elapsed_s": 1.5937097000423819, "kind": "serial_rx", "requested_bytes": 8, "read_started_s": 1.4836933000478894, "hex": ""}
+{"utc": "2026-11-22T14:31:39.841702+00:00", "elapsed_s": 1.5939262000611052, "kind": "serial_tx", "hex": "ff ff 05 04 03 28 00 cb"}
+{"utc": "2026-11-22T14:31:39.954703+00:00", "elapsed_s": 1.7067664000205696, "kind": "serial_rx", "requested_bytes": 6, "read_started_s": 1.5942141000414267, "hex": ""}
+{"utc": "2026-11-22T14:31:40.035323+00:00", "elapsed_s": 1.787663200055249, "kind": "serial_tx", "hex": "ff ff 05 04 03 28 00 cb"}
+{"utc": "2026-11-22T14:31:40.146702+00:00", "elapsed_s": 1.898638500017114, "kind": "serial_rx", "requested_bytes": 6, "read_started_s": 1.7886433000676334, "hex": ""}
+{"utc": "2026-11-22T14:31:40.227549+00:00", "elapsed_s": 1.979567400063388, "kind": "serial_tx", "hex": "ff ff 05 04 03 28 00 cb"}
+{"utc": "2026-11-22T14:31:40.338954+00:00", "elapsed_s": 2.091160700074397, "kind": "serial_rx", "requested_bytes": 6, "read_started_s": 1.9799872000003234, "hex": ""}
+{"utc": "2026-11-22T14:31:40.371233+00:00", "elapsed_s": 2.124263400095515, "kind": "session_end", "summary": {"id": 5, "requested_hz": 50, "speed_parameter": 100, "read_only": false, "started_utc": "2026-11-22T14:31:38.245084+00:00", "port": "COM8", "stop_confirmed": false, "elapsed_s": 2.124196600052528, "errors": ["连续 3 次通信失败：状态包长度错误：无回复", "STOP NOT CONFIRMED: ID 5 关闭扭矩失败：连续 3 次通信失败：状态包长度错误：无回复; ID 5 连续驱动归零失败：连续 3 次通信失败：状态包长度错误：无回复; ID 5 最终关闭扭矩失败：连续 3 次通信失败：状态包长度错误：无回复"], "average_samples_per_session_second": 0}}

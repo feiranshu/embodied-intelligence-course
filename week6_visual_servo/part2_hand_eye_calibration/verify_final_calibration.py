@@ -1,50 +1,63 @@
-"""Independently reproject the packaged calibration using its embedded FK mapping."""
+"""Reproject the saved final hand-eye result without refitting."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
 from pathlib import Path
 import sys
-import argparse
-import numpy as np
-import cv2
 
-HERE=Path(__file__).resolve().parent
-sys.path.insert(0,str(HERE.parent))
-from common import (read_json,write_json,arm_model,calibrated_gripper_pose,
-                    calibration,board_points,inverse)
+import numpy as np
+
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent))
+from common import arm_model, board_points, board_spec, calibration, read_image, read_json
+from board_orientation import sample_board_corners
+from part2_hand_eye_calibration.hand_eye import calibration_angles, score_frozen_pose_model
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('folder',type=Path,nargs='?',default=HERE/'最终标定结果')
-    folder=parser.parse_args().folder
-    result=read_json(folder/'hand_eye.json')
-    manifest=read_json(folder/'inputs/samples.json')
-    model=arm_model(folder/'inputs/advanced.json')
-    K,dist,_=calibration(folder/'inputs/camera_intrinsics.json')
-    X=np.array(result['T_gripper_camera']);Y=np.array(result['T_base_board'])
-    points=board_points(8,6,25);squared=[];per_image={};depth=[]
-    for sample in manifest['samples']:
-        G=calibrated_gripper_pose(sample['raw'],model,result)
-        C=inverse(G@X)@Y
-        projected,_=cv2.projectPoints(points,cv2.Rodrigues(C[:3,:3])[0],C[:3,3],K,dist)
-        corners=np.array(sample['ordered_corners'],np.float32).reshape(-1,1,2)
-        error=np.sum((projected-corners)**2,axis=2).ravel()
-        squared.extend(error.tolist());per_image[sample['name']]=float(np.sqrt(np.mean(error)))
-        depth.append(float(np.min((points@C[:3,:3].T+C[:3,3])[:,2])))
-    rms=float(np.sqrt(np.mean(squared)))
-    report=dict(recomputed_rms_px=rms,saved_rms_px=result['rms_px_selected'],
-                sample_count=len(manifest['samples']),per_image_rms_px=per_image,
-                rotation_determinant=float(np.linalg.det(X[:3,:3])),
-                rotation_orthogonality_error=float(np.max(np.abs(X[:3,:3].T@X[:3,:3]-np.eye(3)))),
-                all_board_depths_positive=all(d>0 for d in depth),
-                independent_physical_accuracy_measured=False)
-    if 'distance_measurement' in result:
-        report['distance_is_input_assumption']=True
-        report['assumed_distance_mm']=result['distance_measurement']['fit_radius_mm']
-        report['matrix_distance_mm']=float(np.linalg.norm(X[:3,3]))
-        if abs(report['matrix_distance_mm']-report['assumed_distance_mm'])>1e-6:raise ValueError(report)
-    if abs(rms-result['rms_px_selected'])>.001:raise ValueError(report)
-    if report['rotation_orthogonality_error']>1e-8 or not report['all_board_depths_positive']:raise ValueError(report)
-    write_json(folder/'verification.json',report)
-    print(report)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("folder", type=Path, nargs="?", default=HERE / "最终标定结果")
+    args = parser.parse_args()
+    folder = args.folder
+    result = read_json(folder / "hand_eye.json")
+    manifest = folder / "samples.json"
+    dataset_hash = result.get("calibration_dataset", {}).get("manifest_sha256")
+    if dataset_hash and hashlib.sha256(manifest.read_bytes()).hexdigest() != dataset_hash:
+        raise ValueError("样本清单哈希与最终结果不一致")
+    model = arm_model(folder / "advanced.json")
+    intrinsics = folder / "camera_intrinsics.json"
+    K, dist, _ = calibration(intrinsics)
+    cols, rows, square_mm = board_spec(read_json(intrinsics))
+    groups = {"fit": [], "holdout": []}
+    references = result.get("calibration_unwrap_references", {})
+    for sample in read_json(manifest)["samples"]:
+        image = read_image(folder / sample["image"])
+        corners = sample_board_corners(image, sample, cols, rows)
+        if corners is None:
+            raise ValueError(f"无法读取 {sample['name']} 的棋盘角点")
+        groups[sample["split"]].append({
+            "name": sample["name"], "corners": corners,
+            "angles": calibration_angles(model, sample["raw"], references),
+        })
+    if [item["name"] for item in groups["fit"]] != result["samples"]:
+        raise ValueError("拟合样本与最终结果不一致")
+    solution = {
+        "camera": np.asarray(result["T_gripper_camera"]),
+        "board": np.asarray(result["T_base_board"]),
+        "delta": np.radians(result["joint_offsets_deg"]),
+    }
+    points = board_points(cols, rows, square_mm)
+    checks = {label: score_frozen_pose_model(items, model, points, K, dist, solution)
+              for label, items in groups.items()}
+    saved = {"fit": result["rms_px_selected"], "holdout": result["holdout_validation"]["rms_px"]}
+    for label, rms in saved.items():
+        if not np.isclose(rms, checks[label]["rms_px"], atol=0.001):
+            raise ValueError(f"{label} 重投影误差与存档不一致")
+    print(json.dumps(checks, ensure_ascii=False, indent=2))
 
 
-if __name__=='__main__':main()
+if __name__ == "__main__":
+    main()

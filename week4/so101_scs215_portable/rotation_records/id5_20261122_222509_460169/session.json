@@ -1,0 +1,15 @@
+{
+  "id": 5,
+  "requested_hz": 50,
+  "speed_parameter": 100,
+  "read_only": false,
+  "started_utc": "2026-11-22T14:25:09.460169+00:00",
+  "port": "COM8",
+  "stop_confirmed": false,
+  "elapsed_s": 2.1280913000227883,
+  "errors": [
+    "连续 3 次通信失败：状态包长度错误：无回复",
+    "STOP NOT CONFIRMED: ID 5 关闭扭矩失败：连续 3 次通信失败：状态包长度错误：无回复; ID 5 连续驱动归零失败：连续 3 次通信失败：状态包长度错误：无回复; ID 5 最终关闭扭矩失败：连续 3 次通信失败：状态包长度错误：无回复"
+  ],
+  "average_samples_per_session_second": 0
+}

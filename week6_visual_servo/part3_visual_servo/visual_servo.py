@@ -61,6 +61,18 @@ class MarkerDetector:
         if quad is None:
             return None
         center = quad.mean(axis=0)
+        # A square's projected center lies at the intersection of its diagonals.
+        undistorted = cv2.undistortPoints(quad.reshape(4, 1, 2), K, dist).reshape(4, 2)
+        first = undistorted[2] - undistorted[0]
+        second = undistorted[3] - undistorted[1]
+        try:
+            fractions = np.linalg.solve(np.column_stack((first, -second)), undistorted[1] - undistorted[0])
+        except np.linalg.LinAlgError:
+            fractions = None
+        if fractions is not None and np.all((0 < fractions) & (fractions < 1)):
+            x, y = undistorted[0] + fractions[0] * first
+            projected, _ = cv2.projectPoints(np.array([[x, y, 1.]]), np.zeros(3), np.zeros(3), K, dist)
+            center = projected.reshape(2)
         depth = None
         if self.marker_mm > 0:
             half = self.marker_mm / 2

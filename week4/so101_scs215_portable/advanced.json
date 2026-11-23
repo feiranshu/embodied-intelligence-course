@@ -55,7 +55,8 @@
       ],
       "unwrapped": true,
       "crosses_zero": false,
-      "wheel_positive": null
+      "wheel_positive": null,
+      "raw_positive_wheel_direction": "right"
     },
     "5": {
       "zero_raw": 96,

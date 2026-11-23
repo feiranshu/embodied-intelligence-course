@@ -22,6 +22,7 @@ TORQUE_ENABLE = 0x28
 GOAL_POSITION = 0x2A
 RUNNING_TIME = 0x2C
 LOCK = 0x30
+POSITION_START_FORCE = 0x18
 PRESENT_POSITION = 0x38
 POSITION_MODE_MAX = 1023
 WATCHDOG_TIMEOUT_SECONDS = 0.8
@@ -227,6 +228,19 @@ class ServoBus:
     def set_torque(self, servo_id: int, enabled: bool) -> None:
         self._write(servo_id, TORQUE_ENABLE, [1 if enabled else 0])
 
+    def read_start_force(self, servo_id: int) -> int:
+        return self._read_u16(servo_id, POSITION_START_FORCE)
+
+    def set_start_force(self, servo_id: int, force: int) -> None:
+        if type(force) is not int or not 0 <= force <= 1000:
+            raise ValueError("位置启动驱动力必须为 0～1000")
+        with self.lock:
+            if self._read_u8(servo_id, LOCK) != 1:
+                raise RuntimeError(f"ID {servo_id} EEPROM 未锁定，拒绝临时调整启动驱动力")
+            self._write(servo_id, POSITION_START_FORCE, [force >> 8, force & 255])
+            if self.read_start_force(servo_id) != force:
+                raise RuntimeError(f"ID {servo_id} 启动驱动力回读不一致")
+
     def mode(self, servo_id: int) -> tuple[str, int, int]:
         minimum = self._read_u16(servo_id, MIN_POSITION_LIMIT)
         maximum = self._read_u16(servo_id, MAX_POSITION_LIMIT)
@@ -298,11 +312,8 @@ class ServoBus:
     def run(self, selector, direction: str, speed: int, *, hold_others: bool = False) -> dict:
         item = self._item(selector)
         servo_id = int(item["id"])
-        if direction not in {"left", "right"}:
-            raise ValueError("方向必须是 left 或 right")
         speed = int(speed)
-        if not 100 <= speed <= 1000:
-            raise ValueError("连续模式速度必须位于 100～1000")
+        value = self._wheel_drive_value(item, direction, speed)
 
         with self.lock:
             mode, minimum, maximum = self.mode(servo_id)
@@ -321,10 +332,6 @@ class ServoBus:
                 failures = self._stop_all_locked()
                 if failures:
                     raise RuntimeError("；".join(failures))
-            physical_direction = direction
-            if bool(item.get("invert_direction", False)):
-                physical_direction = "right" if direction == "left" else "left"
-            value = speed if physical_direction == "left" else speed + 1024
             self.running_id = servo_id
             self.last_heartbeat = time.monotonic()
             try:
@@ -345,10 +352,29 @@ class ServoBus:
             "speed": speed,
         }
 
+    @staticmethod
+    def _wheel_drive_value(item: dict, direction: str, speed: int) -> int:
+        if direction not in {"left", "right"}:
+            raise ValueError("方向必须是 left 或 right")
+        if not 100 <= speed <= 1000:
+            raise ValueError("连续模式速度必须位于 100～1000")
+        reverse = (direction == "right") != bool(item.get("invert_direction", False))
+        return speed + 1024 if reverse else speed
+
+    def update_wheel_speed(self, selector, direction: str, speed: int) -> None:
+        item = self._item(selector)
+        servo_id = int(item["id"])
+        value = self._wheel_drive_value(item, direction, int(speed))
+        with self.lock:
+            if self.running_id != servo_id or self.mode(servo_id)[0] != "wheel":
+                raise RuntimeError("连续运动已停止或模式已改变")
+            self._write(servo_id, RUNNING_TIME, [value >> 8, value & 255])
+            self.last_heartbeat = time.monotonic()
+
     def move_position(self, selector, position: int, duration_ms: int, speed: int) -> dict:
         servo_id = int(self._item(selector)["id"])
         position, duration_ms, speed = int(position), int(duration_ms), int(speed)
-        if not 0 <= position <= 1023 or not 1 <= duration_ms <= 65535:
+        if not 0 <= position <= 1023 or not 0 <= duration_ms <= 65535:
             raise ValueError("位置或运动时间超出 SCS215 范围")
         if not 1 <= speed <= 1000:
             raise ValueError("位置模式速度必须位于 1～1000")
@@ -371,6 +397,17 @@ class ServoBus:
                 raise
             self.last_heartbeat = time.monotonic()
         return {"id": servo_id, "position": position}
+
+    def update_position_goal(self, selector, position: int) -> None:
+        """Replace the active position target, retaining its time and speed registers."""
+        servo_id = int(self._item(selector)["id"])
+        if not 0 <= position <= POSITION_MODE_MAX:
+            raise ValueError("位置超出 SCS215 原始读数范围")
+        with self.lock:
+            if self.running_id != servo_id:
+                raise RuntimeError("位置运动已停止")
+            self._write(servo_id, GOAL_POSITION, [position >> 8, position & 255])
+            self.last_heartbeat = time.monotonic()
 
     def move_positions(self, targets: dict[int, int], duration_ms: int, speed: int, *, wheels=None, cancel=None) -> dict[int, int]:
         wheels = wheels or {}

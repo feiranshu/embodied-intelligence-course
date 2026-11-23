@@ -15,13 +15,14 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from camera_utils import DEFAULT_CAMERA, open_camera  # noqa: E402
-from board_orientation import sample_board_corners  # noqa: E402
+from board_orientation import board_winding, sample_board_corners  # noqa: E402
 from common import (ARM_CODE, arm_model, base_gripper_pose, board_points, board_spec, calibration,
                     camera_target_pose, chessboard_corners, ensure_image_size,
                     inverse, read_image, read_json, transform, write_image, write_json)  # noqa: E402
 
 
 HERE = Path(__file__).resolve().parent
+FINAL_RESULTS = HERE / "最终标定结果"
 
 
 def read_plan(path: Path, model) -> list[dict]:
@@ -180,9 +181,9 @@ def _refine_hand_eye(observations, model, matrix, dist, object_points, camera, b
     }
 
 
-def _solve_with_joint_offsets(observations, model, matrix, dist, pattern, square_mm):
-    if len(observations) < 12:
-        raise ValueError(f"有效视角只有 {len(observations)} 张；至少需要 12 张")
+def _solve_with_joint_offsets(observations, model, matrix, dist, pattern, square_mm, *, minimum_views=12):
+    if len(observations) < minimum_views:
+        raise ValueError(f"有效视角只有 {len(observations)} 张；至少需要 {minimum_views} 张")
     cols, rows = pattern
     object_points = board_points(cols, rows, square_mm)
     outline = np.asarray([[0, 0, 0], [(cols - 1) * square_mm, 0, 0],
@@ -191,6 +192,13 @@ def _solve_with_joint_offsets(observations, model, matrix, dist, pattern, square
     methods = {}
     for item in observations:
         item["T_cm"] = camera_target_pose(object_points, item["corners"], matrix, dist)
+    for previous, current in zip(observations, observations[1:]):
+        changes = (current["angles"] - previous["angles"] + np.pi) % (2 * np.pi) - np.pi
+        if np.sum(np.abs(changes)) < np.radians(45):
+            relative = current["T_cm"][:3, :3] @ previous["T_cm"][:3, :3].T
+            observed = np.linalg.norm(cv2.Rodrigues(relative)[0])
+            if observed > np.radians(150):
+                raise ValueError(f"{previous['name']} 与 {current['name']} 的棋盘方向疑似相差 180°，请核对物理原点")
     for name, method in HAND_EYE_METHODS.items():
         try:
             camera_pose, board_pose, spread, _ = _closed_form(observations, model, np.zeros(5), outline, method)
@@ -264,14 +272,38 @@ def _solve_with_joint_offsets(observations, model, matrix, dist, pattern, square
     }
 
 
-def _kinematics_patch(config, model, raw_poses, delta):
+def calibration_unwrap_references(model, raw_poses):
+    """Preserve a contiguous feedback arc if an old motion mapping splits it."""
+    raw_poses = np.asarray(raw_poses)
+    count = len(model.reference)
+    observed = np.ptp(raw_poses[:, :count], axis=0)
+    nominal = np.ptp([model.unwrap(raw)[:count] for raw in raw_poses], axis=0)
+    references = {}
+    for axis in np.flatnonzero((observed < 512) & (nominal - observed > 512)):
+        index = np.argsort(raw_poses[:, axis])[len(raw_poses) // 2]
+        anchor = raw_poses[index]
+        references[str(axis + 1)] = {"raw": int(anchor[axis]),
+                                      "angle_deg": float(np.degrees(model.angles(anchor)[axis]))}
+    return references
+
+
+def calibration_angles(model, raw, references):
+    angles = model.angles(raw)
+    for joint, reference in references.items():
+        axis = int(joint) - 1
+        offset = (int(raw[axis]) - reference["raw"] + 512) % 1024 - 512
+        angles[axis] = np.radians(reference["angle_deg"]) + offset * model.radians_per_count[axis]
+    return angles
+
+
+def _kinematics_patch(config, model, raw_poses, delta, references=None):
     kinematics = copy.deepcopy(config["kinematics"])
     raw_poses = np.asarray(raw_poses, dtype=int)
     for index in np.flatnonzero(np.abs(delta) > math.radians(0.5)):
         row = raw_poses[np.argsort(raw_poses[:, index])[len(raw_poses) // 2]]
         kinematics["zero_raw"][index] = int(row[index])
         kinematics["reference_angles_deg"][index] = float(
-            math.degrees(model.angles(row)[index] + delta[index]))
+            math.degrees(calibration_angles(model, row, references or {})[index] + delta[index]))
     return {key: kinematics[key] for key in ("zero_raw", "reference_angles_deg")}
 
 
@@ -357,6 +389,10 @@ def solve(args):
     model = arm_model(args.advanced_config)
     manifest = Path(args.samples)
     records = read_json(manifest).get("samples", [])
+    holdout_records = []
+    if getattr(args, "fit_only", False):
+        holdout_records = [item for item in records if item.get("split") == "holdout"]
+        records = [item for item in records if item.get("split") == "fit"]
     observations, raw_poses, names = [], [], []
     for item in records:
         path = manifest.parent / item["image"]
@@ -370,11 +406,21 @@ def solve(args):
         if raw.shape != (6,) or np.any(raw < 0) or np.any(raw > 1023):
             raise ValueError(f"样本 {item['name']} 必须包含六个 0～1023 的原始位置值")
         # Offline pose conversion uses the calibrated angle mapping, not motion limits.
-        observations.append({"name": item["name"], "raw": raw,
-                             "angles": model.angles(raw), "corners": corners})
+        observations.append({"name": item["name"], "raw": raw, "corners": corners})
         raw_poses.append(raw)
         names.append(item["name"])
-    solved = _solve_with_joint_offsets(observations, model, K, dist, (cols, rows), square_mm)
+    winding_groups = {}
+    for observation in observations:
+        winding = board_winding(observation["corners"], cols, rows)
+        winding_groups.setdefault(winding, []).append(observation["name"])
+    if len(winding_groups) > 1:
+        groups = sorted(winding_groups.values(), key=len)
+        raise ValueError(f"棋盘角点顺序出现镜像冲突，请核对原图并重录异常样本：{', '.join(groups[0])}")
+    references = calibration_unwrap_references(model, raw_poses) if raw_poses else {}
+    for observation in observations:
+        observation["angles"] = calibration_angles(model, observation["raw"], references)
+    solved = _solve_with_joint_offsets(observations, model, K, dist, (cols, rows), square_mm,
+                                       minimum_views=getattr(args, "minimum_views", 12))
     selected = solved["selected"]
     T_gc = selected["camera"]
     board_pose = selected["board"]
@@ -417,6 +463,8 @@ def solve(args):
             for joint, value in solved["corrected"]["delta_std"].items()
         },
         "unobservable_offset_joint_ids": [joint + 1 for joint in solved["corrected"].get("unobservable", [])],
+        "calibration_unwrap_references": references,
+        "assessment": {"independent_accuracy_validated": False},
     }
     rotation = T_gc[:3, :3]
     result["camera_rpy_deg_in_gripper"] = np.degrees([
@@ -426,7 +474,27 @@ def solve(args):
     ]).tolist()
     result["rpy_convention"] = "R = Rz(yaw) @ Ry(pitch) @ Rx(roll)"
     result["kinematics_patch_suggestion"] = _kinematics_patch(
-        read_json(args.advanced_config), model, raw_poses, selected["delta"])
+        read_json(args.advanced_config), model, raw_poses, selected["delta"], references)
+    if getattr(args, "fit_only", False):
+        result["holdout_validation"] = {"samples": len(holdout_records)}
+        if holdout_records:
+            try:
+                holdout = []
+                fit_winding = next(iter(winding_groups))
+                for item in holdout_records:
+                    frame = read_image(manifest.parent / item["image"])
+                    ensure_image_size(frame, image_size)
+                    corners = sample_board_corners(frame, item, cols, rows)
+                    raw = np.asarray(item["raw"], dtype=int)
+                    if corners is None or board_winding(corners, cols, rows) != fit_winding:
+                        raise ValueError(f"{item['name']} 棋盘未完整识别或角点顺序与拟合组冲突")
+                    if raw.shape != (6,) or np.any((raw < 0) | (raw > 1023)):
+                        raise ValueError(f"{item['name']} 的六轴原始反馈无效")
+                    holdout.append({"name": item["name"], "angles": calibration_angles(model, raw, references), "corners": corners})
+                result["holdout_validation"] = score_frozen_pose_model(
+                    holdout, model, board_points(cols, rows, square_mm), K, dist, selected)
+            except (ValueError, RuntimeError, OSError, cv2.error) as exc:
+                result["holdout_validation"]["error"] = str(exc)
     if args.board_origin_mm is not None:
         measured = np.asarray(args.board_origin_mm, dtype=float)
         error = origin - measured
@@ -464,6 +532,27 @@ def solve(args):
         print("未提供实测标定板原点，无法判定课程要求的各轴 50 mm 外部误差。")
 
 
+def score_frozen_pose_model(observations, model, points, K, dist, solution):
+    camera, board = solution["camera"], solution["board"]
+    board_origins, per_view = [], {}
+    for item in observations:
+        gripper = _fk_pose(model, item["angles"] + solution["delta"])
+        camera_board = inverse(gripper @ camera) @ board
+        depths = (points @ camera_board[:3, :3].T + camera_board[:3, 3])[:, 2]
+        if not np.all(depths > 0):
+            raise ValueError(f"冻结模型将 {item['name']} 的棋盘投影到相机后方")
+        projection, _ = cv2.projectPoints(points, cv2.Rodrigues(camera_board[:3, :3])[0],
+                                          camera_board[:3, 3], K, dist)
+        residual = projection - item["corners"]
+        per_view[item["name"]] = float(np.sqrt(np.mean(np.sum(residual ** 2, axis=2))))
+        observed = camera_target_pose(points, item["corners"], K, dist)
+        board_origins.append((gripper @ camera @ observed)[:3, 3])
+    offsets = np.asarray(board_origins) - board[:3, 3]
+    return {"samples": len(observations), "rms_px": float(np.sqrt(np.mean(np.square(list(per_view.values()))))),
+            "board_origin_rms_mm_from_fit": float(np.sqrt(np.mean(np.sum(offsets ** 2, axis=1)))),
+            "per_view_rms_px": per_view}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -478,12 +567,15 @@ def main():
     collect_parser.add_argument("--port")
     collect_parser.add_argument("--execute", action="store_true", help="实际驱动机械臂；缺省仅预检计划")
     solve_parser = sub.add_parser("solve")
-    solve_parser.add_argument("--samples", type=Path, default=HERE / "samples" / "samples.json")
-    solve_parser.add_argument("--intrinsics", type=Path, default=HERE.parent / "part1_camera_calibration" / "camera_intrinsics.json")
-    solve_parser.add_argument("--advanced-config", type=Path, default=ARM_CODE / "advanced.json")
+    solve_parser.add_argument("--samples", type=Path, default=FINAL_RESULTS / "samples.json")
+    solve_parser.add_argument("--intrinsics", type=Path, default=FINAL_RESULTS / "camera_intrinsics.json")
+    solve_parser.add_argument("--advanced-config", type=Path, default=FINAL_RESULTS / "advanced.json")
     solve_parser.add_argument("--board-origin-mm", type=float, nargs=3, metavar=("X", "Y", "Z"))
-    solve_parser.add_argument("--output", type=Path, default=HERE / "hand_eye.json")
+    solve_parser.add_argument("--output", type=Path, required=True, help="输出位置，最终存档另行保留")
+    solve_parser.add_argument("--fit-only", action="store_true", help="只拟合 fit 样本，并评分 holdout 样本")
     args = parser.parse_args()
+    if args.command == "solve" and args.samples.resolve() == (FINAL_RESULTS / "samples.json").resolve():
+        args.fit_only = True
     (collect if args.command == "collect" else solve)(args)
 
 

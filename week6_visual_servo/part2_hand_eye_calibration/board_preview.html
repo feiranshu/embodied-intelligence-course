@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>腕部相机 · 棋盘预览</title>
+<style>
+  :root { color-scheme: dark; font: 16px/1.6 "Segoe UI", "Microsoft YaHei", sans-serif; }
+  body { margin: 0; background: #121820; color: #edf2f7; }
+  main { width: min(880px, calc(100% - 40px)); margin: 32px auto; }
+  h1 { font-size: clamp(22px, 4vw, 30px); margin: 0; }
+  header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; }
+  #device, p { color: #bcc9d6; }
+  #status { display: block; width: fit-content; margin: 16px 0 12px; padding: 6px 12px; background: #3c3127; color: #ffdcaa; border-radius: 6px; font-weight: 600; }
+  #status[data-found="true"] { background: #193c32; color: #b6f7d7; }
+  img { width: 100%; max-height: 72vh; display: block; aspect-ratio: 4 / 3; object-fit: contain; background: #080d13; border-radius: 8px; transform: rotate(180deg); }
+  button { font: inherit; color: #121820; background: #b6f7d7; border: 0; border-radius: 6px; padding: 8px 14px; cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+</style>
+<main>
+  <header><h1>腕部相机 · 棋盘预览</h1><span id="device"></span></header>
+  <output id="status" aria-live="polite">正在连接相机…</output>
+  <img src="/video.mjpg" alt="腕部相机实时画面与棋盘角点标记">
+  <section id="recording" hidden>
+    <h2>手眼标定核验采样</h2>
+    <p id="pose"></p>
+    <p id="capture-blocker" aria-live="polite" hidden></p>
+    <button id="capture" disabled>保存当前姿态</button>
+    <output id="capture-result" aria-live="polite"></output>
+    <p>固定棋盘和相机支架。每次调整关节后，等画面稳定再保存。前 12 张用于拟合，随后至少 6 张留作独立核验。请让底座、肩部、肘部和腕部都在不同样本里有变化。</p>
+  </section>
+  <p>让整张棋盘进入画面，四边留出空白。识别成功后，画面会标出所有内角点。</p>
+</main>
+<script>
+  const status = document.querySelector('#status');
+  const device = document.querySelector('#device');
+  const recording = document.querySelector('#recording');
+  const capture = document.querySelector('#capture');
+  const captureResult = document.querySelector('#capture-result');
+  const captureBlocker = document.querySelector('#capture-blocker');
+  let saving = false;
+  capture.addEventListener('click', async () => {
+    saving = true;
+    capture.disabled = true;
+    try {
+      const response = await fetch('/api/capture', {method: 'POST'});
+      const result = await response.json();
+      captureResult.textContent = result.ok ? `已保存第 ${result.sample_count} 张` : result.error;
+    } catch (error) {
+      captureResult.textContent = '保存请求未返回，请先核对已保存数量。';
+    } finally {
+      saving = false;
+    }
+  });
+  async function refresh() {
+    try {
+      const response = await fetch('/api/state', {cache: 'no-store'});
+      if (!response.ok) throw new Error('无法读取相机状态');
+      const state = await response.json();
+      const [cols, rows] = state.pattern;
+      const found = !state.error && state.corners === cols * rows;
+      device.textContent = `${state.camera} · ${state.image_size.join(' × ')}`;
+      status.dataset.found = found;
+      const message = state.error || (found ? `已识别完整棋盘 · ${state.corners}/${cols * rows} 个内角点`
+        : state.ready ? `未识别完整棋盘 · 需要 ${cols} × ${rows} 个内角点` : '等待相机画面…');
+      if (message !== status.textContent) status.textContent = message;
+      if (state.recording) {
+        recording.hidden = false;
+        capture.disabled = saving || !state.can_capture;
+        const count = state.sample_count;
+        const raw = state.raw ? ` · 关节读数 ${state.raw.join(' / ')}` : '';
+        document.querySelector('#pose').textContent = `拟合 ${Math.min(count, 12)}/12 · 留出 ${Math.max(0, count - 12)}/6${raw}`;
+        let blocker = '';
+        if (state.pose_issues.length) {
+          blocker = state.raw ? `暂不能保存，关节读数位于采样避开的编码器区间。${state.pose_issues.join('；')}`
+            : state.pose_issues.join('；');
+        } else if (found && state.stable_frames < 2) {
+          blocker = '等待棋盘画面稳定后保存。';
+        }
+        if (captureBlocker.textContent !== blocker) captureBlocker.textContent = blocker;
+        captureBlocker.hidden = !blocker;
+      }
+    } catch (error) {
+      capture.disabled = true;
+      captureBlocker.hidden = true;
+      status.dataset.found = false;
+      status.textContent = '预览服务已断开';
+    } finally {
+      setTimeout(refresh, 700);
+    }
+  }
+  refresh();
+</script>
+</html>

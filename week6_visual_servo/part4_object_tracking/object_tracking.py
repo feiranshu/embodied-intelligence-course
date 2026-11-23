@@ -12,6 +12,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from camera_utils import DEFAULT_CAMERA, open_camera  # noqa: E402
 from common import ARM_CODE, calibration, load_hand_eye, read_json  # noqa: E402
+from part3_visual_servo.motion_model import matching_motion_model  # noqa: E402
 from part3_visual_servo.visual_servo import run_servo_loop  # noqa: E402
 
 
@@ -54,12 +55,13 @@ class OpticalFlowTracker:
                                                        ransacReprojThreshold=3)
         if matrix is None or inliers is None or int(inliers.sum()) < 8:
             return None
-        self.box = cv2.transform(self.box[None], matrix)[0]
+        box = cv2.transform(self.box[None], matrix)[0]
         height, width = gray.shape
-        if (not np.isfinite(self.box).all() or np.min(self.box[:, 0]) < 0
-                or np.min(self.box[:, 1]) < 0 or np.max(self.box[:, 0]) >= width
-                or np.max(self.box[:, 1]) >= height):
+        if (not np.isfinite(box).all() or np.min(box[:, 0]) < 0
+                or np.min(box[:, 1]) < 0 or np.max(box[:, 0]) >= width
+                or np.max(box[:, 1]) >= height):
             return None
+        self.box = box
         self.points = current[inliers.ravel() == 1].reshape(-1, 1, 2).astype(np.float32)
         if len(self.points) < 30:
             replenished = self._features(gray)
@@ -80,7 +82,7 @@ def main():
     parser.add_argument("--intrinsics", type=Path,
                         default=HERE.parent / "part1_camera_calibration" / "camera_intrinsics.json")
     parser.add_argument("--hand-eye", type=Path,
-                        default=HERE.parent / "part2_hand_eye_calibration" / "hand_eye.json")
+                        default=HERE.parent / "part2_hand_eye_calibration" / "最终标定结果" / "hand_eye.json")
     parser.add_argument("--advanced-config", type=Path, default=ARM_CODE / "advanced.json")
     parser.add_argument("--hardware-config", type=Path, default=ARM_CODE / "config.json")
     parser.add_argument("--port")
@@ -111,6 +113,7 @@ def main():
             from servo_bus import ServoBus, load_config
             bus = ServoBus(load_config(args.hardware_config), args.port)
             arm = Arm(read_json(args.advanced_config), bus)
+            arm.model = matching_motion_model(arm.model, read_json(args.hand_eye))
         else:
             T_gc = None
             print("预览模式：不打开串口，不驱动机械臂")

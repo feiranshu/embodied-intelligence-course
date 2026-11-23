@@ -23,7 +23,13 @@ def _variants(corners, cols, rows):
     return [grid, grid[:, ::-1], grid[::-1], grid[::-1, ::-1]]
 
 
-def orient_board_corners(frame, corners, cols, rows, previous=None):
+def board_winding(corners, cols, rows):
+    grid = np.asarray(corners).reshape(rows, cols, 2)
+    across, down = grid[0, -1] - grid[0, 0], grid[-1, 0] - grid[0, 0]
+    return int(np.sign(across[0] * down[1] - across[1] * down[0]))
+
+
+def orient_board_corners(frame, corners, cols, rows, previous=None, *, anchored=False):
     """Return ordered corners and diagnostics; never add a capture rejection rule."""
     points = np.asarray(corners, dtype=np.float32).reshape(rows, cols, 2)
     cells = np.concatenate([np.linalg.norm(np.diff(points, axis=1),axis=2).ravel(),
@@ -63,19 +69,36 @@ def orient_board_corners(frame, corners, cols, rows, previous=None):
             score = area*circularity/(1+distances[nearest]**2)
             candidates.append((score,nearest,center))
     variants = _variants(corners,cols,rows)
+    has_previous = previous is not None and np.asarray(previous).shape == np.asarray(corners).shape
+    continuous = list(range(len(variants)))
+    tracked = None
+    if has_previous:
+        previous_winding = board_winding(previous, cols, rows)
+        same_winding = [index for index, variant in enumerate(variants)
+                        if board_winding(variant, cols, rows) == previous_winding]
+        if same_winding:
+            continuous = same_winding
+        old = np.asarray(previous).reshape(-1, 2)
+        old = old - old.mean(axis=0)
+
+        def displacement(index):
+            current = variants[index].reshape(-1, 2)
+            return float(np.mean(np.sum((current - current.mean(axis=0) - old) ** 2, axis=1)))
+
+        tracked = min(continuous, key=displacement)
+        if anchored:
+            candidates = [item for item in candidates if item[1] in continuous]
+            # A nearby matching grid is stronger evidence than a new blue object at the opposite corner.
+            if displacement(tracked) <= (0.75 * cell) ** 2:
+                candidates = [item for item in candidates if item[1] == tracked]
     if candidates:
         _,index,center = max(candidates,key=lambda item:item[0])
         ordered = variants[index].reshape(-1,1,2).copy()
         return ordered, dict(source='blue_circle',marker_found=True,
                              marker_center=center.astype(float).tolist(),
                              message='蓝圈已识别：0固定在蓝圈旁的内角点')
-    if previous is not None and np.asarray(previous).shape == np.asarray(corners).shape:
-        old = np.asarray(previous).reshape(-1,2)
-        old = old-old.mean(axis=0)
-        def displacement(candidate):
-            current = candidate.reshape(-1,2)
-            return float(np.mean(np.sum((current-current.mean(axis=0)-old)**2,axis=1)))
-        ordered = min(variants,key=displacement).reshape(-1,1,2).copy()
+    if tracked is not None:
+        ordered = variants[tracked].reshape(-1,1,2).copy()
         return ordered, dict(source='tracked',marker_found=False,marker_center=None,
                              message='蓝圈暂未识别：沿用相邻画面的角点方向，请确认蓝圈可见')
     return np.asarray(corners,dtype=np.float32).copy(), dict(
