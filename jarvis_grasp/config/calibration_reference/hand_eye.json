@@ -1,0 +1,201 @@
+{
+  "T_gripper_camera": [
+    [
+      0.9962778456232213,
+      0.08540606384713229,
+      -0.011672984986384707,
+      -109.23146033383995
+    ],
+    [
+      -0.07392489357388762,
+      0.7768859722637955,
+      -0.6252865712693872,
+      158.88066249956688
+    ],
+    [
+      -0.04433468653821956,
+      0.6238220822942041,
+      0.7803079169223397,
+      -76.60771477277889
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "units": "mm",
+  "frames": "T_gripper_camera maps OpenCV camera coordinates to gripper_frame_link coordinates; translation in mm",
+  "samples": [
+    "pose_001",
+    "pose_002",
+    "pose_003",
+    "pose_004",
+    "pose_005",
+    "pose_006",
+    "pose_007",
+    "pose_008",
+    "pose_009",
+    "pose_010",
+    "pose_011",
+    "pose_012"
+  ],
+  "estimated_board_origin_base_mm": [
+    995.5189942003763,
+    944.5898125489024,
+    112.57621759648407
+  ],
+  "board_origin_scatter_rms_mm": 37.03634169165677,
+  "board_orientation_scatter_rms_deg": 1.1353324764962978,
+  "camera_translation_in_gripper_mm": [
+    -109.23146033383995,
+    158.88066249956688,
+    -76.60771477277889
+  ],
+  "camera_origin_distance_to_gripper_mm": 207.4688381556902,
+  "distance_definition": "Euclidean distance from camera optical origin to URDF gripper_frame_link origin, in mm; not housing-to-finger clearance.",
+  "T_base_board": [
+    [
+      -0.4537118117879566,
+      0.049565457894627296,
+      0.8897689909340434,
+      995.5189942003763
+    ],
+    [
+      0.890654004600192,
+      -0.00803496448498231,
+      0.4546106943697728,
+      944.5898125489024
+    ],
+    [
+      0.02968224947222603,
+      0.9987385567451683,
+      -0.04050011526955832,
+      112.57621759648407
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "joint_offsets_deg": [
+    0.0,
+    90.0176357870824,
+    136.86421467503342,
+    -25.885662191196936,
+    0.0
+  ],
+  "rms_px_nominal_fk": 32.27500242060409,
+  "rms_px_with_joint_offsets": 3.4225247413168858,
+  "rms_px_selected": 3.4225247413168858,
+  "selected_hand_eye_method": "TSAI",
+  "solver_candidates": {
+    "TSAI": {
+      "initial_board_corner_scatter_mm": 191.7232673762886,
+      "refined_nominal_rms_px": 32.27500242060409,
+      "refined_with_offsets_rms_px": 7.220798658613129,
+      "identity_initial_seed": false
+    },
+    "PARK": {
+      "initial_board_corner_scatter_mm": 357.7088625796143,
+      "refined_nominal_rms_px": 14142.13562373095,
+      "refined_with_offsets_rms_px": 14142.13562373095,
+      "identity_initial_seed": false
+    },
+    "HORAUD": {
+      "initial_board_corner_scatter_mm": 124.30509109113272,
+      "refined_nominal_rms_px": 32.217647020133064,
+      "refined_with_offsets_rms_px": 7.228941050003596,
+      "identity_initial_seed": false
+    },
+    "ANDREFF": {
+      "initial_board_corner_scatter_mm": 217.98707465414395,
+      "refined_nominal_rms_px": 32.67403323614437,
+      "refined_with_offsets_rms_px": 7.288713129503821,
+      "identity_initial_seed": false
+    },
+    "DANIILIDIS": {
+      "initial_board_corner_scatter_mm": 132.51123534701674,
+      "refined_nominal_rms_px": 33.76813909415122,
+      "refined_with_offsets_rms_px": 7.362437898395184,
+      "identity_initial_seed": false
+    }
+  },
+  "per_image_rms_px": {
+    "pose_001": 2.7032311038322856,
+    "pose_002": 1.252104180279345,
+    "pose_003": 1.3369983677165782,
+    "pose_004": 5.831340812801875,
+    "pose_005": 3.2241404311972155,
+    "pose_006": 2.3823230678511003,
+    "pose_007": 4.25305133562389,
+    "pose_008": 4.944859102747065,
+    "pose_009": 3.5379352584875705,
+    "pose_010": 4.0166054801448805,
+    "pose_011": 2.576790296525755,
+    "pose_012": 1.412872656891726
+  },
+  "joint_offset_std_deg": {
+    "2": 0.1757015471175534,
+    "3": 0.3509887472124103,
+    "4": 0.29875730345354434
+  },
+  "unobservable_offset_joint_ids": [],
+  "calibration_unwrap_references": {
+    "1": {
+      "raw": 434,
+      "angle_deg": 127.85923753665689
+    }
+  },
+  "camera_rpy_deg_in_gripper": [
+    38.64080836449487,
+    2.541023312903138,
+    -4.243632007434604
+  ],
+  "rpy_convention": "R = Rz(yaw) @ Ry(pitch) @ Rx(roll)",
+  "kinematics_patch_suggestion": {
+    "zero_raw": [
+      1022,
+      348,
+      529,
+      714,
+      80
+    ],
+    "reference_angles_deg": [
+      0.0,
+      -9.874077958432926,
+      20.488346718913622,
+      128.79834179782821,
+      2.7892819361809567
+    ]
+  },
+  "holdout_validation": {
+    "samples": 8,
+    "rms_px": 36.389002056030726,
+    "board_origin_rms_mm_from_fit": 114.3772574299689,
+    "per_view_rms_px": {
+      "pose_013": 18.561141967773438,
+      "pose_014": 45.42314147949219,
+      "pose_015": 47.026512145996094,
+      "pose_016": 46.271480560302734,
+      "pose_017": 43.98728942871094,
+      "pose_018": 29.44551658630371,
+      "pose_019": 24.380046844482422,
+      "pose_020": 20.896135330200195
+    }
+  },
+  "calibration_dataset": {
+    "label": "2026-11-23 修正后的 20 组手眼标定",
+    "fit_samples": 12,
+    "holdout_samples": 8,
+    "manifest_sha256": "54402328516e28c755efc3c5348bbf61fda1a9421e2dc0465b4064dc7f5a8821"
+  },
+  "assessment": {
+    "status": "course_final",
+    "independent_accuracy_validated": false,
+    "note": "Holdout image reprojection is verified. Independent physical positioning accuracy was not measured."
+  }
+}

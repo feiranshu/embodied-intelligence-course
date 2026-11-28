@@ -1,0 +1,36 @@
+{
+  "robot_id": "so101_scs215_group23",
+  "robot_type": "so101_scs215",
+  "serial_port": "COM3",
+  "baudrate": 1000000,
+  "protocol": "feetech_scs215_big_endian_10bit",
+  "urdf_path": "vendor/scs215/so101_new_calib.urdf",
+  "advanced_config": "vendor/scs215/advanced.json",
+  "hardware_config": "vendor/scs215/config.json",
+  "cameras": {
+    "wrist": {
+      "name": "GENERAL WEBCAM",
+      "index": 1,
+      "width": 640,
+      "height": 480,
+      "backend": "CAP_DSHOW"
+    }
+  },
+  "excluded_cameras": [
+    {
+      "name": "HD Camera",
+      "index": 0,
+      "reason": "Laptop built-in webcam; user requested robot-mounted camera only."
+    }
+  ],
+  "rest_pose_raw": [434, 120, 790, 685, 353, 270],
+  "observe_pose_name": "tabletop_observe_20261123",
+  "observe_pose_raw": [434, 320, 560, 685, 353, 270],
+  "safety": {
+    "max_step_deg": 45.0,
+    "max_speed_raw": 140,
+    "z_floor_mm": 35.0,
+    "max_frame_gap_s": 0.30,
+    "torque_off_at_rest": true
+  }
+}

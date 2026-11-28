@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SO-101 绿色笔盒一键抓取</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #171f27;
+      --border: #26323f;
+      --text: #eef3f8;
+      --muted: #8ea0b2;
+      --green: #22c55e;
+      --green-hover: #16a34a;
+      --red: #ef4444;
+      --red-hover: #dc2626;
+      --amber: #f59e0b;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+    .app {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--panel);
+      border: 1px solid var(--border);
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+    .badge.idle .dot { background: var(--green); }
+    .badge.running .dot { background: var(--amber); animation: pulse 1s infinite; }
+    .badge.success .dot { background: var(--green); }
+    .badge.error .dot, .badge.stopped .dot { background: var(--red); }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.85); }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    @media (max-width: 780px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #090d11;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .video-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .cam-tag {
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(15, 20, 25, 0.78);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.08s ease, background 0.15s ease, opacity 0.15s ease;
+      color: #fff;
+    }
+    .btn:active:not(:disabled) { transform: scale(0.985); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-start {
+      background: var(--green);
+      box-shadow: 0 8px 24px rgba(34, 197, 94, 0.24);
+    }
+    .btn-start:hover:not(:disabled) { background: var(--green-hover); }
+    .btn-stop {
+      background: var(--red);
+      padding: 13px 20px;
+      font-size: 15px;
+    }
+    .btn-stop:hover:not(:disabled) { background: var(--red-hover); }
+    .option-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .option-row label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .status-box {
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+    }
+    .status-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .status-text {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .metric {
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--border);
+    }
+    .metric .k { font-size: 12px; color: var(--muted); }
+    .metric .v { font-size: 15px; font-weight: 600; margin-top: 4px; }
+    .ok { color: var(--green); }
+    .warn { color: var(--amber); }
+    .err { color: var(--red); }
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <div class="title">SO-101 绿色笔盒一键抓取</div>
+        <div class="subtitle">点击「开始抓取」后自动抬头识别、对准、下探夹起并安全断扭</div>
+      </div>
+      <div id="badge" class="badge idle">
+        <span class="dot"></span>
+        <span id="badgeText">待机就绪</span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="video-wrap">
+          <img id="camImg" alt="机械臂腕部摄像头实时画面" />
+          <div id="camTag" class="cam-tag">正在连接腕部摄像头…</div>
+        </div>
+      </div>
+
+      <div class="card controls">
+        <button id="startBtn" class="btn btn-start" type="button">开始抓取绿色笔盒</button>
+        <button id="stopBtn" class="btn btn-stop" type="button" disabled>急停 / 立即断扭</button>
+
+        <div class="option-row">
+          <label>
+            <input id="releaseCheck" type="checkbox" checked />
+            抓起复检后自动轻放回桌面
+          </label>
+          <label style="gap:6px;font-size:13px;">
+            抓取高度
+            <input id="graspZInput" type="number" min="18" max="60" step="2" value="26"
+              style="width:58px;background:#0f1419;color:#eef3f8;border:1px solid #26323f;border-radius:6px;padding:3px 6px;font-size:13px;" />
+            mm
+          </label>
+        </div>
+
+        <div class="status-box">
+          <div class="status-label">当前阶段</div>
+          <div id="stageText" class="status-text">已就绪，请将绿色笔盒放在机械臂正前方后点击开始。</div>
+        </div>
+
+        <div class="metrics">
+          <div class="metric">
+            <div class="k">抓取结果</div>
+            <div id="graspResult" class="v">—</div>
+          </div>
+          <div class="metric">
+            <div class="k">夹爪 / 负载</div>
+            <div id="gripperMetric" class="v">—</div>
+          </div>
+          <div class="metric">
+            <div class="k">舵机断扭确认</div>
+            <div id="torqueMetric" class="v">—</div>
+          </div>
+          <div class="metric">
+            <div class="k">最新录像</div>
+            <div id="videoMetric" class="v">—</div>
+          </div>
+        </div>
+
+        <div class="hint">
+          画面叠加：绿框=识别到的绿盒，黄点=夹爪对准中心，绿竖线=目标中心(u=335)，蓝竖线=右固定爪边界(u=425)。运行中随时可点「急停」或按 <b>Esc / 空格</b> 立即切断六轴扭矩。
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const startBtn = document.getElementById("startBtn");
+    const stopBtn = document.getElementById("stopBtn");
+    const releaseCheck = document.getElementById("releaseCheck");
+    const badge = document.getElementById("badge");
+    const badgeText = document.getElementById("badgeText");
+    const stageText = document.getElementById("stageText");
+    const graspResult = document.getElementById("graspResult");
+    const gripperMetric = document.getElementById("gripperMetric");
+    const torqueMetric = document.getElementById("torqueMetric");
+    const videoMetric = document.getElementById("videoMetric");
+    const camImg = document.getElementById("camImg");
+    const camTag = document.getElementById("camTag");
+    const graspZInput = document.getElementById("graspZInput");
+
+    let frameBusy = false;
+    async function refreshFrame() {
+      if (frameBusy) return;
+      frameBusy = true;
+      try {
+        const res = await fetch("/api/frame.jpg?t=" + Date.now(), { cache: "no-store" });
+        if (res.ok) {
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          const prev = camImg.dataset.url;
+          camImg.src = url;
+          camImg.dataset.url = url;
+          if (prev) URL.revokeObjectURL(prev);
+        }
+      } catch (_) {
+      } finally {
+        frameBusy = false;
+      }
+    }
+
+    function renderState(s) {
+      const busy = Boolean(s.busy);
+      startBtn.disabled = busy || !s.camera_ready;
+      stopBtn.disabled = !busy;
+      releaseCheck.disabled = busy;
+      graspZInput.disabled = busy;
+
+      badge.className = "badge " + (s.status || "idle");
+      const statusMap = {
+        idle: "待机就绪",
+        running: "正在抓取中…",
+        success: "抓取成功",
+        missed: "未夹到（已安全退回）",
+        stopped: "已急停断扭",
+        error: "运行异常（已断扭）",
+      };
+      badgeText.textContent = statusMap[s.status] || s.status;
+      stageText.textContent = s.message || "待机中";
+
+      if (s.camera_ready) {
+        camTag.textContent = (s.camera_name || "腕部相机") + " · 实时画面";
+      } else {
+        camTag.textContent = s.camera_error || "腕部相机未连接";
+      }
+
+      const r = s.last_result;
+      if (!r) {
+        graspResult.textContent = "—";
+        graspResult.className = "v";
+        gripperMetric.textContent = "—";
+        torqueMetric.textContent = "—";
+        videoMetric.textContent = "—";
+        return;
+      }
+
+      const verified = r.after_lift && r.after_lift.grasp_verified;
+      if (s.status === "running") {
+        graspResult.textContent = "执行中…";
+        graspResult.className = "v warn";
+      } else if (verified) {
+        graspResult.textContent = "已夹起并验证";
+        graspResult.className = "v ok";
+      } else if (s.status === "stopped") {
+        graspResult.textContent = "已人工中止";
+        graspResult.className = "v err";
+      } else if (s.status === "error") {
+        graspResult.textContent = "出错中止";
+        graspResult.className = "v err";
+      } else {
+        graspResult.textContent = "空抓 / 未夹稳";
+        graspResult.className = "v warn";
+      }
+
+      const close = r.close_feedback;
+      const lift = r.after_lift;
+      if (lift && lift.gripper_raw != null) {
+        gripperMetric.textContent = `raw ${lift.gripper_raw} / 负载 ${lift.gripper_load ?? 0}`;
+      } else if (close && close.raw != null) {
+        gripperMetric.textContent = `raw ${close.raw} / 负载 ${close.max_load ?? 0}`;
+      } else {
+        gripperMetric.textContent = "—";
+      }
+
+      if (r.torque_off_verified === true) {
+        torqueMetric.textContent = "6轴已断扭 ✓";
+        torqueMetric.className = "v ok";
+      } else if (r.torque_off_verified === false) {
+        torqueMetric.textContent = "断扭待核对";
+        torqueMetric.className = "v err";
+      } else {
+        torqueMetric.textContent = "—";
+      }
+
+      if (r.video_mp4) {
+        const parts = String(r.video_mp4).split(/[\\/]/);
+        videoMetric.textContent = parts[parts.length - 1];
+      } else {
+        videoMetric.textContent = "—";
+      }
+    }
+
+    async function pollState() {
+      try {
+        const res = await fetch("/api/state", { cache: "no-store" });
+        if (res.ok) renderState(await res.json());
+      } catch (_) {
+        badge.className = "badge error";
+        badgeText.textContent = "服务已断开";
+        startBtn.disabled = true;
+      }
+    }
+
+    startBtn.addEventListener("click", async () => {
+      startBtn.disabled = true;
+      try {
+        const res = await fetch("/api/start", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            release_after: releaseCheck.checked,
+            grasp_z_mm: Number(graspZInput.value || 26),
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          stageText.textContent = data.error || "启动失败";
+          await pollState();
+          return;
+        }
+        renderState(data);
+      } catch (err) {
+        stageText.textContent = "请求失败：" + err.message;
+      }
+    });
+
+    async function triggerStop() {
+      stopBtn.disabled = true;
+      try {
+        const res = await fetch("/api/stop", { method: "POST" });
+        if (res.ok) renderState(await res.json());
+      } catch (_) {}
+    }
+
+    stopBtn.addEventListener("click", triggerStop);
+    window.addEventListener("keydown", (e) => {
+      if ((e.key === "Escape" || e.code === "Space") && !stopBtn.disabled) {
+        e.preventDefault();
+        triggerStop();
+      }
+    });
+
+    pollState();
+    refreshFrame();
+    setInterval(pollState, 350);
+    setInterval(refreshFrame, 180);
+  </script>
+</body>
+</html>

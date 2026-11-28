@@ -1,0 +1,74 @@
+{
+  "_comment": "实机配置模板：请先用 `python -X utf8 -m jarvis.calibrate_grasp` 实测并核对每个数值，确认安全后再把 enabled 与 verified 改为 true。",
+  "control": {
+    "center_fraction": 0.2,
+    "hold_s": 1.0,
+    "interval_s": 0.05,
+    "max_frame_age_s": 0.5,
+    "timeout_s": 20.0,
+    "stall_s": 3.0,
+    "min_progress": 0.005
+  },
+  "grasp": {
+    "center_fraction": 0.14,
+    "hold_s": 0.6,
+    "observe_height_mm": 160.0,
+    "pre_grasp_z_mm": 90.0,
+    "grasp_z_mm": 35.0,
+    "lift_height_mm": 135.0,
+    "table_z_mm": 20.0,
+    "descend_step_mm": 3.0,
+    "lift_step_mm": 3.0,
+    "camera_to_gripper_mm": [0.0, 0.0, 0.0],
+    "place_offset_mm": [0.0, 40.0, 0.0],
+    "gripper_open_raw": 430,
+    "gripper_close_raw": 278,
+    "gripper_held_range_raw": [298, 415],
+    "gripper_hold_bias_raw": 4,
+    "gripper_max_load": 350,
+    "gripper_speed": 180,
+    "gripper_duration_s": 0.8,
+    "settle_s": 0.2,
+    "verify_after_lift": true
+  },
+  "hardware": {
+    "enabled": false,
+    "port": "COM3",
+    "camera": "GENERAL WEBCAM",
+    "max_step_mm": 3.0,
+    "max_travel_mm": 60.0,
+    "command_timeout_s": 15.0,
+    "calibration": {
+      "verified": false,
+      "image_to_base_mm": [
+        [0.0, -35.0],
+        [-35.0, 0.0],
+        [0.0, 0.0]
+      ],
+      "workspace_mm": [
+        [100.0, 260.0],
+        [-120.0, 120.0],
+        [20.0, 220.0]
+      ],
+      "intrinsics_path": "config/calibration_reference/camera_intrinsics.json",
+      "hand_eye_path": "config/calibration_reference/hand_eye.json"
+    },
+    "grasp": {
+      "verified": false,
+      "table_z_mm": 20.0,
+      "grasp_z_mm": 35.0,
+      "pre_grasp_z_mm": 90.0,
+      "lift_z_mm": 135.0,
+      "camera_to_gripper_mm": [15.0, 0.0, 0.0],
+      "max_grasp_step_mm": 3.0,
+      "max_grasp_travel_mm": 140.0,
+      "gripper_open_raw": 430,
+      "gripper_close_raw": 278,
+      "gripper_held_range_raw": [298, 415],
+      "gripper_hold_bias_raw": 4,
+      "gripper_max_load": 350,
+      "gripper_speed": 180,
+      "gripper_duration_s": 0.8
+    }
+  }
+}

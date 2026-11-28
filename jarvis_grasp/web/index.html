@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>JARVIS · 桌面物体识别与抓取助手</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #162c34; background: #f3f6f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, input, select { font: inherit; }
+    button, select, .upload { cursor: pointer; }
+    button { border: 1px solid #ccd7da; border-radius: 9px; padding: 10px 14px; background: white; color: #213c46; }
+    button:hover:not(:disabled), .upload:hover { background: #eaf2f3; }
+    button:disabled { cursor: not-allowed; opacity: .5; }
+    button:focus-visible, input:focus-visible, select:focus-visible, .upload:focus-within { outline: 3px solid #63adb4; outline-offset: 2px; }
+    .shell { max-width: 1360px; padding: 28px 32px; margin: auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .mark { display: grid; place-items: center; width: 47px; height: 47px; background: #173d47; color: white; border-radius: 14px; font-size: 24px; font-weight: 700; }
+    .brand strong { font-size: 23px; letter-spacing: 3px; }
+    .brand p { color: #637b83; font-size: 13px; margin: 3px 0 0; }
+    .header-badges { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .mode { font-size: 13px; border: 1px solid #bdd3d5; border-radius: 30px; padding: 8px 13px; background: #e5f2ef; color: #245b52; }
+    .gripper-pill { font-size: 13px; border: 1px solid #d2dde0; border-radius: 30px; padding: 8px 13px; background: white; color: #36525c; }
+    .gripper-pill.holding { background: #e8f6ee; border-color: #7ab896; color: #1f5c3d; font-weight: 600; }
+    .intro { display: flex; justify-content: space-between; align-items: flex-end; margin: 0 0 23px; gap: 20px; }
+    h1 { font-size: clamp(23px, 3vw, 32px); letter-spacing: -.5px; margin: 0 0 8px; font-weight: 650; }
+    .intro p { font-size: 14px; color: #627880; margin: 0; line-height: 1.7; }
+    .header-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .release-btn { background: #eef6f7; color: #1c515e; border-color: #b7d2d6; white-space: nowrap; font-weight: 600; }
+    .stop { background: #fff1ef; color: #aa352d; border-color: #e7b8b3; white-space: nowrap; font-weight: 600; }
+    .stop:hover:not(:disabled) { background: #f9dcd8; }
+    main { display: grid; grid-template-columns: minmax(0, 1.38fr) minmax(330px, 1fr); gap: 20px; align-items: start; }
+    .panel { background: white; border: 1px solid #dce4e6; border-radius: 15px; overflow: hidden; }
+    .panel-head { display: flex; align-items: center; justify-content: space-between; padding: 17px 20px; border-bottom: 1px solid #e6ecee; gap: 12px; }
+    h2 { font-size: 15px; margin: 0; font-weight: 650; }
+    .subtle { font-size: 12px; color: #6c8188; }
+    .status { font-size: 12px; border-radius: 6px; padding: 4px 9px; background: #edf3f4; color: #456772; }
+    .viewer { position: relative; aspect-ratio: 4/3; background: #172c33; overflow: hidden; }
+    .viewer img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .center-guide { position: absolute; inset: 40%; border: 1px dashed #66e9c8; box-shadow: 0 0 0 1px #162c3440; pointer-events: none; }
+    .center-guide:before, .center-guide:after { content: ""; position: absolute; top: 50%; left: 50%; background: #66e9c8; transform: translate(-50%, -50%); }
+    .center-guide:before { width: 12px; height: 1px; }
+    .center-guide:after { width: 1px; height: 12px; }
+    .view-tag { position: absolute; top: 13px; left: 13px; background: #12323ee6; color: #d1e8eb; border-radius: 5px; padding: 5px 9px; font-size: 11px; letter-spacing: 1px; }
+    #frame-error { position: absolute; bottom: 15px; left: 15px; color: #ffe7bd; background: #162c34d9; padding: 7px 10px; border-radius: 5px; font-size: 12px; }
+    .pipeline { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 18px; border-top: 1px solid #edf2f4; background: #fafcfd; }
+    .stage-pill { font-size: 11px; padding: 4px 8px; border-radius: 999px; border: 1px solid #d9e4e6; color: #6c8188; background: white; }
+    .stage-pill.active { background: #1e5361; border-color: #1e5361; color: white; font-weight: 600; }
+    .camera-note { padding: 11px 19px; background: #f8fafb; font-size: 12px; line-height: 1.7; color: #617981; }
+    .candidates { display: flex; flex-wrap: wrap; gap: 8px; min-height: 59px; padding: 14px 18px; }
+    .candidate { border: 1px solid #d8e3e5; background: #f7fafb; border-radius: 8px; padding: 7px 10px; font-size: 12px; }
+    .candidate.selected { background: #e6f5ef; border-color: #78b49f; color: #235c48; font-weight: 600; }
+    .right { display: grid; gap: 18px; }
+    .conversation { padding: 18px; height: 286px; overflow-y: auto; display: flex; flex-direction: column; gap: 13px; }
+    .message { max-width: 93%; font-size: 14px; line-height: 1.75; padding: 11px 14px; border-radius: 3px 12px 12px; background: #f0f5f6; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .message.user { margin-left: auto; background: #1e5361; color: white; border-radius: 12px 3px 12px 12px; }
+    .message.error { background: #fff0ed; color: #9e4035; }
+    .message small { display: block; font-size: 10px; letter-spacing: 1px; color: #64838c; margin-bottom: 3px; }
+    .message.user small { color: #b7d3db; }
+    .clarification { margin: 0 18px 12px; padding: 10px 13px; border-left: 3px solid #b88625; background: #fff8e8; font-size: 13px; color: #785619; line-height: 1.6; }
+    .composer { padding: 0 18px 18px; }
+    .input-row { display: flex; gap: 8px; }
+    input[type=text] { min-width: 0; flex: 1; padding: 11px 12px; background: #fbfdfd; border: 1px solid #cbd9dc; border-radius: 8px; font-size: 14px; }
+    .primary { background: #1e5361; color: white; border-color: #1e5361; }
+    .primary:hover:not(:disabled) { background: #2b6473; }
+    .examples { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+    .examples button { padding: 5px 9px; font-size: 11px; border-color: #e0e8ea; }
+    .extras { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .upload { font-size: 12px; color: #526f78; padding: 6px 8px; border: 1px solid #dce6e8; border-radius: 6px; position: relative; }
+    .upload input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .reset { font-size: 12px; border: 0; padding: 6px 8px; color: #627b83; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); padding: 18px; gap: 12px; }
+    .metric strong { display: block; font-size: 20px; color: #244f5a; font-weight: 600; }
+    .metric span { display: block; color: #72858b; font-size: 11px; margin-top: 4px; }
+    .scenario { padding: 0 18px 18px; }
+    .scenario label { display: block; color: #617881; font-size: 12px; margin-bottom: 7px; }
+    select { width: 100%; border: 1px solid #d5e0e3; border-radius: 7px; padding: 9px; background: white; color: #354f58; font-size: 13px; }
+    details { margin-top: 20px; padding: 14px 18px; background: white; border: 1px solid #dce4e6; border-radius: 12px; }
+    summary { cursor: pointer; font-size: 13px; color: #526d76; }
+    #events { max-height: 220px; overflow: auto; color: #62747b; font-size: 12px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; margin: 12px 0 0; }
+    footer { margin-top: 17px; font-size: 12px; color: #7a8d93; line-height: 1.7; }
+    #connection { color: #a65630; font-size: 12px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 850px) { .shell { padding: 22px 18px; } main { grid-template-columns: 1fr; } .conversation { height: 250px; } }
+    @media (max-width: 500px) { .intro { align-items: flex-start; flex-direction: column; } .intro p { font-size: 12px; } .mode, .gripper-pill { font-size: 11px; padding: 7px 10px; } .shell { padding: 18px 12px; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="mark" aria-hidden="true">J</div><div><strong>JARVIS</strong><p>桌面物体识别与抓取助手 · 第 23 组</p></div></div>
+      <div class="header-badges">
+        <span class="gripper-pill" id="gripper-pill">夹爪：空闲</span>
+        <span class="mode" id="mode">连接中</span>
+      </div>
+    </header>
+    <div class="intro">
+      <div><h1>识别、追问、对准，再稳妥抓取。</h1><p id="mode-note">输入指令即可识别物体并居中观察，或执行“视觉对准 → 张开夹爪 → 安全下降 → 闭合夹持 → 抬起核对”抓取流程。</p></div>
+      <div class="header-actions">
+        <button class="release-btn" id="release" type="button">↓ 放下物体</button>
+        <button class="stop" id="stop" type="button">■ 本地停止</button>
+      </div>
+    </div>
+    <main>
+      <section class="panel" aria-label="场景观察">
+        <div class="panel-head"><h2>当前视野与检测框</h2><span class="status" id="status">等待连接</span></div>
+        <div class="viewer">
+          <img id="frame" alt="当前桌面画面">
+          <div class="center-guide" aria-hidden="true"></div>
+          <span class="view-tag" id="view-tag">观察画面</span>
+          <span id="frame-error" hidden>暂时没有收到画面</span>
+        </div>
+        <div class="pipeline" id="pipeline">
+          <span class="stage-pill" data-stage="aligning_vision">1. 视觉对准</span>
+          <span class="stage-pill" data-stage="opening">2. 张开夹爪</span>
+          <span class="stage-pill" data-stage="aligning">3. 偏移补偿</span>
+          <span class="stage-pill" data-stage="descending">4. 安全下降</span>
+          <span class="stage-pill" data-stage="closing">5. 闭合夹持</span>
+          <span class="stage-pill" data-stage="lifting">6. 抬起核对</span>
+          <span class="stage-pill" data-stage="lifted">7. 抓取完成</span>
+        </div>
+        <div class="camera-note">画面叠加实时物体识别框与目标抓取朝向轴。抓取任务会先将目标精确居中并核对身份，再执行分段下降与夹持核对。</div>
+        <div class="candidates" id="candidates"><span class="subtle">发送指令后，识别到的候选物体会显示在这里。</span></div>
+      </section>
+      <div class="right">
+        <section class="panel" aria-label="与助手对话">
+          <div class="panel-head"><h2>对话与控制</h2><span class="subtle">识别 · 澄清 · 抓取 · 放下</span></div>
+          <div class="conversation" id="conversation" role="log" aria-live="polite"></div>
+          <div class="clarification" id="question" hidden></div>
+          <form class="composer" id="composer">
+            <div class="input-row"><input id="text" type="text" placeholder="例如：抓取蓝色盒子 / 抓取红色那个 / 放下" aria-label="指令或澄清回答" autocomplete="off" maxlength="1000"><button class="primary" id="send" type="submit">发送</button></div>
+            <div class="examples">
+              <button type="button" data-example="抓取蓝色盒子">抓取蓝色盒子</button>
+              <button type="button" data-example="抓取红色那个">抓取红色那个</button>
+              <button type="button" data-example="把绿色球抓起来放到左边">抓绿色球放左边</button>
+              <button type="button" data-example="帮我看看蓝色盒子">仅居中观察</button>
+              <button type="button" data-example="抓紫色物体">不存在目标</button>
+            </div>
+            <div class="extras"><label class="upload">上传语音 WAV<input id="audio" type="file" accept="audio/wav,.wav" aria-label="上传 WAV 语音，需配置语音识别服务"></label><button class="reset" id="reset" type="button">重新开始</button></div>
+          </form>
+        </section>
+        <section class="panel" aria-label="任务状态">
+          <div class="panel-head"><h2>本次任务与夹爪</h2><span id="connection"></span></div>
+          <div class="metrics">
+            <div class="metric"><strong id="duration">—</strong><span>任务用时 / 秒</span></div>
+            <div class="metric"><strong id="clarifications">—</strong><span>澄清次数</span></div>
+            <div class="metric"><strong id="gripper-raw">—</strong><span>夹爪读数 (raw)</span></div>
+          </div>
+          <div class="scenario" id="scenario-control">
+            <label for="scenario">软件测试场景（含抓取故障注入）</label>
+            <select id="scenario">
+              <option value="default">常规桌面 · 多个可抓取物体</option>
+              <option value="grasp_miss">抓取故障 · 夹爪空抓测试</option>
+              <option value="grasp_slip">抓取故障 · 抬起过程物体滑落</option>
+              <option value="missing">目标不存在</option>
+              <option value="lost">执行中移走目标</option>
+              <option value="stale">相机画面停止更新</option>
+              <option value="stalled">运动没有产生进展</option>
+            </select>
+          </div>
+        </section>
+      </div>
+    </main>
+    <details><summary>查看执行记录</summary><pre id="events">尚无任务记录</pre></details>
+    <footer id="footer">软件模拟用于验证识别、澄清与抓取状态机，不代表实机标定精度或物理抓取成功率。实机抓取前需单独完成高度与夹爪标定。</footer>
+  </div>
+  <script>
+    const $ = id => document.getElementById(id);
+    let busy = false, sending = false, lastReply = '', lastError = '', lastStatus = '', connected = false;
+    const labels = {
+      idle: '等待指令', transcribing: '识别语音', observing: '识别场景', selecting: '理解目标',
+      clarifying: '等待你的回答', centering: '视觉居中对准', verifying: '核对目标身份',
+      grasping: '执行抓取动作', completed: '已完成', not_found: '未找到目标',
+      failed: '任务失败', stopped: '已停止', stopping: '正在停止'
+    };
+    function message(text, role = 'assistant') {
+      if (!text) return;
+      const node = document.createElement('div'); node.className = 'message ' + role;
+      const who = document.createElement('small'); who.textContent = role === 'user' ? '你' : 'JARVIS';
+      node.append(who, document.createTextNode(text)); $('conversation').append(node);
+      $('conversation').scrollTop = $('conversation').scrollHeight;
+    }
+    message('你好，我可以识别桌面物体并执行抓取或观察。试试点击“抓取蓝色盒子”或“抓取红色那个”。');
+    function controls(state) {
+      const holding = Boolean(state && (state.held_object || (state.gripper && state.gripper.holding)));
+      $('send').disabled = busy || sending || !connected;
+      $('reset').disabled = busy || sending || !connected;
+      $('scenario').disabled = busy || sending || !connected;
+      $('audio').disabled = busy || sending || !connected;
+      $('release').disabled = busy || sending || !connected || !holding;
+      document.querySelectorAll('[data-example]').forEach(button => button.disabled = busy || sending || !connected);
+    }
+    function render(state) {
+      connected = true; $('connection').textContent = '';
+      const simulated = state.mode === 'simulation';
+      $('mode').textContent = simulated ? '● 软件模拟' : '● 实机模式';
+      $('view-tag').textContent = simulated ? '合成桌面与夹爪 · 无硬件连接' : '腕部相机';
+      $('scenario-control').hidden = !simulated;
+      const status = state.status || 'idle';
+      busy = typeof state.busy === 'boolean' ? state.busy : ['transcribing', 'observing', 'centering', 'verifying', 'grasping'].includes(status);
+      $('status').textContent = labels[status] || status;
+      $('question').hidden = !state.question; $('question').textContent = state.question || '';
+      if (state.reply && (state.reply !== lastReply || status !== lastStatus)) message(state.reply);
+      lastReply = state.reply || ''; lastStatus = status;
+      const error = typeof state.error === 'string' ? state.error : state.error ? JSON.stringify(state.error) : '';
+      if (error && error !== lastError && error !== state.reply) message(error, 'error');
+      lastError = error;
+
+      const gripper = state.gripper || {};
+      const held = state.held_object;
+      const pill = $('gripper-pill');
+      if (held) {
+        pill.textContent = '夹爪：已抓起 ' + (held.label || held.id);
+        pill.className = 'gripper-pill holding';
+      } else if (gripper.holding) {
+        pill.textContent = '夹爪：已夹持物体';
+        pill.className = 'gripper-pill holding';
+      } else {
+        pill.textContent = '夹爪：空闲' + (gripper.opening > 0.5 ? '（张开）' : '（闭合）');
+        pill.className = 'gripper-pill';
+      }
+      $('gripper-raw').textContent = Number.isFinite(gripper.raw) ? String(gripper.raw) : '—';
+
+      const stage = state.grasp_stage || '';
+      document.querySelectorAll('[data-stage]').forEach(el => {
+        const s = el.dataset.stage;
+        el.classList.toggle('active', s === stage || (stage === 'placed' && s === 'lifted') || (stage === 'verifying' && s === 'lifting'));
+      });
+
+      $('candidates').replaceChildren();
+      (state.candidates || []).forEach(candidate => {
+        const tag = document.createElement('span');
+        tag.className = 'candidate' + (candidate.id === state.selected_id ? ' selected' : '');
+        const angle = Number.isFinite(candidate.angle_deg) ? ` · ${candidate.angle_deg}°` : '';
+        tag.textContent = candidate.id + ' · ' + (candidate.label || [candidate.color, candidate.shape].join(' ')) + angle;
+        $('candidates').append(tag);
+      });
+      if (!(state.candidates || []).length) {
+        const empty = document.createElement('span'); empty.className = 'subtle'; empty.textContent = '当前没有候选物体'; $('candidates').append(empty);
+      }
+      const metrics = state.metrics || {};
+      $('duration').textContent = Number.isFinite(metrics.duration_s) ? metrics.duration_s.toFixed(1) : '—';
+      $('clarifications').textContent = metrics.clarification_count ?? '—';
+      $('events').textContent = (state.events || []).slice(-40).map(event => JSON.stringify(event)).join('\n') || '尚无任务记录';
+      controls(state);
+    }
+    async function request(path, body, raw = false) {
+      const response = await fetch(path, {method: 'POST', headers: {'Content-Type': raw ? 'audio/wav' : 'application/json'}, body: raw ? body : JSON.stringify(body)});
+      let result;
+      try { result = await response.json(); } catch { throw new Error('服务未返回有效结果。'); }
+      if (!response.ok) throw new Error(typeof result.error === 'string' ? result.error : result.message || '请求未执行，请检查运行状态。');
+      if (result.status) render(result);
+      return result;
+    }
+    async function submit(text) {
+      if (!text || busy || sending || !connected) return;
+      sending = true; controls(); message(text, 'user'); $('text').value = '';
+      try { await request('/api/message', {text}); }
+      catch (error) { message(error.message, 'error'); }
+      finally { sending = false; $('text').focus(); }
+    }
+    $('composer').addEventListener('submit', event => { event.preventDefault(); submit($('text').value.trim()); });
+    document.querySelectorAll('[data-example]').forEach(button => button.addEventListener('click', () => submit(button.dataset.example)));
+    $('release').addEventListener('click', () => submit('放下'));
+    $('stop').addEventListener('click', async () => {
+      try { await request('/api/stop', {}); }
+      catch (error) { message('停止请求未送达：' + error.message + ' 请在运行程序的终端按 Ctrl+C。', 'error'); }
+    });
+    $('reset').addEventListener('click', async () => {
+      try {
+        await request('/api/reset', {}); $('conversation').replaceChildren(); lastReply = ''; lastError = '';
+        message('已重新开始。告诉我你想识别或抓取哪个物体。'); $('text').focus();
+      } catch (error) { message(error.message, 'error'); }
+    });
+    let previousScenario = 'default';
+    $('scenario').addEventListener('change', async () => {
+      try { await request('/api/scenario', {name: $('scenario').value}); previousScenario = $('scenario').value; message('已切换测试场景，可以发送新指令。'); }
+      catch (error) { $('scenario').value = previousScenario; message(error.message, 'error'); }
+    });
+    $('audio').addEventListener('change', async () => {
+      const file = $('audio').files[0];
+      if (!file) return;
+      sending = true; controls(); message('语音文件：' + file.name, 'user');
+      try { await request('/api/audio', file, true); }
+      catch (error) { message(error.message, 'error'); }
+      finally { sending = false; $('audio').value = ''; }
+    });
+    async function poll() {
+      try {
+        const response = await fetch('/api/state', {cache: 'no-store'});
+        if (!response.ok) throw new Error('状态请求失败');
+        render(await response.json());
+      } catch {
+        connected = false; $('connection').textContent = '连接中断'; $('status').textContent = '无法读取状态'; controls();
+      } finally { setTimeout(poll, 300); }
+    }
+    const frame = $('frame');
+    function nextFrame() { setTimeout(() => { frame.src = '/api/frame.jpg?t=' + Date.now(); }, 180); }
+    frame.addEventListener('load', () => { $('frame-error').hidden = true; nextFrame(); });
+    frame.addEventListener('error', () => { $('frame-error').hidden = false; nextFrame(); });
+    controls(); poll(); nextFrame();
+  </script>
+</body>
+</html>
